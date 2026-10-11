@@ -8,3 +8,4 @@
 | sfx_coin_rain_02 | Kenney — RPG Audio | Kenney | CC0 | https://kenney.nl/assets/rpg-audio |
 | jingle_success_01, jingle_caught_01, jingle_gameover_01, jingle_victory_01 | Kenney — Music Jingles | Kenney | CC0 | https://kenney.nl/assets/music-jingles |
 | sfx_bottle_break_01 | Freesound — "Glass Bottle Shatter.wav" (обрезан до 1.5 с, моно) | qyxs | CC0 | https://freesound.org/people/qyxs/sounds/273647/ |
+| sfx_crowd_gasp_01 | Freesound — "CRWDReac_Crowd Gasping In Surprise, Voiced 01" (обрезан до 1.0 с, моно) | ShangusBurger | CC0 | https://freesound.org/people/ShangusBurger/sounds/763875/ |
