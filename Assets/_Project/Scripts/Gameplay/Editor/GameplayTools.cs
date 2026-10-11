@@ -84,6 +84,90 @@ namespace CardThrow
             Debug.Log("[CT] Префаб Card настроен: FlightSettings, 10 лиц карт, смятая карта.");
         }
 
+        // ---------- 4. Префабы Dealer и TrajectoryPreview ----------
+
+        private const string DealerPrefabPath = Root + "Prefabs/Gameplay/Dealer.prefab";
+        private const string PreviewPrefabPath = Root + "Prefabs/Gameplay/TrajectoryPreview.prefab";
+
+        [MenuItem("CardThrow/Алексей/4. Настроить префабы Dealer и TrajectoryPreview")]
+        private static void SetupDealerAndPreview()
+        {
+            FlightSettings fs = AssetDatabase.LoadAssetAtPath<FlightSettings>(FlightSettingsPath);
+
+            // Dealer: рука + три карты веером (дочерние объекты), ссылки в DealerHand и AimController.
+            GameObject dealer = PrefabUtility.LoadPrefabContents(DealerPrefabPath);
+
+            SpriteRenderer hand = GetOrCreateChildRenderer(dealer.transform, "Hand", Vector3.zero, 0f);
+            hand.sprite = LoadSprite("Characters/dealer_hand_idle.png");
+            hand.sortingLayerName = "Objects";
+            hand.sortingOrder = 5;
+
+            SpriteRenderer[] cards = new SpriteRenderer[3];
+            float[] ys = { -0.85f, 0f, 0.85f };
+            for (int i = 0; i < 3; i++)
+            {
+                // Карты лежат «боком» (−90°) вдоль стола, чуть веером.
+                cards[i] = GetOrCreateChildRenderer(dealer.transform, "HandCard_" + i,
+                    new Vector3(0.55f, ys[i], 0f), -90f + (i - 1) * -6f);
+                cards[i].sprite = LoadSprite("Cards/card_back.png");
+                cards[i].sortingLayerName = "Card";
+            }
+
+            DealerHand dh = dealer.GetComponent<DealerHand>();
+            SerializedObject dso = new SerializedObject(dh);
+            SerializedProperty cr = dso.FindProperty("cardRenderers");
+            cr.arraySize = 3;
+            for (int i = 0; i < 3; i++) cr.GetArrayElementAtIndex(i).objectReferenceValue = cards[i];
+            SerializedProperty faces = dso.FindProperty("faces");
+            faces.arraySize = 10;
+            for (int i = 0; i < 10; i++)
+                faces.GetArrayElementAtIndex(i).objectReferenceValue = LoadSprite($"Cards/card_{i + 2}.png");
+            dso.FindProperty("cardBack").objectReferenceValue = LoadSprite("Cards/card_back.png");
+            dso.FindProperty("handRenderer").objectReferenceValue = hand;
+            dso.FindProperty("handIdle").objectReferenceValue = LoadSprite("Characters/dealer_hand_idle.png");
+            dso.FindProperty("handPinch").objectReferenceValue = LoadSprite("Characters/dealer_hand_pinch.png");
+            dso.FindProperty("handPull").objectReferenceValue = LoadSprite("Characters/dealer_hand_pull.png");
+            dso.ApplyModifiedPropertiesWithoutUndo();
+
+            AimController aim = dealer.GetComponent<AimController>();
+            SerializedObject aso = new SerializedObject(aim);
+            aso.FindProperty("settings").objectReferenceValue = fs;
+            aso.FindProperty("dealerHand").objectReferenceValue = dh;
+            aso.ApplyModifiedPropertiesWithoutUndo();
+
+            PrefabUtility.SaveAsPrefabAsset(dealer, DealerPrefabPath);
+            PrefabUtility.UnloadPrefabContents(dealer);
+
+            // TrajectoryPreview: настройки и спрайты точки/крестика.
+            GameObject prev = PrefabUtility.LoadPrefabContents(PreviewPrefabPath);
+            TrajectoryPreview tp = prev.GetComponent<TrajectoryPreview>();
+            SerializedObject pso = new SerializedObject(tp);
+            pso.FindProperty("settings").objectReferenceValue = fs;
+            pso.FindProperty("dotSprite").objectReferenceValue = LoadSprite("VFX/fx_dot.png");
+            pso.FindProperty("crossSprite").objectReferenceValue = LoadSprite("VFX/fx_cross.png");
+            pso.ApplyModifiedPropertiesWithoutUndo();
+            PrefabUtility.SaveAsPrefabAsset(prev, PreviewPrefabPath);
+            PrefabUtility.UnloadPrefabContents(prev);
+
+            Debug.Log("[CT] Префабы Dealer (рука + 3 карты, ссылки) и TrajectoryPreview настроены.");
+        }
+
+        private static SpriteRenderer GetOrCreateChildRenderer(Transform parent, string name, Vector3 localPos, float angleZ)
+        {
+            Transform t = parent.Find(name);
+            if (t == null)
+            {
+                t = new GameObject(name).transform;
+                t.SetParent(parent, false);
+            }
+            t.localPosition = localPos;
+            t.localRotation = Quaternion.Euler(0f, 0f, angleZ);
+            t.localScale = Vector3.one;
+            SpriteRenderer sr = t.GetComponent<SpriteRenderer>();
+            if (sr == null) sr = t.gameObject.AddComponent<SpriteRenderer>();
+            return sr;
+        }
+
         // ---------- 3. Песочница ----------
 
         [MenuItem("CardThrow/Алексей/3. Собрать тестовый стол в открытой сцене")]
