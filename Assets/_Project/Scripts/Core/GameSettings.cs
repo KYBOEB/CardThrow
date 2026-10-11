@@ -14,6 +14,8 @@ namespace CardThrow
         public float handIntroDuration = 1.2f;
         public float resultPopupDuration = 1.5f;
         public float timerWarningAt = 3f;
+        [Tooltip("Пауза после успеха в обучении перед уровнем 1")]
+        public float tutorialSuccessDelay = 2f;
 
         [Header("Очки")]
         public int scoreBase = 1000;

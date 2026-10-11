@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83a66588b58121244b261a5998ad29e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardThrow.GameManager
-  settings: {fileID: 0}
+  settings: {fileID: 11400000, guid: f798d5032e6f98e478b7a09e9495f749, type: 2}
   levelManager: {fileID: 887590749}
   dealerHand: {fileID: 6399675660035383928, guid: a64f6f8c62274b4438d5ac5a7c47289b, type: 3}
   aimController: {fileID: 1236289871728943091, guid: a64f6f8c62274b4438d5ac5a7c47289b, type: 3}
@@ -650,7 +650,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7c5f00dd05863144968549039673fd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardThrow.AudioManager
-  library: {fileID: 0}
+  library: {fileID: 11400000, guid: 49764491cfc840148b796777bb5895a1, type: 2}
   sfxVoices: 12
 --- !u!1 &2110553474
 GameObject:
@@ -696,6 +696,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eeb31fb0e0b61b44aa64ae795389d0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardThrow.TutorialController
+  texts: {fileID: 11400000, guid: b7bcd0b42ad716145a158dbd15809a3a, type: 2}
+  tutorialRoot: {fileID: 0}
+  step1Icons: []
+  step2Icons: []
+  step3Icons: []
+  arrow: {fileID: 0}
+  skipHintLabel: {fileID: 0}
+  skipButton: {fileID: 0}
+  partnerArrowOffset: {x: 0, y: -150}
+  bottleArrowOffset: {x: 0, y: 130}
+  arrowSpriteAngle: -90
+  arrowBobAmplitude: 18
+  arrowBobSpeed: 6
+  dragIcon: {fileID: 0}
+  dragIconDistance: 30
+  dragIconSpeed: 3
 --- !u!1 &2136230939
 GameObject:
   m_ObjectHideFlags: 0

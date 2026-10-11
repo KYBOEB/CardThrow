@@ -154,7 +154,7 @@ namespace CardThrow.EditorTools
         private static void AssignToLevelManager()
         {
             EditorSceneManager.OpenScene(MainScene, OpenSceneMode.Single);
-            LevelManager lm = Object.FindFirstObjectByType<LevelManager>();
+            LevelManager lm = Object.FindAnyObjectByType<LevelManager>();
             if (lm == null) { Debug.LogError("[CT] На сцене Main нет LevelManager."); return; }
             SerializedObject so = new SerializedObject(lm);
             SerializedProperty hands = so.FindProperty("hands");
