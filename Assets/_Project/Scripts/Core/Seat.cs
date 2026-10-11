@@ -62,6 +62,17 @@ namespace CardThrow
         [Tooltip("Зона напарника при прицеливании пульсирует между этим значением и 1 — «кидай сюда»")]
         [SerializeField, Range(0f, 1f)] private float partnerAimingMinAlpha = 0.55f;
 
+        [Header("Разнообразие (D3c)")]
+        [Tooltip("Visual/Body — спрайт тела; голова — SpriteRenderer на head")]
+        [SerializeField] private SpriteRenderer bodyRenderer;
+        [Tooltip("player_body_1..4: у каждого места свой вариант (выбор стабилен — зависит от позиции места)")]
+        [SerializeField] private Sprite[] bodySprites;
+        [SerializeField] private Sprite[] headSprites;
+        [Tooltip("Соперникам — разный счёт вместо одинаковых 12 (напарнику счёт задаёт раздача)")]
+        [SerializeField] private bool randomOpponentScore = true;
+        [Tooltip("Диапазон счёта соперника, включительно. 21 не берём — у соперника не должно быть «блэкджека»")]
+        [SerializeField] private Vector2Int opponentScoreRange = new Vector2Int(12, 20);
+
         [Header("Тревога соперника (D3)")]
         [SerializeField] private Color alertLabelColor = new Color(1f, 0.25f, 0.2f);
         [SerializeField] private float alertPulseAmount = 0.25f;
@@ -101,6 +112,7 @@ namespace CardThrow
                 baseLabelScale = scoreLabel.transform.localScale;
             }
 
+            ApplyVariety();
             LayoutAtTable();
             SetupZoneVisual();
             RefreshLabel();
@@ -195,6 +207,41 @@ namespace CardThrow
             // Счёт — на зоне карт игрока (текст не поворачиваем, чтобы читался)
             if (scoreLabel != null && zone != null)
                 scoreLabel.transform.position = zone.transform.position - (Vector3)(dir * labelOffsetOnZone);
+        }
+
+        // Внешность и счёт соперника — «случайные», но стабильные: зависят от позиции места,
+        // поэтому при переигровке раздачи стол не меняется, а разные места выглядят по-разному.
+        private void ApplyVariety()
+        {
+            if (bodyRenderer != null && bodySprites != null && bodySprites.Length > 0)
+                bodyRenderer.sprite = bodySprites[StableIndex(1, bodySprites.Length)];
+
+            SpriteRenderer headRenderer = head != null ? head.GetComponent<SpriteRenderer>() : null;
+            if (headRenderer != null && headSprites != null && headSprites.Length > 0)
+                headRenderer.sprite = headSprites[StableIndex(2, headSprites.Length)];
+
+            if (!isPartner && randomOpponentScore)
+            {
+                int min = Mathf.Min(opponentScoreRange.x, opponentScoreRange.y);
+                int max = Mathf.Max(opponentScoreRange.x, opponentScoreRange.y);
+                score = min + StableIndex(3, max - min + 1);
+            }
+        }
+
+        // Детерминированный «случайный» индекс 0..count−1 из позиции места и соли (без UnityEngine.Random,
+        // чтобы не сбивать общий генератор, которым ResultPopup выбирает фразы)
+        private int StableIndex(int salt, int count)
+        {
+            if (count <= 1) return 0;
+            Vector2 p = transform.position;
+            unchecked
+            {
+                uint h = (uint)Mathf.RoundToInt(p.x * 10f) * 73856093u ^ (uint)Mathf.RoundToInt(p.y * 10f) * 19349663u ^ (uint)salt * 83492791u;
+                h ^= h >> 13;
+                h *= 0x5bd1e995u;
+                h ^= h >> 15;
+                return (int)(h % (uint)count);
+            }
         }
 
         // Спрайт зоны по роли + размер по коллайдеру (Егор меняет размер зоны в каждой раздаче)

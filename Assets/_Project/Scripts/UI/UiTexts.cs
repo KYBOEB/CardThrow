@@ -61,8 +61,8 @@ namespace CardThrow
         [TextArea(1, 2)]
         public string controlsLine = "A / D — карта   •   ЛКМ: тянуть назад и отпустить — бросок   •   Колесо или Q / E — закрут   •   ПКМ / Esc — отмена   •   R — заново";
         public string tutorialLabel = "Обучение";
-        [Tooltip("{0} — номер уровня, {1} — всего уровней")]
-        public string levelFormat = "Уровень {0}/{1}";
+        [Tooltip("{0} — номер уровня. Общее число уровней не показываем: игрок не знает, сколько осталось")]
+        public string levelFormat = "Уровень {0}";
         [Tooltip("{0} — номер, {1} — всего, {2} — название раздачи")]
         public string levelWithTitleFormat = "Уровень {0}/{1} — {2}";
         [Tooltip("{0} — номинал выбранной карты")]

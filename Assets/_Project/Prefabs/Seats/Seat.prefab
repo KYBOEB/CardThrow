@@ -660,6 +660,21 @@ MonoBehaviour:
   partnerLabelColor: {r: 1, g: 0.82, b: 0.3, a: 1}
   glowMinAlpha: 0.55
   glowPulseFrequency: 0.8
+  glowMaxAlpha: 0.35
+  partnerAimingMinAlpha: 0.55
+  bodyRenderer: {fileID: 3170191598527007673}
+  bodySprites:
+  - {fileID: 21300000, guid: b2c752e0b27775244a8ca17891806d64, type: 3}
+  - {fileID: 21300000, guid: fec1898a2243d45469cf7f78ee7b474b, type: 3}
+  - {fileID: 21300000, guid: cb583a6c9ba69d640b3c59ecdee857d2, type: 3}
+  - {fileID: 21300000, guid: d5d95e525143b9146b263057c7cb1586, type: 3}
+  headSprites:
+  - {fileID: 21300000, guid: c195bf7ac160d5340b49887cf0f6558f, type: 3}
+  - {fileID: 21300000, guid: 133c3e6c5407ca44b96df0fed7ea049f, type: 3}
+  - {fileID: 21300000, guid: e09f709f10daf1843991ec40f4350a4f, type: 3}
+  - {fileID: 21300000, guid: da26393a508aa00469778c44433f600a, type: 3}
+  randomOpponentScore: 1
+  opponentScoreRange: {x: 12, y: 20}
   alertLabelColor: {r: 1, g: 0.25, b: 0.2, a: 1}
   alertPulseAmount: 0.25
   alertPulseFrequency: 3

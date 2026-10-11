@@ -32,6 +32,13 @@ namespace CardThrow.EditorTools
 
         private static TMP_FontAsset font;
 
+        // D2b: золотые рамки и сердца (сгенерированы под стиль стола; Кирилл может заменить PNG с тем же именем)
+        private const string FrameSprite = "ui_frame_gold";
+        private const float FrameBorderPx = 36f;          // 9-slice граница в пикселях текстуры 128×128
+        private const float FrameScale = 2f;              // Pixels Per Unit Multiplier: рамка на экране вдвое тоньше
+        private const string HeartFull = "ui_heart_full";
+        private const string HeartEmpty = "ui_heart_empty";
+
         [MenuItem("CardThrow/Создать UI игры (HUD и экраны)")]
         public static void Build()
         {
@@ -47,6 +54,10 @@ namespace CardThrow.EditorTools
                 EditorUtility.DisplayDialog("CardThrow", "В открытой сцене нет GameManager. Открой Scenes/Main.unity.", "OK");
                 return;
             }
+
+            EnsureUiSprite(FrameSprite, FrameBorderPx);
+            EnsureUiSprite(HeartFull, 0f);
+            EnsureUiSprite(HeartEmpty, 0f);
 
             UiTexts texts = LoadOrCreateTexts();
             GameSettings settings = LoadSettings(gm);
@@ -96,17 +107,28 @@ namespace CardThrow.EditorTools
             Stretch(root);
             CanvasGroup group = root.gameObject.AddComponent<CanvasGroup>();
 
-            // --- Верх слева: уровень ---
-            TextMeshProUGUI level = NewText("LevelLabel", root, "Уровень 1/3", 28f, TextAlignmentOptions.Left, Color.white);
-            Place(level.rectTransform, new Vector2(0f, 1f), new Vector2(28f, -22f), new Vector2(400f, 56f)); // не заходит под таймер даже при 4:3
+            // --- Верх слева: табличка уровня ---
+            RectTransform levelPanel = NewRect("LevelPanel", root);
+            Place(levelPanel, new Vector2(0f, 1f), new Vector2(20f, -16f), new Vector2(280f, 64f));
+            NewFrame("Frame", levelPanel);
+            TextMeshProUGUI level = NewText("LevelLabel", levelPanel, "Уровень 1", 28f, TextAlignmentOptions.Center, Gold);
+            Stretch(level.rectTransform, 22f, 8f);
             AutoSize(level, 18f, 28f, false);
+
+            // --- Под ней: подсказка уровня (вместо плашки над столом — не закрывает игроков) ---
+            RectTransform levelHint = NewRect("LevelHint", root);
+            Place(levelHint, new Vector2(0f, 1f), new Vector2(20f, -90f), new Vector2(340f, 132f));
+            CanvasGroup levelHintGroup = levelHint.gameObject.AddComponent<CanvasGroup>();
+            NewFrame("Frame", levelHint);
+            TextMeshProUGUI levelHintText = NewText("Text", levelHint, "Подсказка уровня", 22f, TextAlignmentOptions.TopLeft, Color.white);
+            Stretch(levelHintText.rectTransform, 22f, 16f);
+            AutoSize(levelHintText, 14f, 22f, true);
 
             // --- Верх по центру: таймер ---
             RectTransform timer = NewRect("Timer", root);
             Place(timer, new Vector2(0.5f, 1f), new Vector2(-90f, -28f), new Vector2(600f, 40f));
-            Image frame = NewImage("Frame", timer, "ui_timer_frame");
-            frame.preserveAspect = false;
-            Stretch(frame.rectTransform);
+            Image frame = NewFrame("Frame", timer); // золотая рамка вокруг полосы, как у «Выигрыша»
+            Stretch(frame.rectTransform, -16f, -14f);
             Image fill = NewImage("Fill", timer, "ui_timer_fill");
             fill.preserveAspect = false;
             Stretch(fill.rectTransform);
@@ -121,7 +143,7 @@ namespace CardThrow.EditorTools
             RectTransform suspicion = NewRect("Suspicion", root);
             suspicion.anchorMin = suspicion.anchorMax = new Vector2(0.5f, 1f);
             suspicion.pivot = new Vector2(0f, 1f);
-            suspicion.anchoredPosition = new Vector2(234f, -20f);
+            suspicion.anchoredPosition = new Vector2(250f, -20f); // правее золотой рамки таймера
             suspicion.sizeDelta = new Vector2(188f, 56f);
             HorizontalLayoutGroup eyesRow = suspicion.gameObject.AddComponent<HorizontalLayoutGroup>();
             eyesRow.spacing = 10f;
@@ -131,13 +153,16 @@ namespace CardThrow.EditorTools
             Image[] eyes = new Image[3];
             for (int i = 0; i < eyes.Length; i++)
             {
-                eyes[i] = NewImage("Eye_" + (i + 1), suspicion, "ui_eye_open");
+                eyes[i] = NewImage("Heart_" + (i + 1), suspicion, HeartFull); // «жизни» — масть черви
                 eyes[i].rectTransform.sizeDelta = new Vector2(56f, 56f);
             }
 
             // --- Верх справа: очки (в обучении скрыты — там же стоит «Tab — пропустить») ---
-            TextMeshProUGUI score = NewText("Score", root, "Выигрыш: 0", 30f, TextAlignmentOptions.Right, Gold);
-            Place(score.rectTransform, new Vector2(1f, 1f), new Vector2(-28f, -22f), new Vector2(360f, 56f));
+            RectTransform scorePanel = NewRect("ScorePanel", root);
+            Place(scorePanel, new Vector2(1f, 1f), new Vector2(-20f, -16f), new Vector2(340f, 64f));
+            NewFrame("Frame", scorePanel);
+            TextMeshProUGUI score = NewText("Score", scorePanel, "Выигрыш: 0", 30f, TextAlignmentOptions.Center, Gold);
+            Stretch(score.rectTransform, 22f, 8f);
             AutoSize(score, 18f, 30f, false);
 
             // --- Подсказка над столом ---
@@ -206,6 +231,7 @@ namespace CardThrow.EditorTools
             // В режиме редактирования окно Game показывает титул, а не всё сразу (в Play видимостью управляют скрипты)
             HideInEditor(group);
             HideInEditor(hintGroup);
+            HideInEditor(levelHintGroup);
             HideInEditor(bannerGroup);
 
             // --- Поля HUD ---
@@ -215,6 +241,8 @@ namespace CardThrow.EditorTools
             Set(so, "settings", settings);
             Set(so, "group", group);
             Set(so, "levelLabel", level);
+            Set(so, "levelHintGroup", levelHintGroup);
+            Set(so, "levelHintLabel", levelHintText);
             Set(so, "bannerGroup", bannerGroup);
             Set(so, "bannerTitle", bannerTitle);
             Set(so, "bannerSubtitle", bannerSub);
@@ -223,9 +251,9 @@ namespace CardThrow.EditorTools
             Set(so, "timerLabel", timeText);
             Set(so, "suspicionRoot", suspicion.gameObject);
             SetArray(so, "eyes", eyes);
-            Set(so, "eyeOpenSprite", LoadSprite("ui_eye_open"));
-            Set(so, "eyeClosedSprite", LoadSprite("ui_eye_closed"));
-            Set(so, "scoreRoot", score.gameObject);
+            Set(so, "eyeOpenSprite", LoadSprite(HeartFull));
+            Set(so, "eyeClosedSprite", LoadSprite(HeartEmpty));
+            Set(so, "scoreRoot", scorePanel.gameObject); // в обучении прячется вся табличка с рамкой
             Set(so, "scoreLabel", score);
             Set(so, "cardLabel", card);
             Set(so, "spinGroup", spin);
@@ -495,6 +523,40 @@ namespace CardThrow.EditorTools
             img.preserveAspect = true;
             img.raycastTarget = false; // декор не перехватывает ЛКМ, которой игрок бросает карту
             return img;
+        }
+
+        // Золотая рамка-плашка (9-slice), растянута на родителя и лежит под текстом
+        private static Image NewFrame(string name, Transform parent)
+        {
+            Image img = NewImage(name, parent, FrameSprite);
+            img.preserveAspect = false;
+            img.type = Image.Type.Sliced;
+            img.pixelsPerUnitMultiplier = FrameScale;
+            Stretch(img.rectTransform);
+            img.transform.SetAsFirstSibling();
+            return img;
+        }
+
+        // Новые PNG импортируются как Sprite (UI, без мип-карт); у рамки — 9-slice граница.
+        // Как в BuildCasinoFloor: настройки импорта ставит скрипт, а не человек руками.
+        private static void EnsureUiSprite(string spriteName, float borderPx)
+        {
+            string path = SpriteDir + spriteName + ".png";
+            TextureImporter ti = AssetImporter.GetAtPath(path) as TextureImporter;
+            if (ti == null) { Debug.LogWarning($"[CT] Не найден {path}"); return; }
+
+            Vector4 border = new Vector4(borderPx, borderPx, borderPx, borderPx);
+            bool ok = ti.textureType == TextureImporterType.Sprite && ti.spriteImportMode == SpriteImportMode.Single &&
+                      !ti.mipmapEnabled && ti.spriteBorder == border && ti.alphaIsTransparency;
+            if (ok) return;
+
+            ti.textureType = TextureImporterType.Sprite;
+            ti.spriteImportMode = SpriteImportMode.Single;
+            ti.mipmapEnabled = false;
+            ti.alphaIsTransparency = true;
+            ti.textureCompression = TextureImporterCompression.Uncompressed; // UI: без артефактов сжатия
+            ti.spriteBorder = border;
+            ti.SaveAndReimport();
         }
 
         private static Image NewPlainImage(string name, Transform parent, Color color)

@@ -581,6 +581,8 @@ MonoBehaviour:
   group: {fileID: 183568279}
   fadeDuration: 0.2
   levelLabel: {fileID: 2067479061}
+  levelHintGroup: {fileID: 0}
+  levelHintLabel: {fileID: 0}
   bannerGroup: {fileID: 926975586}
   bannerTitle: {fileID: 1433947542}
   bannerSubtitle: {fileID: 1461332009}

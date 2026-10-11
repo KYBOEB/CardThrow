@@ -14,6 +14,8 @@ namespace CardThrow.EditorTools
         private const string SeatPath = Root + "/Prefabs/Seats/Seat.prefab";
         private const string PartnerZoneSprite = Root + "/Art/Sprites/Table/zone_partner.png";
         private const string OpponentZoneSprite = Root + "/Art/Sprites/Table/zone_opponent.png";
+        private const string CharactersDir = Root + "/Art/Sprites/Characters/";
+        private const int Variants = 4; // player_body_1..4, player_head_1..4 (Кирилл)
         private const string VisualName = "ZoneVisual";
         private const string FigureName = "Visual";
         private static readonly string[] FigureParts = { "Body", "Head", "PartnerGlow" };
@@ -72,6 +74,11 @@ namespace CardThrow.EditorTools
                 Set(so, "zoneVisual", sr);
                 Set(so, "partnerZoneSprite", AssetDatabase.LoadAssetAtPath<Sprite>(PartnerZoneSprite));
                 Set(so, "opponentZoneSprite", AssetDatabase.LoadAssetAtPath<Sprite>(OpponentZoneSprite));
+                // D3c: разнообразие внешности — все варианты тел и голов, Seat выберет сам
+                Transform body = figure.Find("Body");
+                Set(so, "bodyRenderer", body != null ? body.GetComponent<SpriteRenderer>() : null);
+                SetSprites(so, "bodySprites", "player_body_");
+                SetSprites(so, "headSprites", "player_head_");
                 SerializedProperty scale = so.FindProperty("visualScale");
                 if (scale != null) scale.floatValue = FigureScale;
                 so.ApplyModifiedPropertiesWithoutUndo();
@@ -85,6 +92,20 @@ namespace CardThrow.EditorTools
             }
 
             FitCameraForSeats.Run(); // камера под посадку за столом (24×14) — одним пунктом меню
+        }
+
+        private static void SetSprites(SerializedObject so, string field, string prefix)
+        {
+            SerializedProperty p = so.FindProperty(field);
+            if (p == null) { Debug.LogError($"[CT] У Seat нет поля «{field}» — Seat.cs не обновлён?"); return; }
+            p.arraySize = 0;
+            for (int i = 1; i <= Variants; i++)
+            {
+                Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(CharactersDir + prefix + i + ".png");
+                if (sprite == null) { Debug.LogWarning($"[CT] Нет {CharactersDir}{prefix}{i}.png — пропускаю"); continue; }
+                p.arraySize++;
+                p.GetArrayElementAtIndex(p.arraySize - 1).objectReferenceValue = sprite;
+            }
         }
 
         private static void Set(SerializedObject so, string field, Object value)

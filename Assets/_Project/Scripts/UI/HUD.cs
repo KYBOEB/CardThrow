@@ -22,6 +22,9 @@ namespace CardThrow
 
         [Header("Уровень (верхний левый угол)")]
         [SerializeField] private TMP_Text levelLabel;
+        [Tooltip("Табличка-подсказка уровня под номером уровня (не закрывает игроков). В обучении скрыта")]
+        [SerializeField] private CanvasGroup levelHintGroup;
+        [SerializeField] private TMP_Text levelHintLabel;
 
         [Header("Баннер начала раздачи (по центру)")]
         [SerializeField] private CanvasGroup bannerGroup;
@@ -38,12 +41,12 @@ namespace CardThrow
         [SerializeField] private float timerPulseAmount = 0.06f;
         [SerializeField] private float timerPulseFrequency = 2f; // ударов в секунду
 
-        [Header("Подозрение")]
+        [Header("Подозрение (сердца-«жизни»: промах разбивает сердце справа)")]
         [SerializeField] private GameObject suspicionRoot;
         [SerializeField] private Image[] eyes;               // 3 шт. слева направо
-        [Tooltip("Спрайт свободного деления")]
+        [Tooltip("Целое сердце (деление свободно)")]
         [SerializeField] private Sprite eyeOpenSprite;
-        [Tooltip("Спрайт заполненного деления (подозрение +1)")]
+        [Tooltip("Разбитое сердце (подозрение +1)")]
         [SerializeField] private Sprite eyeClosedSprite;
         [SerializeField] private float eyeBounceAmount = 0.45f;
         [SerializeField] private float eyeBounceDuration = 0.35f;
@@ -62,7 +65,7 @@ namespace CardThrow
         [SerializeField] private bool spinSpriteCurvesLeft = true;
         [SerializeField] private float spinTiltPerStep = 15f;
 
-        [Header("Подсказка над столом")]
+        [Header("Подсказка над столом (только обучение)")]
         [SerializeField] private CanvasGroup hintGroup;
         [SerializeField] private TMP_Text hintLabel;
         [SerializeField] private float hintFadeDuration = 0.25f;
@@ -95,6 +98,7 @@ namespace CardThrow
             UiAnim.SetVisible(group, false);
             UiAnim.SetVisible(bannerGroup, false);
             UiAnim.SetVisible(hintGroup, false);
+            UiAnim.SetVisible(levelHintGroup, false);
             if (spinArrow != null) spinArrowBaseColor = spinArrow.color;
 
             if (texts != null)
@@ -117,7 +121,6 @@ namespace CardThrow
             GameEvents.ScoreChanged += OnScoreChanged;
             GameEvents.CardSelected += OnCardSelected;
             GameEvents.SpinChanged += OnSpinChanged;
-            GameEvents.CardThrown += OnCardThrown;
             if (restartButton != null) restartButton.onClick.AddListener(OnRestartClicked);
         }
 
@@ -131,7 +134,6 @@ namespace CardThrow
             GameEvents.ScoreChanged -= OnScoreChanged;
             GameEvents.CardSelected -= OnCardSelected;
             GameEvents.SpinChanged -= OnSpinChanged;
-            GameEvents.CardThrown -= OnCardThrown;
             if (restartButton != null) restartButton.onClick.RemoveListener(OnRestartClicked);
         }
 
@@ -150,6 +152,7 @@ namespace CardThrow
                 Stop(ref bannerRoutine);
                 UiAnim.SetVisible(hintGroup, false);
                 UiAnim.SetVisible(bannerGroup, false);
+                UiAnim.SetVisible(levelHintGroup, false);
             }
         }
 
@@ -166,12 +169,21 @@ namespace CardThrow
             SetTimerWarning(false);
             ApplyTimer(1f, 1f);
 
+            // Подсказки: в обучении — крупно над столом (ведёт TutorialController), на уровнях — табличка слева.
+            // Новая раздача — старая подсказка гаснет; свою подсказку GameManager пришлёт сразу после HandStarted.
+            UiAnim.SetVisible(levelHintGroup, false);
+            if (!isTutorial)
+            {
+                Stop(ref hintRoutine);
+                UiAnim.SetVisible(hintGroup, false);
+            }
+
             if (texts == null) return;
-            string levelShort = isTutorial ? texts.tutorialLabel : string.Format(texts.levelFormat, levelNumber, totalLevels);
+            // «Уровень 2» без «/3»: игрок не видит, сколько осталось (UiTexts.levelFormat = «Уровень {0}»)
+            string levelShort = isTutorial ? texts.tutorialLabel : string.Format(texts.levelFormat, levelNumber, totalLevels); // {1} в формате не используем, но передаём — старый текст «{0}/{1}» не сломается
             bool hasTitle = !isTutorial && !string.IsNullOrEmpty(title);
 
-            if (levelLabel != null)
-                levelLabel.text = hasTitle ? string.Format(texts.levelWithTitleFormat, levelNumber, totalLevels, title) : levelShort;
+            if (levelLabel != null) levelLabel.text = levelShort;
 
             if (bannerTitle != null) bannerTitle.text = levelShort;
             if (bannerSubtitle != null) bannerSubtitle.text = hasTitle ? title : "";
@@ -180,6 +192,12 @@ namespace CardThrow
 
         private void OnHintChanged(string text)
         {
+            if (!isTutorial)
+            {
+                SetLevelHint(text);
+                return;
+            }
+
             if (string.IsNullOrEmpty(text))
             {
                 if (hintGroup != null) hintGroup.transform.localScale = Vector3.one; // если прервали «тычок»
@@ -199,10 +217,12 @@ namespace CardThrow
             else Restart(ref hintRoutine, FadeInHint());
         }
 
-        // На обычных уровнях подсказка уровня гаснет после броска. В обучении подсказками управляет TutorialController.
-        private void OnCardThrown(ThrowParams p)
+        // Табличка слева не мешает игре — висит всю раздачу (в отличие от подсказки над столом)
+        private void SetLevelHint(string text)
         {
-            if (!isTutorial) OnHintChanged("");
+            bool show = !string.IsNullOrEmpty(text);
+            if (levelHintLabel != null && show) levelHintLabel.text = text;
+            UiAnim.SetVisible(levelHintGroup, show);
         }
 
         private void OnTimerChanged(float remaining, float total)
@@ -215,16 +235,18 @@ namespace CardThrow
         private void OnSuspicionChanged(int current, int max)
         {
             if (eyes == null) return;
-            for (int i = 0; i < eyes.Length; i++)
+            int n = eyes.Length;
+            for (int i = 0; i < n; i++)
             {
                 if (eyes[i] == null) continue;
-                eyes[i].sprite = i < current ? eyeClosedSprite : eyeOpenSprite;
+                eyes[i].sprite = i >= n - current ? eyeClosedSprite : eyeOpenSprite; // разбиваются справа налево
                 eyes[i].transform.localScale = Vector3.one;
             }
 
-            // «Подпрыгивает» только новое заполненное деление; сброс в 0 — без анимации
-            if (current > lastSuspicion && current - 1 < eyes.Length && eyes[current - 1] != null)
-                Restart(ref eyeRoutine, UiAnim.Punch(eyes[current - 1].transform, eyeBounceAmount, eyeBounceDuration));
+            // «Подпрыгивает» только что разбитое сердце; сброс в 0 — без анимации
+            int broken = n - current;
+            if (current > lastSuspicion && broken >= 0 && broken < n && eyes[broken] != null)
+                Restart(ref eyeRoutine, UiAnim.Punch(eyes[broken].transform, eyeBounceAmount, eyeBounceDuration));
             lastSuspicion = current;
         }
 
