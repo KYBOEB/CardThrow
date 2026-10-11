@@ -234,7 +234,8 @@ namespace CardThrow
         {
             int i = value - 2;
             if (faces != null && i >= 0 && i < faces.Length && faces[i] != null) currentFace = faces[i];
-            if (!IsFlying && !finishing) ShowFace();
+            // Обновляем лицо, только если карта сейчас видна: до прицела её показывает веер в руке (DealerHand)
+            if (!IsFlying && !finishing && cardRenderer != null && cardRenderer.enabled) ShowFace();
         }
 
         // Цепная реакция: бутылку разбила разлетевшаяся фишка, пока карта ещё летит → бросок провален.
