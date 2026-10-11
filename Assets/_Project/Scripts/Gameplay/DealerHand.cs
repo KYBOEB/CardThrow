@@ -75,8 +75,10 @@ namespace CardThrow
             if (interactable && values.Length > 0 && !selectedHidden && Keyboard.current != null)
             {
                 Keyboard kb = Keyboard.current;
-                if (kb.aKey.wasPressedThisFrame || kb.leftArrowKey.wasPressedThisFrame) Select(SelectedIndex - 1);
-                if (kb.dKey.wasPressedThisFrame || kb.rightArrowKey.wasPressedThisFrame) Select(SelectedIndex + 1);
+                // Веер вертикальный: индекс 0 внизу (y = −0.85), 2 — вверху. Крупье смотрит вправо, поэтому его «лево» — вверх:
+                // A/← = выше по вееру (индекс +1), D/→ = ниже (индекс −1). Так A/D совпадают с тем, что игрок видит на экране.
+                if (kb.aKey.wasPressedThisFrame || kb.leftArrowKey.wasPressedThisFrame) Select(SelectedIndex + 1);
+                if (kb.dKey.wasPressedThisFrame || kb.rightArrowKey.wasPressedThisFrame) Select(SelectedIndex - 1);
             }
             Animate(Time.unscaledDeltaTime);
         }
