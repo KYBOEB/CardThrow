@@ -57,6 +57,10 @@ namespace CardThrow
         [SerializeField] private Color partnerLabelColor = new Color(1f, 0.82f, 0.3f);
         [SerializeField, Range(0f, 1f)] private float glowMinAlpha = 0.55f;
         [SerializeField] private float glowPulseFrequency = 0.8f;
+        [Tooltip("Насколько ярок контур вокруг напарника. Главная цель — его ЗОНА карт, а не фигура: контур приглушён")]
+        [SerializeField, Range(0f, 1f)] private float glowMaxAlpha = 0.35f;
+        [Tooltip("Зона напарника при прицеливании пульсирует между этим значением и 1 — «кидай сюда»")]
+        [SerializeField, Range(0f, 1f)] private float partnerAimingMinAlpha = 0.55f;
 
         [Header("Тревога соперника (D3)")]
         [SerializeField] private Color alertLabelColor = new Color(1f, 0.25f, 0.2f);
@@ -211,17 +215,20 @@ namespace CardThrow
 
         private void UpdateZoneVisual(float t)
         {
-            if (zoneVisual == null || isPartner) return; // зона напарника горит ровно
+            if (zoneVisual == null) return;
 
-            float alpha = opponentIdleAlpha;
-            if (aiming) alpha = Mathf.Lerp(opponentAimingMinAlpha, 1f, Pulse01(t, zonePulseFrequency));
+            float alpha;
+            if (isPartner) // цель броска: при прицеливании «дышит» золотом, иначе горит ровно
+                alpha = aiming ? Mathf.Lerp(partnerAimingMinAlpha, 1f, Pulse01(t, zonePulseFrequency)) : 1f;
+            else
+                alpha = aiming ? Mathf.Lerp(opponentAimingMinAlpha, 1f, Pulse01(t, zonePulseFrequency)) : opponentIdleAlpha;
             SetAlpha(zoneVisual, alpha);
         }
 
         private void UpdateGlow(float t)
         {
             if (!isPartner || glowRenderer == null) return;
-            SetAlpha(glowRenderer, Mathf.Lerp(glowMinAlpha, 1f, Pulse01(t, glowPulseFrequency)));
+            SetAlpha(glowRenderer, glowMaxAlpha * Mathf.Lerp(glowMinAlpha, 1f, Pulse01(t, glowPulseFrequency)));
         }
 
         private void UpdateAlert(float t)

@@ -271,6 +271,9 @@ namespace CardThrow
             if (texts == null || texts.tutorialSteps == null || step >= texts.tutorialSteps.Length) return "";
 
             string s = texts.tutorialSteps[step];
+            // В раздаче нет бутылки (Hand_00 без препятствия) — не говорим про бутылку, учим закруту без неё
+            if (step == StepSpin && bottleTarget == null && !string.IsNullOrEmpty(texts.tutorialSpinNoObstacle))
+                s = texts.tutorialSpinNoObstacle;
             LevelConfig level = GameManager.Instance != null ? GameManager.Instance.CurrentLevel : null;
             if (level != null) s = s.Replace(UiTexts.PartnerScoreToken, level.PartnerStartScore.ToString());
             return s;
@@ -328,7 +331,8 @@ namespace CardThrow
             Seat partner = level.PartnerSeat;
             if (partner != null)
             {
-                partnerTarget = partner.transform;
+                // Стрелка указывает на ЗОНУ карт напарника — туда и нужно бросать (фигура сидит за бортиком)
+                partnerTarget = partner.Zone != null ? partner.Zone.transform : partner.transform;
                 partnerZone = partner.Zone;
             }
             else Debug.LogWarning($"[CT] Tutorial: в {level.name} не заполнен LevelConfig.PartnerSeat", level);

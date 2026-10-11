@@ -23,6 +23,9 @@ namespace CardThrow
             "Зажми ЛКМ и тяни назад, как рогатку. Точки — путь карты. Отпусти!"
         };
 
+        [Tooltip("Шаг 2, если в раздаче обучения нет бутылки")]
+        [TextArea(1, 2)] public string tutorialSpinNoObstacle = "Закрути карту: колесо мыши или Q / E — она полетит дугой";
+
         [Header("Обучение — итог броска")]
         [TextArea(1, 2)] public string tutorialSuccess = "Отлично! Дальше — на время, пока соперники отвернулись";
         [TextArea(1, 2)] public string tutorialFailUndershoot = "Недолёт! Тяни сильнее";
