@@ -37,6 +37,14 @@ namespace CardThrow
         [SerializeField] private float arrowBobAmplitude = 18f;
         [SerializeField] private float arrowBobSpeed = 6f;
 
+        [Header("Ряд иконок рядом с крупье")]
+        [Tooltip("Ряд иконок (Icons). Если задан Icons Anchor — ряд каждый кадр ставится рядом с ним")]
+        [SerializeField] private RectTransform iconsRow;
+        [Tooltip("Объект в мире, к которому привязан ряд иконок (Dealer). Пусто — ряд стоит, где его поставили в Canvas")]
+        [SerializeField] private Transform iconsAnchor;
+        [Tooltip("Смещение ряда от крупье, в единицах Canvas. Pivot ряда — левый край")]
+        [SerializeField] private Vector2 iconsOffset = new Vector2(60f, 150f);
+
         [Header("Анимация иконки «оттяг»")]
         [SerializeField] private RectTransform dragIcon;    // та же иконка, что в step3Icons
         [SerializeField] private float dragIconDistance = 30f;
@@ -69,6 +77,7 @@ namespace CardThrow
         private Camera worldCamera;
         private Camera canvasCamera;
         private RectTransform arrowParent;
+        private RectTransform iconsParent;
         private Vector2 dragIconBasePos;
 
         // ---------- Жизненный цикл ----------
@@ -86,6 +95,7 @@ namespace CardThrow
                 if (canvas != null && canvas.renderMode != RenderMode.ScreenSpaceOverlay)
                     canvasCamera = canvas.worldCamera; // для Overlay камера = null
             }
+            if (iconsRow != null) iconsParent = iconsRow.parent as RectTransform;
             if (dragIcon != null) dragIconBasePos = dragIcon.anchoredPosition;
             if (skipHintLabel != null && texts != null) skipHintLabel.text = texts.tutorialSkipHint;
 
@@ -123,6 +133,7 @@ namespace CardThrow
 
             float t = Time.unscaledTime; // slow-mo не замедляет подсказки
             UpdateArrow(t);
+            UpdateIcons();
 
             if (dragIcon != null && dragIcon.gameObject.activeInHierarchy)
             {
@@ -160,8 +171,10 @@ namespace CardThrow
                 return;
             }
 
-            // HandIntro приходит ПОСЛЕ HintChanged(level.Hint) от GameManager → наша подсказка не перетирается
-            if (tutorialActive && state == GameState.HandIntro)
+            // Шаги показываем на входе в Aiming, а не в HandIntro: во время баннера (handIntroDuration) ввод выключен,
+            // и иконка «нажми A», на которую нельзя нажать, выглядит как баг. Aiming приходит после HintChanged(level.Hint),
+            // поэтому наша подсказка его не перетирает.
+            if (tutorialActive && state == GameState.Aiming && !guiding && currentStep == -1)
             {
                 guiding = true;
                 currentStep = -1;
@@ -184,9 +197,9 @@ namespace CardThrow
 
         private void OnCardThrown(ThrowParams p)
         {
+            // Карту и закрут НЕ берём из p: их уже прислали CardSelected/SpinChanged,
+            // а отладочный бросок (Shift+S/F) шлёт spinStep = 0 и сбил бы шаг при переигровке.
             throwOrigin = p.origin;
-            lastSpin = p.spinStep;
-            lastCardValue = p.cardValue;
             hasFlightReport = false;
             waitingForReport = false;
 
@@ -339,15 +352,13 @@ namespace CardThrow
 
             if (arrow != null) arrow.gameObject.SetActive(arrowTarget != null);
             UpdateArrow(Time.unscaledTime); // без кадра в старой позиции
+            UpdateIcons();
         }
 
         private void UpdateArrow(float time)
         {
-            if (arrow == null || arrowParent == null || arrowTarget == null || worldCamera == null) return;
-
-            Vector3 screen = worldCamera.WorldToScreenPoint(arrowTarget.position);
-            if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(arrowParent, screen, canvasCamera, out Vector2 targetLocal))
-                return;
+            if (arrow == null || arrowParent == null || arrowTarget == null) return;
+            if (!WorldToCanvas(arrowTarget.position, arrowParent, out Vector2 targetLocal)) return;
 
             // Стрелка стоит в точке «цель + смещение» и смотрит на цель; покачивается вдоль этого направления
             Vector2 toTarget = arrowOffset.sqrMagnitude > 0.01f ? -arrowOffset.normalized : Vector2.down;
@@ -356,6 +367,23 @@ namespace CardThrow
             arrow.localPosition = targetLocal + arrowOffset + toTarget * bob;
             float angle = Mathf.Atan2(toTarget.y, toTarget.x) * Mathf.Rad2Deg;
             arrow.localRotation = Quaternion.Euler(0f, 0f, angle - arrowSpriteAngle);
+        }
+
+        // Иконки стоят рядом с крупье при любом размере окна Game (как и стрелка — через экранные координаты)
+        private void UpdateIcons()
+        {
+            if (iconsRow == null || iconsParent == null || iconsAnchor == null) return;
+            if (WorldToCanvas(iconsAnchor.position, iconsParent, out Vector2 local))
+                iconsRow.localPosition = local + iconsOffset;
+        }
+
+        // Мир → экран (Camera.main) → локальные координаты UI-родителя (RectTransformUtility)
+        private bool WorldToCanvas(Vector3 world, RectTransform parent, out Vector2 local)
+        {
+            local = Vector2.zero;
+            if (worldCamera == null) return false;
+            Vector3 screen = worldCamera.WorldToScreenPoint(world);
+            return RectTransformUtility.ScreenPointToLocalPointInRectangle(parent, screen, canvasCamera, out local);
         }
 
         private void HideAll()

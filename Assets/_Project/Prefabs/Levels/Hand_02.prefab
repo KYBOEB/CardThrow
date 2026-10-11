@@ -82,7 +82,7 @@ MonoBehaviour:
   hint: 
   partnerSeat: {fileID: 6834995867890044494}
   partnerStartScore: 11
-  cardValues: 040000000a00000007000000i
+  cardValues: 0a0000000400000007000000i
   timeLimit: 20
   previewFraction: 1
 --- !u!1 &5073485279629478486
