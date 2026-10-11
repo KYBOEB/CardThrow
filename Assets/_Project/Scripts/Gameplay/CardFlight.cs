@@ -23,6 +23,9 @@ namespace CardThrow
         private float maxFlightTime = 12f;
         [SerializeField, Tooltip("Пауза на анимацию перед отчётом об итоге (реальные секунды)")]
         private float finishDelay = 0.35f;
+        [SerializeField, Tooltip("Зона напарника засчитывается, если центр карты остановился не дальше этого от неё (ед.). " +
+                                 "Игрок видит прямоугольник карты 0.7×1, а не её центр: «карта лежит на зоне» = попал")]
+        private float partnerZoneGrace = 0.3f;
 
         public bool IsFlying { get; private set; }
 
@@ -168,7 +171,8 @@ namespace CardThrow
             // Остановка: зона напарника засчитывается только здесь (пролёт сквозь неё — не попадание).
             if (state.IsStopped || state.time >= maxFlightTime)
             {
-                Zone partner = FindZone(state.pos, ZoneType.Partner);
+                // Зона напарника — с допуском partnerZoneGrace (в пользу игрока), зона соперника выше — строго по центру.
+                Zone partner = FindZoneNear(state.pos, partnerZoneGrace, ZoneType.Partner);
                 if (partner != null)
                 {
                     float radius = Mathf.Max(0.01f, partner.Radius);
@@ -257,6 +261,19 @@ namespace CardThrow
         private Zone FindZone(Vector2 point, ZoneType type)
         {
             int count = Physics2D.OverlapPoint(point, zoneFilter, overlapBuffer);
+            for (int i = 0; i < count; i++)
+            {
+                Zone z = overlapBuffer[i].GetComponent<Zone>();
+                if (z != null && z.Type == type) return z;
+            }
+            return null;
+        }
+
+        // Зона, которой касается круг радиуса radius вокруг точки (radius ≤ 0 — обычная проверка точки)
+        private Zone FindZoneNear(Vector2 point, float radius, ZoneType type)
+        {
+            if (radius <= 0f) return FindZone(point, type);
+            int count = Physics2D.OverlapCircle(point, radius, zoneFilter, overlapBuffer);
             for (int i = 0; i < count; i++)
             {
                 Zone z = overlapBuffer[i].GetComponent<Zone>();
