@@ -100,12 +100,15 @@ namespace CardThrow
             transform.rotation = Quaternion.identity;
             transform.localScale = Vector3.one;
             ShowFace();
+            // До прицела карту показывает веер в руке крупье (DealerHand), летящая карта спрятана.
+            if (cardRenderer != null) cardRenderer.enabled = false;
         }
 
         // Поза карты в пальцах крупье при оттяге (вызывает AimController). Во время полёта игнорируется.
         public void SetAimPose(Vector2 position, float angleDeg)
         {
             if (IsFlying || finishing) return;
+            if (cardRenderer != null && !cardRenderer.enabled) ShowFace();
             transform.position = new Vector3(position.x, position.y, homePosition.z);
             transform.rotation = Quaternion.Euler(0f, 0f, angleDeg);
         }
