@@ -17,6 +17,11 @@ namespace CardThrow.EditorTools
         private const string FontPath = Root + "/Art/Fonts/Montserrat-Bold SDF.asset";
         private const string TextsPath = Root + "/Data/UiTexts.asset";
 
+        // Иконки управления: компактнее и в «золоте» стола (белые клавиши × золотой тинт = золотые клавиши с тёмными буквами)
+        private const float KeySize = 64f;
+        private const float MouseSize = 84f;
+        private static readonly Color IconTint = new Color(1f, 0.84f, 0.45f);
+
         [MenuItem("CardThrow/Создать UI обучения")]
         public static void Build()
         {
@@ -60,23 +65,23 @@ namespace CardThrow.EditorTools
             icons.anchorMin = icons.anchorMax = new Vector2(0f, 0.5f);
             icons.pivot = new Vector2(0f, 0.5f);
             icons.anchoredPosition = new Vector2(120f, 150f);
-            icons.sizeDelta = new Vector2(600f, 128f);
+            icons.sizeDelta = new Vector2(480f, MouseSize);
             HorizontalLayoutGroup row = icons.gameObject.AddComponent<HorizontalLayoutGroup>();
-            row.spacing = 16f;
+            row.spacing = 10f;
             row.childAlignment = TextAnchor.MiddleLeft;
             row.childControlWidth = row.childControlHeight = false;
             row.childForceExpandWidth = row.childForceExpandHeight = false;
 
-            GameObject keyA = NewImage("Key_A", icons, "icon_key_a", new Vector2(96, 96)).gameObject;
-            GameObject keyD = NewImage("Key_D", icons, "icon_key_d", new Vector2(96, 96)).gameObject;
-            GameObject wheel = NewImage("MouseWheel", icons, "icon_mouse_wheel", new Vector2(128, 128)).gameObject;
-            GameObject keyQ = NewImage("Key_Q", icons, "icon_key_q", new Vector2(96, 96)).gameObject;
-            GameObject keyE = NewImage("Key_E", icons, "icon_key_e", new Vector2(96, 96)).gameObject;
+            GameObject keyA = Tint(NewImage("Key_A", icons, "icon_key_a", new Vector2(KeySize, KeySize))).gameObject;
+            GameObject keyD = Tint(NewImage("Key_D", icons, "icon_key_d", new Vector2(KeySize, KeySize))).gameObject;
+            GameObject wheel = Tint(NewImage("MouseWheel", icons, "icon_mouse_wheel", new Vector2(MouseSize, MouseSize))).gameObject;
+            GameObject keyQ = Tint(NewImage("Key_Q", icons, "icon_key_q", new Vector2(KeySize, KeySize))).gameObject;
+            GameObject keyE = Tint(NewImage("Key_E", icons, "icon_key_e", new Vector2(KeySize, KeySize))).gameObject;
 
             // Слот нужен, чтобы Layout Group двигал слот, а код анимировал иконку внутри
             RectTransform dragSlot = NewRect("MouseDragSlot", icons);
-            dragSlot.sizeDelta = new Vector2(128f, 128f);
-            Image drag = NewImage("MouseDrag", dragSlot, "icon_mouse_drag", new Vector2(128, 128));
+            dragSlot.sizeDelta = new Vector2(MouseSize, MouseSize);
+            Image drag = Tint(NewImage("MouseDrag", dragSlot, "icon_mouse_drag", new Vector2(MouseSize, MouseSize)));
             drag.rectTransform.anchorMin = drag.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
             drag.rectTransform.anchoredPosition = Vector2.zero;
 
@@ -126,13 +131,21 @@ namespace CardThrow.EditorTools
             so.FindProperty("arrowSpriteAngle").floatValue = -90f;
             so.ApplyModifiedProperties();
 
-            // В редакторе панель видна (удобно двигать); в Play её выключит сам TutorialController.Awake
+            // В редакторе без Play панель скрыта, чтобы не наслаиваться на титул.
+            // В Play её включает TutorialController на уровне 0 (ссылки на неактивные объекты работают).
+            panel.gameObject.SetActive(false);
             EditorSceneManager.MarkSceneDirty(controller.gameObject.scene);
             Selection.activeGameObject = panel.gameObject;
             Debug.Log("[CT] UI обучения собран и подключён к TutorialController. Сохрани сцену (Ctrl+S).");
         }
 
         // ---------- Вспомогательное ----------
+
+        private static Image Tint(Image img)
+        {
+            img.color = IconTint;
+            return img;
+        }
 
         private static Canvas FindOrCreateCanvas()
         {

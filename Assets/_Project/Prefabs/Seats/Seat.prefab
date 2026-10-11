@@ -642,14 +642,15 @@ MonoBehaviour:
   lookAwayAngle: 150
   headTurnSpeed: 360
   visualRoot: {fileID: 7547545413550132856}
-  visualScale: 1.6
+  visualScale: 2
   pushBack: 1.3
   handsOnTable: 0.6
   bodyHalfLength: 0.6
   tableMask:
     serializedVersion: 2
     m_Bits: 512
-  labelPushBack: 0
+  labelOffsetOnZone: 0
+  tableHalfSize: {x: 9.5, y: 4.75}
   zoneVisual: {fileID: 2600948945433089982}
   partnerZoneSprite: {fileID: 21300000, guid: a55e164fdda865640b63238c371db47f, type: 3}
   opponentZoneSprite: {fileID: 21300000, guid: 97e715812ef70ac4e890e127374832d9, type: 3}

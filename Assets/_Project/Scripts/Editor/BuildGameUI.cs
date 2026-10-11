@@ -70,7 +70,13 @@ namespace CardThrow.EditorTools
             BuildTitleScreen(canvas.transform, texts);
 
             Transform tutorial = canvas.transform.Find("TutorialPanel");
-            if (tutorial != null) tutorial.SetAsLastSibling(); // подсказки обучения — поверх всего
+            if (tutorial != null)
+            {
+                tutorial.SetAsLastSibling(); // подсказки обучения — поверх всего
+                // В редакторе без Play панель обучения не нужна (иконки наслаивались на титул).
+                // В Play её включает TutorialController на уровне 0 — ссылки на неактивный объект работают.
+                tutorial.gameObject.SetActive(false);
+            }
             else Debug.LogWarning("[CT] Нет TutorialPanel — запусти CardThrow → «Создать UI обучения»");
 
             EnsureSoundBridge(gm, settings);
@@ -91,9 +97,9 @@ namespace CardThrow.EditorTools
             CanvasGroup group = root.gameObject.AddComponent<CanvasGroup>();
 
             // --- Верх слева: уровень ---
-            TextMeshProUGUI level = NewText("LevelLabel", root, "Уровень 1/3", 34f, TextAlignmentOptions.Left, Color.white);
+            TextMeshProUGUI level = NewText("LevelLabel", root, "Уровень 1/3", 28f, TextAlignmentOptions.Left, Color.white);
             Place(level.rectTransform, new Vector2(0f, 1f), new Vector2(28f, -22f), new Vector2(400f, 56f)); // не заходит под таймер даже при 4:3
-            AutoSize(level, 22f, 34f, false);
+            AutoSize(level, 18f, 28f, false);
 
             // --- Верх по центру: таймер ---
             RectTransform timer = NewRect("Timer", root);
@@ -130,31 +136,31 @@ namespace CardThrow.EditorTools
             }
 
             // --- Верх справа: очки (в обучении скрыты — там же стоит «Tab — пропустить») ---
-            TextMeshProUGUI score = NewText("Score", root, "Выигрыш: 0", 36f, TextAlignmentOptions.Right, Gold);
+            TextMeshProUGUI score = NewText("Score", root, "Выигрыш: 0", 30f, TextAlignmentOptions.Right, Gold);
             Place(score.rectTransform, new Vector2(1f, 1f), new Vector2(-28f, -22f), new Vector2(360f, 56f));
-            AutoSize(score, 22f, 36f, false);
+            AutoSize(score, 18f, 30f, false);
 
             // --- Подсказка над столом ---
             RectTransform hint = NewRect("Hint", root);
-            Place(hint, new Vector2(0.5f, 1f), new Vector2(0f, -96f), new Vector2(1280f, 120f));
+            Place(hint, new Vector2(0.5f, 1f), new Vector2(0f, -90f), new Vector2(1040f, 84f));
             CanvasGroup hintGroup = hint.gameObject.AddComponent<CanvasGroup>();
             Image hintBg = NewImage("Background", hint, "ui_panel");
             SetupPanel(hintBg, new Color(1f, 1f, 1f, 0.85f));
-            TextMeshProUGUI hintText = NewText("Text", hint, "Подсказка", 42f, TextAlignmentOptions.Center, Color.white);
+            TextMeshProUGUI hintText = NewText("Text", hint, "Подсказка", 30f, TextAlignmentOptions.Center, Color.white);
             Stretch(hintText.rectTransform, 28f, 10f);
-            AutoSize(hintText, 24f, 42f, true);
+            AutoSize(hintText, 18f, 30f, true);
 
             // --- Баннер начала раздачи (по центру) ---
             RectTransform banner = NewRect("Banner", root);
-            Place(banner, new Vector2(0.5f, 0.5f), new Vector2(0f, 60f), new Vector2(980f, 230f));
+            Place(banner, new Vector2(0.5f, 0.5f), new Vector2(0f, 60f), new Vector2(760f, 180f));
             CanvasGroup bannerGroup = banner.gameObject.AddComponent<CanvasGroup>();
             SetupPanel(NewImage("Background", banner, "ui_panel"), Color.white);
-            TextMeshProUGUI bannerTitle = NewText("Title", banner, "Уровень 1/3", 84f, TextAlignmentOptions.Center, Gold);
+            TextMeshProUGUI bannerTitle = NewText("Title", banner, "Уровень 1/3", 64f, TextAlignmentOptions.Center, Gold);
             Band(bannerTitle.rectTransform, 0.42f, 1f, 24f, 10f);
-            AutoSize(bannerTitle, 40f, 84f, false);
-            TextMeshProUGUI bannerSub = NewText("Subtitle", banner, "Название раздачи", 44f, TextAlignmentOptions.Center, Color.white);
+            AutoSize(bannerTitle, 32f, 64f, false);
+            TextMeshProUGUI bannerSub = NewText("Subtitle", banner, "Название раздачи", 32f, TextAlignmentOptions.Center, Color.white);
             Band(bannerSub.rectTransform, 0f, 0.45f, 24f, 14f);
-            AutoSize(bannerSub, 24f, 44f, false);
+            AutoSize(bannerSub, 20f, 32f, false);
 
             // --- Низ по центру: строка управления ---
             RectTransform controls = NewRect("Controls", root);
@@ -162,23 +168,23 @@ namespace CardThrow.EditorTools
             controls.anchorMax = new Vector2(1f, 0f);   // на узком окне текст ужмётся автоподбором,
             controls.pivot = new Vector2(0.5f, 0f);     // а не вылезет за края
             controls.offsetMin = new Vector2(24f, 10f);
-            controls.offsetMax = new Vector2(-24f, 56f);
+            controls.offsetMax = new Vector2(-24f, 48f);
             SetupPanel(NewImage("Background", controls, "ui_panel"), new Color(1f, 1f, 1f, 0.7f));
-            TextMeshProUGUI controlsText = NewText("Text", controls, texts.controlsLine, 26f, TextAlignmentOptions.Center, Soft);
+            TextMeshProUGUI controlsText = NewText("Text", controls, texts.controlsLine, 20f, TextAlignmentOptions.Center, Soft);
             Stretch(controlsText.rectTransform, 16f, 4f);
-            AutoSize(controlsText, 14f, 26f, false);
+            AutoSize(controlsText, 12f, 20f, false);
 
             // --- Низ слева: карта и закрут ---
             RectTransform cardPanel = NewRect("CardPanel", root);
-            Place(cardPanel, new Vector2(0f, 0f), new Vector2(24f, 66f), new Vector2(470f, 64f));
+            Place(cardPanel, new Vector2(0f, 0f), new Vector2(24f, 60f), new Vector2(400f, 52f));
             SetupPanel(NewImage("Background", cardPanel, "ui_panel"), Color.white);
-            TextMeshProUGUI card = NewText("CardLabel", cardPanel, "Карта: 7", 32f, TextAlignmentOptions.Left, Gold);
+            TextMeshProUGUI card = NewText("CardLabel", cardPanel, "Карта: 7", 26f, TextAlignmentOptions.Left, Gold);
             card.rectTransform.anchorMin = new Vector2(0f, 0f);
             card.rectTransform.anchorMax = new Vector2(0f, 1f);
             card.rectTransform.pivot = new Vector2(0f, 0.5f);
             card.rectTransform.anchoredPosition = new Vector2(18f, 0f);
             card.rectTransform.sizeDelta = new Vector2(190f, 0f);
-            AutoSize(card, 18f, 32f, false);
+            AutoSize(card, 16f, 26f, false);
 
             RectTransform spin = NewRect("Spin", cardPanel);
             spin.anchorMin = spin.anchorMax = spin.pivot = new Vector2(0f, 0.5f);
@@ -188,14 +194,14 @@ namespace CardThrow.EditorTools
             spinArrow.rectTransform.anchorMin = spinArrow.rectTransform.anchorMax = new Vector2(0f, 0.5f);
             spinArrow.rectTransform.anchoredPosition = new Vector2(28f, 0f);
             spinArrow.rectTransform.sizeDelta = new Vector2(44f, 44f);
-            TextMeshProUGUI spinText = NewText("SpinLabel", spin, "Закрут 0", 28f, TextAlignmentOptions.Left, Color.white);
+            TextMeshProUGUI spinText = NewText("SpinLabel", spin, "Закрут 0", 22f, TextAlignmentOptions.Left, Color.white);
             Stretch(spinText.rectTransform);
             spinText.rectTransform.offsetMin = new Vector2(60f, 0f);
-            AutoSize(spinText, 16f, 28f, false);
+            AutoSize(spinText, 14f, 22f, false);
 
             // --- Низ справа: кнопка «Заново (R)» ---
-            Button restart = NewButton("RestartButton", root, texts.restartButton, 28f, out TextMeshProUGUI restartLabel);
-            Place((RectTransform)restart.transform, new Vector2(1f, 0f), new Vector2(-24f, 66f), new Vector2(260f, 64f));
+            Button restart = NewButton("RestartButton", root, texts.restartButton, 22f, out TextMeshProUGUI restartLabel);
+            Place((RectTransform)restart.transform, new Vector2(1f, 0f), new Vector2(-24f, 60f), new Vector2(210f, 52f));
 
             // В режиме редактирования окно Game показывает титул, а не всё сразу (в Play видимостью управляют скрипты)
             HideInEditor(group);
@@ -242,19 +248,19 @@ namespace CardThrow.EditorTools
         private static void BuildResultPopup(Transform canvas, UiTexts texts, GameSettings settings)
         {
             RectTransform root = NewRect("ResultPopup", canvas);
-            Place(root, new Vector2(0.5f, 0.5f), new Vector2(0f, 40f), new Vector2(1100f, 330f));
+            Place(root, new Vector2(0.5f, 0.5f), new Vector2(0f, 40f), new Vector2(900f, 260f));
             CanvasGroup group = root.gameObject.AddComponent<CanvasGroup>();
             SetupPanel(NewImage("Background", root, "ui_panel"), new Color(1f, 1f, 1f, 0.9f));
 
-            TextMeshProUGUI title = NewText("Title", root, "BLACKJACK!", 110f, TextAlignmentOptions.Center, Gold);
+            TextMeshProUGUI title = NewText("Title", root, "BLACKJACK!", 84f, TextAlignmentOptions.Center, Gold);
             Band(title.rectTransform, 0.44f, 1f, 30f, 8f);
-            AutoSize(title, 56f, 110f, false);
-            TextMeshProUGUI subtitle = NewText("Subtitle", root, "Напарник даже не моргнул", 40f, TextAlignmentOptions.Center, Color.white);
+            AutoSize(title, 44f, 84f, false);
+            TextMeshProUGUI subtitle = NewText("Subtitle", root, "Напарник даже не моргнул", 30f, TextAlignmentOptions.Center, Color.white);
             Band(subtitle.rectTransform, 0.2f, 0.46f, 30f, 0f);
-            AutoSize(subtitle, 22f, 40f, true);
-            TextMeshProUGUI gained = NewText("Gained", root, "+1 850", 52f, TextAlignmentOptions.Center, Gold);
+            AutoSize(subtitle, 18f, 30f, true);
+            TextMeshProUGUI gained = NewText("Gained", root, "+1 850", 40f, TextAlignmentOptions.Center, Gold);
             Band(gained.rectTransform, 0f, 0.22f, 30f, 6f);
-            AutoSize(gained, 28f, 52f, false);
+            AutoSize(gained, 24f, 40f, false);
 
             HideInEditor(group);
 
@@ -286,23 +292,23 @@ namespace CardThrow.EditorTools
             Place(logo.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -36f), new Vector2(840f, 280f));
 
             RectTransform rules = NewRect("Rules", root);
-            Place(rules, new Vector2(0.5f, 0.5f), new Vector2(0f, 0f), new Vector2(1240f, 230f));
+            Place(rules, new Vector2(0.5f, 0.5f), new Vector2(0f, 0f), new Vector2(1100f, 180f));
             SetupPanel(NewImage("Background", rules, "ui_panel"), Color.white);
             TextMeshProUGUI[] lines = new TextMeshProUGUI[3];
             for (int i = 0; i < lines.Length; i++)
             {
                 string line = texts.rulesLines != null && i < texts.rulesLines.Length ? texts.rulesLines[i] : "";
-                lines[i] = NewText("Rule_" + (i + 1), rules, line, 32f, TextAlignmentOptions.Center, i == 0 ? Gold : Color.white);
+                lines[i] = NewText("Rule_" + (i + 1), rules, line, 24f, TextAlignmentOptions.Center, i == 0 ? Gold : Color.white);
                 float top = 1f - i / 3f, bottom = 1f - (i + 1) / 3f;
                 Band(lines[i].rectTransform, bottom, top, 28f, 6f);
-                AutoSize(lines[i], 20f, 32f, true);
+                AutoSize(lines[i], 16f, 24f, true);
             }
 
-            Button play = NewButton("PlayButton", root, texts.playButton, 52f, out TextMeshProUGUI playLabel);
-            Place((RectTransform)play.transform, new Vector2(0.5f, 0.5f), new Vector2(0f, -200f), new Vector2(600f, 120f));
+            Button play = NewButton("PlayButton", root, texts.playButton, 40f, out TextMeshProUGUI playLabel);
+            Place((RectTransform)play.transform, new Vector2(0.5f, 0.5f), new Vector2(0f, -180f), new Vector2(460f, 96f));
 
-            TextMeshProUGUI high = NewText("HighScore", root, "Рекорд: 0", 34f, TextAlignmentOptions.Center, Gold);
-            Place(high.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -300f), new Vector2(800f, 50f));
+            TextMeshProUGUI high = NewText("HighScore", root, "Рекорд: 0", 28f, TextAlignmentOptions.Center, Gold);
+            Place(high.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -270f), new Vector2(800f, 44f));
 
             TitleScreen title = root.gameObject.AddComponent<TitleScreen>();
             SerializedObject so = new SerializedObject(title);
@@ -334,25 +340,25 @@ namespace CardThrow.EditorTools
             Place(panel, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(1000f, 620f));
             SetupPanel(NewImage("Background", panel, "ui_panel"), Color.white);
 
-            TextMeshProUGUI title = NewText("Title", panel, victory ? texts.victoryTitle : texts.gameOverTitle, 84f, TextAlignmentOptions.Center, titleColor);
+            TextMeshProUGUI title = NewText("Title", panel, victory ? texts.victoryTitle : texts.gameOverTitle, 64f, TextAlignmentOptions.Center, titleColor);
             FromTop(title.rectTransform, 40f, 100f);
-            AutoSize(title, 40f, 84f, false);
-            TextMeshProUGUI subtitle = NewText("Subtitle", panel, victory ? texts.victorySubtitle : texts.gameOverSuspicionReason, 36f, TextAlignmentOptions.Center, Color.white);
+            AutoSize(title, 32f, 64f, false);
+            TextMeshProUGUI subtitle = NewText("Subtitle", panel, victory ? texts.victorySubtitle : texts.gameOverSuspicionReason, 28f, TextAlignmentOptions.Center, Color.white);
             FromTop(subtitle.rectTransform, 150f, 80f);
-            AutoSize(subtitle, 22f, 36f, true);
-            TextMeshProUGUI final = NewText("FinalScore", panel, "Выигрыш: 0", 56f, TextAlignmentOptions.Center, Color.white);
+            AutoSize(subtitle, 18f, 28f, true);
+            TextMeshProUGUI final = NewText("FinalScore", panel, "Выигрыш: 0", 44f, TextAlignmentOptions.Center, Color.white);
             FromTop(final.rectTransform, 250f, 70f);
-            AutoSize(final, 30f, 56f, false);
-            TextMeshProUGUI high = NewText("HighScore", panel, "Рекорд: 0", 34f, TextAlignmentOptions.Center, Gold);
+            AutoSize(final, 26f, 44f, false);
+            TextMeshProUGUI high = NewText("HighScore", panel, "Рекорд: 0", 28f, TextAlignmentOptions.Center, Gold);
             FromTop(high.rectTransform, 325f, 50f);
-            TextMeshProUGUI record = NewText("NewRecord", panel, texts.newRecord, 44f, TextAlignmentOptions.Center, Gold);
+            TextMeshProUGUI record = NewText("NewRecord", panel, texts.newRecord, 34f, TextAlignmentOptions.Center, Gold);
             FromTop(record.rectTransform, 380f, 60f);
 
-            Button again = NewButton("PlayAgainButton", panel, texts.playAgainButton, 44f, out TextMeshProUGUI againLabel);
+            Button again = NewButton("PlayAgainButton", panel, texts.playAgainButton, 34f, out TextMeshProUGUI againLabel);
             RectTransform againRect = (RectTransform)again.transform;
             againRect.anchorMin = againRect.anchorMax = againRect.pivot = new Vector2(0.5f, 0f);
             againRect.anchoredPosition = new Vector2(0f, 40f);
-            againRect.sizeDelta = new Vector2(520f, 110f);
+            againRect.sizeDelta = new Vector2(420f, 88f);
 
             HideInEditor(group);
 

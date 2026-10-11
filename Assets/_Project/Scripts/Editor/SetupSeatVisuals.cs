@@ -17,6 +17,7 @@ namespace CardThrow.EditorTools
         private const string VisualName = "ZoneVisual";
         private const string FigureName = "Visual";
         private static readonly string[] FigureParts = { "Body", "Head", "PartnerGlow" };
+        private const float FigureScale = 2.0f; // фигура игрока 3.2 × 2.4 ед. — читается рядом со столом 19 × 9.5
 
         [MenuItem("CardThrow/Посадка игроков: обновить (Seat + камера)")]
         public static void Run()
@@ -71,6 +72,8 @@ namespace CardThrow.EditorTools
                 Set(so, "zoneVisual", sr);
                 Set(so, "partnerZoneSprite", AssetDatabase.LoadAssetAtPath<Sprite>(PartnerZoneSprite));
                 Set(so, "opponentZoneSprite", AssetDatabase.LoadAssetAtPath<Sprite>(OpponentZoneSprite));
+                SerializedProperty scale = so.FindProperty("visualScale");
+                if (scale != null) scale.floatValue = FigureScale;
                 so.ApplyModifiedPropertiesWithoutUndo();
 
                 PrefabUtility.SaveAsPrefabAsset(root, SeatPath);
