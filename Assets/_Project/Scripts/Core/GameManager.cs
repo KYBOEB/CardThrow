@@ -55,8 +55,20 @@ namespace CardThrow
             {
                 Debug.LogError("[CT] GameManager: не заполнены ссылки в инспекторе (settings, levelManager, dealerHand, aimController, cardFlight)", this);
                 enabled = false; // Start/Update/OnEnable не вызовутся — вместо потока NullReference одна понятная ошибка
+                return;
+            }
+
+            // Частая ошибка: в поле перетащили префаб из окна Project, а не объект из Hierarchy.
+            // Тогда игра вызывает методы у файла-префаба, который не живёт в сцене, и ввод «молча» не работает.
+            if (!IsSceneObject(dealerHand) || !IsSceneObject(aimController) || !IsSceneObject(cardFlight))
+            {
+                Debug.LogError("[CT] GameManager: поля Dealer Hand / Aim Controller / Card Flight указывают на ПРЕФАБ в окне Project. " +
+                               "Перетащи объекты Dealer и Card из окна Hierarchy.", this);
+                enabled = false;
             }
         }
+
+        private static bool IsSceneObject(Component c) => c.gameObject.scene.IsValid();
 
         private void OnEnable()
         {

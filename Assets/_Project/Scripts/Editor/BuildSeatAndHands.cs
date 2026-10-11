@@ -105,9 +105,9 @@ namespace CardThrow.EditorTools
             Object.DestroyImmediate(root);
 
             // четыре копии и их начальные данные (Егор потом меняет всё в инспекторе)
-            MakeHand(template, 0, true, "Обучение", 14, new[] { 5, 7, 9 });
-            MakeHand(template, 1, false, "Первая раздача", 14, new[] { 5, 7, 9 });
-            MakeHand(template, 2, false, "Вторая раздача", 11, new[] { 4, 10, 7 });
+            MakeHand(template, 0, true, "Обучение", 14, new[] { 7, 5, 9 });   // правильная (7) — НЕ средняя: иначе шаг 1 обучения пропустится
+            MakeHand(template, 1, false, "Первая раздача", 14, new[] { 5, 9, 7 });
+            MakeHand(template, 2, false, "Вторая раздача", 11, new[] { 10, 4, 7 });
             MakeHand(template, 3, false, "Последняя раздача", 13, new[] { 8, 3, 6 });
         }
 
