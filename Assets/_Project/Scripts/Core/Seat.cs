@@ -24,6 +24,16 @@ namespace CardThrow
         [SerializeField] private float lookAwayAngle = 150f;
         [SerializeField] private float headTurnSpeed = 360f;   // градусов в секунду
 
+        [Header("Посадка за столом (D3b)")]
+        [Tooltip("Visual: Body + Head + PartnerGlow. Поворачивается руками к столу (к своей зоне) и отодвигается за край")]
+        [SerializeField] private Transform visualRoot;
+        [Tooltip("Масштаб фигуры игрока (спрайты 1.6×1.2 ед. при PPU 200)")]
+        [SerializeField] private float visualScale = 1.6f;
+        [Tooltip("На сколько единиц фигура отодвигается от точки Seat в сторону ОТ стола")]
+        [SerializeField] private float pushBack = 1.65f;
+        [Tooltip("Смещение счёта от точки Seat в сторону ОТ стола (0 = на краю сукна перед игроком)")]
+        [SerializeField] private float labelPushBack = 0f;
+
         [Header("Зона на столе (D3)")]
         [Tooltip("SpriteRenderer внутри Zone (ZoneVisual). Размер подгоняется под BoxCollider2D зоны")]
         [SerializeField] private SpriteRenderer zoneVisual;
@@ -79,6 +89,7 @@ namespace CardThrow
                 baseLabelScale = scoreLabel.transform.localScale;
             }
 
+            LayoutAtTable();
             SetupZoneVisual();
             RefreshLabel();
         }
@@ -138,6 +149,26 @@ namespace CardThrow
         }
 
         // ---------- D3: визуал ----------
+
+        // Фигура «садится» за стол: руки (верх спрайта, +Y) смотрят на свою зону, сама фигура — за краем.
+        // Направление берём из локальной позиции Zone, поэтому Егор ставит Seat где угодно — поворот подстроится сам.
+        // Seat в раздачах не повёрнут и не масштабирован (rotation 0, scale 1) — считаем в локальных координатах.
+        private void LayoutAtTable()
+        {
+            if (zone == null) return;
+            Vector2 toTable = zone.transform.localPosition;
+            if (toTable.sqrMagnitude < 0.0001f) return;
+            Vector2 dir = toTable.normalized;
+
+            if (visualRoot != null)
+            {
+                float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f; // спрайт нарисован руками вверх
+                visualRoot.localRotation = Quaternion.Euler(0f, 0f, angle);
+                visualRoot.localPosition = -dir * pushBack;
+                visualRoot.localScale = Vector3.one * visualScale;
+            }
+            if (scoreLabel != null) scoreLabel.transform.localPosition = -dir * labelPushBack; // текст не поворачиваем
+        }
 
         // Спрайт зоны по роли + размер по коллайдеру (Егор меняет размер зоны в каждой раздаче)
         private void SetupZoneVisual()

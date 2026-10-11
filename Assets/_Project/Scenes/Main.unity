@@ -3556,7 +3556,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26.8
+  m_fontSize: 26.7
   m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -8817,7 +8817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c64d66646f74a6640923a60b9537ae08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardThrow.CameraFitter
-  contentSize: {x: 21, y: 12}
+  contentSize: {x: 24, y: 15}
   minOrthoSize: 6
 --- !u!81 &2136230941
 AudioListener:
