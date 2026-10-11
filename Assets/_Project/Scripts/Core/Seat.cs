@@ -65,7 +65,7 @@ namespace CardThrow
         [Header("Разнообразие (D3c)")]
         [Tooltip("Visual/Body — спрайт тела; голова — SpriteRenderer на head")]
         [SerializeField] private SpriteRenderer bodyRenderer;
-        [Tooltip("player_body_1..4: у каждого места свой вариант (выбор стабилен — зависит от позиции места)")]
+        [Tooltip("player_body_1..4. В одной раздаче пары «тело + голова» не повторяются")]
         [SerializeField] private Sprite[] bodySprites;
         [SerializeField] private Sprite[] headSprites;
         [Tooltip("Соперникам — разный счёт вместо одинаковых 12 (напарнику счёт задаёт раздача)")]
@@ -209,16 +209,25 @@ namespace CardThrow
                 scoreLabel.transform.position = zone.transform.position - (Vector3)(dir * labelOffsetOnZone);
         }
 
-        // Внешность и счёт соперника — «случайные», но стабильные: зависят от позиции места,
-        // поэтому при переигровке раздачи стол не меняется, а разные места выглядят по-разному.
+        // Внешность и счёт соперника — «случайные», но стабильные: при переигровке раздачи стол не меняется.
+        // Внешность — по номеру места в раздаче (комбинации не повторяются), счёт — по позиции места.
         private void ApplyVariety()
         {
-            if (bodyRenderer != null && bodySprites != null && bodySprites.Length > 0)
-                bodyRenderer.sprite = bodySprites[StableIndex(1, bodySprites.Length)];
-
-            SpriteRenderer headRenderer = head != null ? head.GetComponent<SpriteRenderer>() : null;
-            if (headRenderer != null && headSprites != null && headSprites.Length > 0)
-                headRenderer.sprite = headSprites[StableIndex(2, headSprites.Length)];
+            int nb = bodySprites != null ? bodySprites.Length : 0;
+            int nh = headSprites != null ? headSprites.Length : 0;
+            if (nb > 0 && nh > 0)
+            {
+                // Номер места среди соседей по раздаче (Seats/…) + сдвиг от названия раздачи.
+                // i = q·nb + r → тело (r + сдвиг), голова (r + q + сдвиг): пары «тело+голова» не повторяются
+                // для первых nb·nh мест (4×4 = 16), а у первых четырёх различаются и тела, и головы.
+                Seat[] seats = transform.parent != null ? transform.parent.GetComponentsInChildren<Seat>(true) : new[] { this };
+                int i = Mathf.Max(0, System.Array.IndexOf(seats, this));
+                int shift = LevelSalt();
+                int r = i % nb, q = i / nb;
+                if (bodyRenderer != null) bodyRenderer.sprite = bodySprites[(r + shift) % nb];
+                SpriteRenderer headRenderer = head != null ? head.GetComponent<SpriteRenderer>() : null;
+                if (headRenderer != null) headRenderer.sprite = headSprites[(r + q + shift) % nh];
+            }
 
             if (!isPartner && randomOpponentScore)
             {
@@ -226,6 +235,17 @@ namespace CardThrow
                 int max = Mathf.Max(opponentScoreRange.x, opponentScoreRange.y);
                 score = min + StableIndex(3, max - min + 1);
             }
+        }
+
+        // Сдвиг внешностей от названия раздачи («Hand_02(Clone)»): на разных уровнях за тем же местом — другой человек.
+        // Своя хеш-функция, а не string.GetHashCode: результат одинаков на Windows и Mac.
+        private int LevelSalt()
+        {
+            Transform level = transform.parent != null ? transform.parent.parent : null;
+            if (level == null) return 0;
+            int h = 0;
+            foreach (char c in level.name) h = (h * 31 + c) & 0x7fffffff;
+            return h % 97;
         }
 
         // Детерминированный «случайный» индекс 0..count−1 из позиции места и соли (без UnityEngine.Random,

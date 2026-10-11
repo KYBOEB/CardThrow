@@ -64,6 +64,9 @@ namespace CardThrow
         [Tooltip("Спрайт стрелки без поворота показывает дугу ВЛЕВО (+). Если наоборот — снять галочку")]
         [SerializeField] private bool spinSpriteCurvesLeft = true;
         [SerializeField] private float spinTiltPerStep = 15f;
+        [Tooltip("Иконки закрута по силе: [0] прямо, [1..3] дуга сильнее. Рисуют дугу ВЛЕВО (+); для − зеркалим. " +
+                 "Если пусто — старый режим: одна стрелка с наклоном")]
+        [SerializeField] private Sprite[] spinSprites;
 
         [Header("Подсказка над столом (только обучение)")]
         [SerializeField] private CanvasGroup hintGroup;
@@ -332,6 +335,19 @@ namespace CardThrow
             }
 
             if (spinArrow == null) return;
+
+            // Набор иконок: сила закрута видна по изгибу дуги, направление — по зеркалу
+            if (spinSprites != null && spinSprites.Length > 0)
+            {
+                int i = Mathf.Min(System.Math.Abs(step), spinSprites.Length - 1);
+                if (spinSprites[i] != null) spinArrow.sprite = spinSprites[i];
+                float flip = (step < 0 ? -1f : 1f) * (spinSpriteCurvesLeft ? 1f : -1f);
+                spinArrow.rectTransform.localScale = new Vector3(flip, 1f, 1f);
+                spinArrow.rectTransform.localRotation = Quaternion.identity;
+                spinArrow.color = spinArrowBaseColor;
+                return;
+            }
+
             // Знак закрута → зеркало по X; величина → наклон и размер. При 0 стрелка полупрозрачная
             float mirror = (step < 0 ? -1f : 1f) * (spinSpriteCurvesLeft ? 1f : -1f);
             float size = 0.8f + 0.1f * Mathf.Abs(step);

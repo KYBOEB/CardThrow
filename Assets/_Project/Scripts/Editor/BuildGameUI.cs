@@ -38,6 +38,8 @@ namespace CardThrow.EditorTools
         private const float FrameScale = 2f;              // Pixels Per Unit Multiplier: рамка на экране вдвое тоньше
         private const string HeartFull = "ui_heart_full";
         private const string HeartEmpty = "ui_heart_empty";
+        private const string SpinPrefix = "ui_spin_";     // ui_spin_0 (прямо) … ui_spin_3 (сильная дуга влево)
+        private const int SpinIcons = 4;
 
         [MenuItem("CardThrow/Создать UI игры (HUD и экраны)")]
         public static void Build()
@@ -58,6 +60,7 @@ namespace CardThrow.EditorTools
             EnsureUiSprite(FrameSprite, FrameBorderPx);
             EnsureUiSprite(HeartFull, 0f);
             EnsureUiSprite(HeartEmpty, 0f);
+            for (int i = 0; i < SpinIcons; i++) EnsureUiSprite(SpinPrefix + i, 0f);
 
             UiTexts texts = LoadOrCreateTexts();
             GameSettings settings = LoadSettings(gm);
@@ -199,30 +202,23 @@ namespace CardThrow.EditorTools
             Stretch(controlsText.rectTransform, 16f, 4f);
             AutoSize(controlsText, 12f, 20f, false);
 
-            // --- Низ слева: карта и закрут ---
-            RectTransform cardPanel = NewRect("CardPanel", root);
-            Place(cardPanel, new Vector2(0f, 0f), new Vector2(24f, 60f), new Vector2(400f, 52f));
-            SetupPanel(NewImage("Background", cardPanel, "ui_panel"), Color.white);
-            TextMeshProUGUI card = NewText("CardLabel", cardPanel, "Карта: 7", 26f, TextAlignmentOptions.Left, Gold);
-            card.rectTransform.anchorMin = new Vector2(0f, 0f);
-            card.rectTransform.anchorMax = new Vector2(0f, 1f);
-            card.rectTransform.pivot = new Vector2(0f, 0.5f);
-            card.rectTransform.anchoredPosition = new Vector2(18f, 0f);
-            card.rectTransform.sizeDelta = new Vector2(190f, 0f);
-            AutoSize(card, 16f, 26f, false);
+            // --- Низ слева: закрут (номинал карты виден на самой карте в руке — отдельной надписи нет) ---
+            RectTransform cardPanel = NewRect("SpinPanel", root);
+            Place(cardPanel, new Vector2(0f, 0f), new Vector2(20f, 56f), new Vector2(250f, 72f));
+            NewFrame("Frame", cardPanel);
 
             RectTransform spin = NewRect("Spin", cardPanel);
-            spin.anchorMin = spin.anchorMax = spin.pivot = new Vector2(0f, 0.5f);
-            spin.anchoredPosition = new Vector2(215f, 0f);
-            spin.sizeDelta = new Vector2(240f, 56f);
-            Image spinArrow = NewImage("Arrow", spin, "ui_spin_arrow");
+            Stretch(spin, 14f, 6f);
+            Image spinArrow = NewImage("Arrow", spin, SpinPrefix + "0");
             spinArrow.rectTransform.anchorMin = spinArrow.rectTransform.anchorMax = new Vector2(0f, 0.5f);
-            spinArrow.rectTransform.anchoredPosition = new Vector2(28f, 0f);
-            spinArrow.rectTransform.sizeDelta = new Vector2(44f, 44f);
-            TextMeshProUGUI spinText = NewText("SpinLabel", spin, "Закрут 0", 22f, TextAlignmentOptions.Left, Color.white);
+            spinArrow.rectTransform.anchoredPosition = new Vector2(30f, 0f);
+            spinArrow.rectTransform.sizeDelta = new Vector2(56f, 56f);
+            TextMeshProUGUI spinText = NewText("SpinLabel", spin, "Закрут 0", 26f, TextAlignmentOptions.Left, Gold);
             Stretch(spinText.rectTransform);
-            spinText.rectTransform.offsetMin = new Vector2(60f, 0f);
-            AutoSize(spinText, 14f, 22f, false);
+            spinText.rectTransform.offsetMin = new Vector2(66f, 0f);
+            AutoSize(spinText, 16f, 26f, false);
+            Sprite[] spinSprites = new Sprite[SpinIcons];
+            for (int i = 0; i < SpinIcons; i++) spinSprites[i] = LoadSprite(SpinPrefix + i);
 
             // --- Низ справа: кнопка «Заново (R)» ---
             Button restart = NewButton("RestartButton", root, texts.restartButton, 22f, out TextMeshProUGUI restartLabel);
@@ -255,10 +251,10 @@ namespace CardThrow.EditorTools
             Set(so, "eyeClosedSprite", LoadSprite(HeartEmpty));
             Set(so, "scoreRoot", scorePanel.gameObject); // в обучении прячется вся табличка с рамкой
             Set(so, "scoreLabel", score);
-            Set(so, "cardLabel", card);
             Set(so, "spinGroup", spin);
             Set(so, "spinArrow", spinArrow);
             Set(so, "spinLabel", spinText);
+            SetArray(so, "spinSprites", spinSprites);
             Set(so, "hintGroup", hintGroup);
             Set(so, "hintLabel", hintText);
             Set(so, "controlsLabel", controlsText);
