@@ -105,4 +105,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89cdba2169ef874438ef6b287da0d91e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardThrow.CardFlight
-  settings: {fileID: 0}
+  settings: {fileID: 11400000, guid: 8b60bda9ff087f041829c3a120f9e44f, type: 2}
+  cardRenderer: {fileID: 5075984226616560484}
+  faces:
+  - {fileID: 21300000, guid: e28bd398cfefcbb44815ad2f6894fcfb, type: 3}
+  - {fileID: 21300000, guid: 05e4773cac26d65468bca303cdbc329a, type: 3}
+  - {fileID: 21300000, guid: 9b1de81728c32be4cbcbed9b06ddd2bd, type: 3}
+  - {fileID: 21300000, guid: 8d254d43ce981ff46b6df77f7bbe6a0f, type: 3}
+  - {fileID: 21300000, guid: c2dae8e2e136b474fb7b3b2714f9d5d2, type: 3}
+  - {fileID: 21300000, guid: 1c9b6f22ad7eca14a8ddfaa23f5d2cd3, type: 3}
+  - {fileID: 21300000, guid: 704f24c9221d8e5459297bb4e4627b24, type: 3}
+  - {fileID: 21300000, guid: d8b0dfe588d80e049b57919aa8c497b7, type: 3}
+  - {fileID: 21300000, guid: b44875395e379bb42a6861578e2833e6, type: 3}
+  - {fileID: 21300000, guid: 3868913c3cef5f14794f0108bc4979a9, type: 3}
+  crumpledSprite: {fileID: 21300000, guid: f5275be931506c442a2cfe2a72bbef7e, type: 3}
+  pushIgnoreTime: 0.2
+  maxFlightTime: 12
+  finishDelay: 0.35
