@@ -1,0 +1,52 @@
+using UnityEngine;
+
+namespace CardThrow
+{
+    // Висит на корне префаба уровня Hand_00 (обучение) … Hand_03. Данные заполняет Егор в инспекторе.
+    public class LevelConfig : MonoBehaviour
+    {
+        [Header("Уровень")]
+        [Tooltip("Уровень 0: обучение — без таймера, подозрения и очков")]
+        [SerializeField] private bool isTutorial;
+        [SerializeField] private string handTitle = "Уровень";
+        [SerializeField, TextArea(1, 3)] private string hint = "";
+
+        [Header("Карты")]
+        [SerializeField] private Seat partnerSeat;
+        [SerializeField, Range(2, 20)] private int partnerStartScore = 14;
+        [Tooltip("Ровно 3 карты, ровно одна даёт напарнику 21")]
+        [SerializeField] private int[] cardValues = { 5, 7, 9 };
+
+        [Header("Сложность")]
+        [SerializeField, Min(3f)] private float timeLimit = 20f;
+        [SerializeField, Range(0.2f, 1f)] private float previewFraction = 1f;
+
+        public bool IsTutorial => isTutorial;
+        public string HandTitle => handTitle;
+        public string Hint => hint;
+        public Seat PartnerSeat => partnerSeat;
+        public int PartnerStartScore => partnerStartScore;
+        public int[] CardValues => cardValues;
+        public float TimeLimit => timeLimit;
+        public float PreviewFraction => previewFraction;
+
+        // Индекс карты, которая даёт ровно 21 (или -1, если такой нет)
+        public int CorrectCardIndex => System.Array.FindIndex(cardValues, v => partnerStartScore + v == 21);
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (cardValues == null || cardValues.Length != 3)
+            {
+                Debug.LogWarning($"[CT] {name}: должно быть ровно 3 карты", this);
+                return;
+            }
+            int correct = 0;
+            foreach (int v in cardValues)
+                if (partnerStartScore + v == 21) correct++;
+            if (correct != 1)
+                Debug.LogWarning($"[CT] {name}: правильных карт {correct}, нужна ровно 1", this);
+        }
+#endif
+    }
+}
