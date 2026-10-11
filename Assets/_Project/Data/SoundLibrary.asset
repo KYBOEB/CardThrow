@@ -52,7 +52,8 @@ MonoBehaviour:
     volume: 0.8
     pitchJitter: 0.06
   - id: 6
-    clips: []
+    clips:
+    - {fileID: 8300000, guid: 43569ab8e69c4d9e910fc50230daf50c, type: 3}
     volume: 1.0
     pitchJitter: 0.05
   - id: 7
