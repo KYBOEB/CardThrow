@@ -696,6 +696,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eeb31fb0e0b61b44aa64ae795389d0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardThrow.TutorialController
+  texts: {fileID: 11400000, guid: b7bcd0b42ad716145a158dbd15809a3a, type: 2}
+  tutorialRoot: {fileID: 0}
+  step1Icons: []
+  step2Icons: []
+  step3Icons: []
+  arrow: {fileID: 0}
+  skipHintLabel: {fileID: 0}
+  skipButton: {fileID: 0}
+  partnerArrowOffset: {x: 0, y: -150}
+  bottleArrowOffset: {x: 0, y: 130}
+  arrowSpriteAngle: -90
+  arrowBobAmplitude: 18
+  arrowBobSpeed: 6
+  dragIcon: {fileID: 0}
+  dragIconDistance: 30
+  dragIconSpeed: 3
 --- !u!1 &2136230939
 GameObject:
   m_ObjectHideFlags: 0

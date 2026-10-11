@@ -9,6 +9,7 @@ namespace CardThrow
         [Tooltip("Уровень 0: обучение — без таймера, подозрения и очков")]
         [SerializeField] private bool isTutorial;
         [SerializeField] private string handTitle = "Уровень";
+        [Tooltip("В обучении оставьте пустым: подсказки ведёт TutorialController")]
         [SerializeField, TextArea(1, 3)] private string hint = "";
 
         [Header("Карты")]
@@ -46,6 +47,13 @@ namespace CardThrow
                 if (partnerStartScore + v == 21) correct++;
             if (correct != 1)
                 Debug.LogWarning($"[CT] {name}: правильных карт {correct}, нужна ровно 1", this);
+
+            // DealerHand на старте выбирает среднюю карту: если она правильная, шаг 1 обучения пропустится сам
+            if (isTutorial && CorrectCardIndex == cardValues.Length / 2)
+                Debug.LogWarning($"[CT] {name}: в обучении правильная карта не должна быть средней (иначе шаг «выбери карту» пропустится)", this);
+
+            if (partnerSeat == null)
+                Debug.LogWarning($"[CT] {name}: не заполнен PartnerSeat", this);
         }
 #endif
     }

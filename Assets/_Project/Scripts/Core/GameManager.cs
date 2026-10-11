@@ -22,7 +22,9 @@ namespace CardThrow
         public LevelConfig CurrentLevel { get; private set; }
         public bool IsTutorial => CurrentLevel != null && CurrentLevel.IsTutorial;
 
-        private const int FirstRealLevel = 1; // уровень 0 — обучение
+        private const int TutorialLevel = 0;
+        private const int FirstRealLevel = 1;
+        private const int Blackjack = 21;
 
         // Текущая раздача
         private int currentIndex = -1;
@@ -37,7 +39,7 @@ namespace CardThrow
         // Забег
         private int score;
         private int suspicion;
-        private bool tutorialDone;          // поле экземпляра: живёт ровно до выхода из Play
+        private bool tutorialDone;          // поле экземпляра: сбрасывается при каждом новом запуске Play
         private ThrowOutcome lastOutcome;
 
         private bool IsInRun => State != GameState.Title && State != GameState.GameOver && State != GameState.Victory;
@@ -52,7 +54,7 @@ namespace CardThrow
             if (settings == null || levelManager == null || dealerHand == null || aimController == null || cardFlight == null)
             {
                 Debug.LogError("[CT] GameManager: не заполнены ссылки в инспекторе (settings, levelManager, dealerHand, aimController, cardFlight)", this);
-                enabled = false;
+                enabled = false; // Start/Update/OnEnable не вызовутся — вместо потока NullReference одна понятная ошибка
             }
         }
 
@@ -76,6 +78,7 @@ namespace CardThrow
         private void Start()
         {
             // Все OnEnable (подписки UI) уже выполнены → экраны получат StateChanged(Title)
+            LoadBackgroundLevel();
             SetState(GameState.Title);
         }
 
@@ -93,10 +96,14 @@ namespace CardThrow
         {
             if (!isActiveAndEnabled) return;
             CancelPending();
-            ResetRunStats();
 
-            int first = tutorialDone ? FirstRealLevel : 0;
-            if (first >= levelManager.HandCount) first = 0;
+            score = 0;
+            suspicion = 0;
+            GameEvents.RaiseScoreChanged(score);
+            GameEvents.RaiseSuspicionChanged(suspicion, settings.maxSuspicion);
+
+            int first = tutorialDone ? FirstRealLevel : TutorialLevel;
+            if (first >= levelManager.HandCount) first = TutorialLevel;
             LoadLevel(first, false);
         }
 
@@ -116,6 +123,7 @@ namespace CardThrow
             LoadLevel(FirstRealLevel, false);
         }
 
+        // Отладка (Shift+0..3): сбрасывает подозрение, очки не трогает
         public void DebugLoadHand(int index)
         {
             if (!isActiveAndEnabled) return;
@@ -126,7 +134,8 @@ namespace CardThrow
             }
             Debug.Log($"[CT] DebugLoadHand({index})");
             CancelPending();
-            ResetRunStats();
+            suspicion = 0;
+            GameEvents.RaiseSuspicionChanged(suspicion, settings.maxSuspicion);
             LoadLevel(index, false);
         }
 
@@ -137,7 +146,7 @@ namespace CardThrow
         {
             GameState prev = State;
             State = next;
-            Debug.Log($"[CT] State: {prev} -> {next}");
+            Debug.Log(prev == next ? $"[CT] State: {next}" : $"[CT] State: {prev} -> {next}");
             GameEvents.RaiseStateChanged(next);
 
             // Инвариант: ввод игрока включён только в Aiming
@@ -201,8 +210,9 @@ namespace CardThrow
             else SetState(GameState.Victory);
         }
 
-        // ---------- Старт уровня (порядок из 5.4) ----------
+        // ---------- Загрузка уровня ----------
 
+        // Порядок из 5.4
         private void LoadLevel(int index, bool isRetry)
         {
             int prevSelected = dealerHand.SelectedIndex;
@@ -233,6 +243,22 @@ namespace CardThrow
             if (!level.IsTutorial) GameEvents.RaiseTimerChanged(timeRemaining, level.TimeLimit); // полная полоса на баннере
 
             SetState(GameState.HandIntro);
+        }
+
+        // Фон под титульным экраном: стол уровня 1 без баннера, подсказки и таймера; ввод выключен
+        private void LoadBackgroundLevel()
+        {
+            int index = levelManager.HandCount > FirstRealLevel ? FirstRealLevel : TutorialLevel;
+            LevelConfig level = levelManager.LoadHand(index);
+            if (level == null) return;
+
+            currentIndex = index;
+            CurrentLevel = level;
+            CacheSeats(level);
+
+            dealerHand.SetCards(level.CardValues);
+            cardFlight.ResetCard();
+            if (partnerSeat != null) partnerSeat.SetScore(level.PartnerStartScore);
         }
 
         // Один раз при загрузке уровня (не в Update): напарник + список соперников этого префаба
@@ -302,7 +328,7 @@ namespace CardThrow
             switch (report.result)
             {
                 case FlightResult.LandedInPartnerZone:
-                    outcome = CurrentLevel.PartnerStartScore + report.cardValue == 21 ? ThrowOutcome.Success : ThrowOutcome.WrongValue;
+                    outcome = CurrentLevel.PartnerStartScore + report.cardValue == Blackjack ? ThrowOutcome.Success : ThrowOutcome.WrongValue;
                     break;
                 case FlightResult.HitBreakable: outcome = ThrowOutcome.HitBreakable; break;
                 case FlightResult.EnteredOpponentZone: outcome = ThrowOutcome.OpponentCaught; break;
@@ -313,7 +339,7 @@ namespace CardThrow
             int gained = 0;
             if (outcome == ThrowOutcome.Success)
             {
-                if (partnerSeat != null) partnerSeat.SetScore(21);
+                if (partnerSeat != null) partnerSeat.SetScore(Blackjack);
                 if (!IsTutorial)
                 {
                     gained = CalculateScore(report);
@@ -351,7 +377,7 @@ namespace CardThrow
             Debug.Log($"[CT] Outcome: {outcome} (+{gained})");
             GameEvents.RaiseThrowResolved(outcome, gained);
 
-            if (outcome == ThrowOutcome.Success || IsTutorial) // в обучении провал без штрафа
+            if (outcome == ThrowOutcome.Success || IsTutorial) // в обучении любой провал — без штрафа и без GameOver
             {
                 SetState(GameState.HandResult);
                 return;
@@ -370,14 +396,6 @@ namespace CardThrow
 
         // ---------- Вспомогательное ----------
 
-        private void ResetRunStats()
-        {
-            score = 0;
-            suspicion = 0;
-            GameEvents.RaiseScoreChanged(score);
-            GameEvents.RaiseSuspicionChanged(suspicion, settings.maxSuspicion);
-        }
-
         // Отменяет все отложенные переходы и возвращает нормальное время (на случай рестарта во время slow-mo)
         private void CancelPending()
         {
@@ -391,23 +409,83 @@ namespace CardThrow
             dealerHand.SetInteractable(value);
         }
 
+        // ---------- Горячие клавиши ----------
+        // В редакторе Input System получает клавиатуру только когда окно Game в фокусе,
+        // поэтому всё, что здесь есть, дублируется кнопками UI (StartRun/RestartRun).
+
         private void HandleHotkeys()
         {
             Keyboard kb = Keyboard.current;
             if (kb == null) return;
 
+#if UNITY_EDITOR
+            if (kb.shiftKey.isPressed && HandleDebugHotkeys(kb)) return;
+#endif
+
+            if (State == GameState.Title)
+            {
+                if (kb.spaceKey.wasPressedThisFrame || kb.enterKey.wasPressedThisFrame || kb.numpadEnterKey.wasPressedThisFrame)
+                    StartRun();
+                return; // R и Tab на титульном экране не работают
+            }
+
             if (kb.rKey.wasPressedThisFrame) { RestartRun(); return; }
-            if (kb.tabKey.wasPressedThisFrame && IsTutorial && IsInRun) { SkipTutorial(); return; }
+            if (kb.tabKey.wasPressedThisFrame) SkipTutorial(); // внутри проверка: только во время обучения
+        }
 
 #if UNITY_EDITOR
-            if (kb.shiftKey.isPressed)
-            {
-                if (kb.digit0Key.wasPressedThisFrame) DebugLoadHand(0);
-                else if (kb.digit1Key.wasPressedThisFrame) DebugLoadHand(1);
-                else if (kb.digit2Key.wasPressedThisFrame) DebugLoadHand(2);
-                else if (kb.digit3Key.wasPressedThisFrame) DebugLoadHand(3);
-            }
-#endif
+        private bool HandleDebugHotkeys(Keyboard kb)
+        {
+            if (kb.digit0Key.wasPressedThisFrame) { DebugLoadHand(0); return true; }
+            if (kb.digit1Key.wasPressedThisFrame) { DebugLoadHand(1); return true; }
+            if (kb.digit2Key.wasPressedThisFrame) { DebugLoadHand(2); return true; }
+            if (kb.digit3Key.wasPressedThisFrame) { DebugLoadHand(3); return true; }
+            if (kb.sKey.wasPressedThisFrame) { DebugFakeFlight(true); return true; }
+            if (kb.fKey.wasPressedThisFrame) { DebugFakeFlight(false); return true; }
+            return false;
         }
+
+        // Shift+S — «карта легла к напарнику, номинал правильный»; Shift+F — «задела бутылку».
+        // Идёт через те же события, что и настоящий бросок, поэтому проверяет весь конвейер: UI, обучение, звук.
+        private void DebugFakeFlight(bool success)
+        {
+            if (CurrentLevel == null || (State != GameState.Aiming && State != GameState.Flying)) return;
+
+            int correct = CurrentLevel.CorrectCardIndex;
+            int value = success
+                ? (correct >= 0 ? CurrentLevel.CardValues[correct] : Blackjack - CurrentLevel.PartnerStartScore)
+                : dealerHand.SelectedValue;
+
+            Debug.Log($"[CT] DEBUG fake flight: {(success ? "Success" : "HitBreakable")}");
+
+            if (State == GameState.Aiming)
+            {
+                GameEvents.RaiseCardThrown(new ThrowParams
+                {
+                    origin = Vector2.zero,
+                    direction = Vector2.up,
+                    power01 = 0.5f,
+                    spinStep = 0,
+                    cardValue = value
+                }); // → OnCardThrown → Flying
+            }
+            else
+            {
+                cardFlight.ResetCard(); // настоящий полёт идёт — останавливаем, чтобы не пришёл второй отчёт
+            }
+
+            Vector2 finalPos = (success && partnerSeat != null && partnerSeat.Zone != null) ? partnerSeat.Zone.Center : Vector2.zero;
+            GameEvents.RaiseCardFlightFinished(new FlightReport
+            {
+                result = success ? FlightResult.LandedInPartnerZone : FlightResult.HitBreakable,
+                finalPosition = finalPos,
+                ricochets = 0,
+                spinStep = 0,
+                cardValue = value,
+                zoneAccuracy01 = success ? 1f : 0f,
+                bonusPickups = 0
+            }); // → OnCardFlightFinished → Resolve
+        }
+#endif
     }
 }

@@ -280,12 +280,8 @@ namespace CardThrow.EditorTools
         // чтобы скрипт компилировался даже если пакета URP нет.
         private static void AddGlobalLight2D()
         {
-            Type t = null;
-            foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
-            {
-                t = asm.GetType("UnityEngine.Rendering.Universal.Light2D");
-                if (t != null) break;
-            }
+            // Полное имя типа + имя сборки URP 2D: null, если пакета нет (без перебора всех сборок домена)
+            Type t = Type.GetType("UnityEngine.Rendering.Universal.Light2D, Unity.RenderPipelines.Universal.2D.Runtime");
             if (t == null) return;
             GameObject go = new GameObject("Global Light 2D");
             Component light = go.AddComponent(t);
