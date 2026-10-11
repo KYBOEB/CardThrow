@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52aaf08ebf2d6dd448e9798151e75fd7, type: 3}
   m_Name: FlightSettings
   m_EditorClassIdentifier: Assembly-CSharp::CardThrow.FlightSettings
-  maxSpeed: 21
+  maxSpeed: 23
   minPower: 0.12
   maxDragDistance: 2
   linearDrag: 0.8
