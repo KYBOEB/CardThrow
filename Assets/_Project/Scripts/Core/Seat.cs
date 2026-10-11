@@ -29,10 +29,18 @@ namespace CardThrow
         [SerializeField] private Transform visualRoot;
         [Tooltip("Масштаб фигуры игрока (спрайты 1.6×1.2 ед. при PPU 200)")]
         [SerializeField] private float visualScale = 1.6f;
-        [Tooltip("На сколько единиц фигура отодвигается от точки Seat в сторону ОТ стола")]
+        [Tooltip("Запасной вариант, если край стола не найден: сдвиг фигуры от точки Seat в сторону ОТ стола")]
         [SerializeField] private float pushBack = 1.65f;
-        [Tooltip("Смещение счёта от точки Seat в сторону ОТ стола (0 = на краю сукна перед игроком)")]
-        [SerializeField] private float labelPushBack = 0f;
+        [Tooltip("Насколько руки заходят за внешний край стола (бортик ≈ 0.45 ед.). Фигура ставится от края стола, а не от точки Seat")]
+        [SerializeField] private float handsOnTable = 0.6f;
+        [Tooltip("Половина длины спрайта тела вдоль «руки→кресло» до масштаба: player_body 240 px / PPU 200 / 2")]
+        [SerializeField] private float bodyHalfLength = 0.6f;
+        [Tooltip("Слой триггера TableSurface (CONTEXT §4)")]
+        [SerializeField] private LayerMask tableMask = 1 << 9;
+        [Tooltip("Счёт рисуется поверх зоны карт игрока (его «стопка»). Сдвиг от центра зоны к игроку")]
+        [SerializeField] private float labelOffsetOnZone = 0f;
+        [Tooltip("Половина размера стола (CONTEXT §4: 19 × 9.5). По ней выбирается ближайший край — туда игрок и садится")]
+        [SerializeField] private Vector2 tableHalfSize = new Vector2(9.5f, 4.75f);
 
         [Header("Зона на столе (D3)")]
         [Tooltip("SpriteRenderer внутри Zone (ZoneVisual). Размер подгоняется под BoxCollider2D зоны")]
@@ -155,19 +163,34 @@ namespace CardThrow
         // Seat в раздачах не повёрнут и не масштабирован (rotation 0, scale 1) — считаем в локальных координатах.
         private void LayoutAtTable()
         {
-            if (zone == null) return;
-            Vector2 toTable = zone.transform.localPosition;
-            if (toTable.sqrMagnitude < 0.0001f) return;
-            Vector2 dir = toTable.normalized;
+            // Направление «к столу» = нормаль ближайшего края стола (центр стола в (0,0), CONTEXT §4).
+            // Не зависит от того, где стоит зона: Егор может двигать зоны к игрокам, игрок не развернётся.
+            Vector2 p = transform.position;
+            Vector2 dir = Mathf.Abs(p.x) / tableHalfSize.x > Mathf.Abs(p.y) / tableHalfSize.y
+                ? new Vector2(-Mathf.Sign(p.x), 0f)
+                : new Vector2(0f, p.y == 0f ? 1f : -Mathf.Sign(p.y));
 
             if (visualRoot != null)
             {
                 float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f; // спрайт нарисован руками вверх
                 visualRoot.localRotation = Quaternion.Euler(0f, 0f, angle);
-                visualRoot.localPosition = -dir * pushBack;
                 visualRoot.localScale = Vector3.one * visualScale;
+                visualRoot.localPosition = -dir * pushBack; // запасной вариант
+
+                // Ищем внешний край стола: луч снаружи к Seat по направлению «к столу» попадает в триггер TableSurface.
+                // Тогда любая фигура (сверху, снизу, напарник у торца) садится ровно к бортику, где бы Егор ни поставил Seat.
+                Vector2 seatPos = transform.position;
+                const float probe = 30f;
+                RaycastHit2D hit = Physics2D.Raycast(seatPos - dir * probe, dir, probe * 2f, tableMask);
+                if (hit.collider != null)
+                {
+                    float back = bodyHalfLength * visualScale - handsOnTable; // центр фигуры за краем стола
+                    visualRoot.position = hit.point - dir * back;
+                }
             }
-            if (scoreLabel != null) scoreLabel.transform.localPosition = -dir * labelPushBack; // текст не поворачиваем
+            // Счёт — на зоне карт игрока (текст не поворачиваем, чтобы читался)
+            if (scoreLabel != null && zone != null)
+                scoreLabel.transform.position = zone.transform.position - (Vector3)(dir * labelOffsetOnZone);
         }
 
         // Спрайт зоны по роли + размер по коллайдеру (Егор меняет размер зоны в каждой раздаче)

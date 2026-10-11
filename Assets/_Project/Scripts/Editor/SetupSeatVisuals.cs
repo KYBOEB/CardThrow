@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace CardThrow.EditorTools
 {
-    // Меню  CardThrow → «Seat: обновить префаб (зоны + посадка за столом)».
+    // Меню  CardThrow → «Посадка игроков: обновить (Seat + камера)».
     // Дописывает в Prefabs/Seats/Seat.prefab дочерний объект Zone/ZoneVisual (SpriteRenderer)
     // и заполняет новые поля Seat. НЕ пересобирает префаб: правки Егора в раздачах (позиции, размеры зон)
     // сохраняются, а новый объект сам появится во всех Hand_0N, потому что они — экземпляры Seat.prefab.
@@ -18,7 +18,7 @@ namespace CardThrow.EditorTools
         private const string FigureName = "Visual";
         private static readonly string[] FigureParts = { "Body", "Head", "PartnerGlow" };
 
-        [MenuItem("CardThrow/Seat: обновить префаб (зоны + посадка за столом)")]
+        [MenuItem("CardThrow/Посадка игроков: обновить (Seat + камера)")]
         public static void Run()
         {
             if (EditorApplication.isPlaying)
@@ -80,6 +80,8 @@ namespace CardThrow.EditorTools
             {
                 PrefabUtility.UnloadPrefabContents(root);
             }
+
+            FitCameraForSeats.Run(); // камера под посадку за столом (24×14) — одним пунктом меню
         }
 
         private static void Set(SerializedObject so, string field, Object value)
