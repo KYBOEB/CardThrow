@@ -80,7 +80,7 @@ MonoBehaviour:
   isTutorial: 0
   handTitle: "\u0423\u0440\u043E\u0432\u0435\u043D\u044C"
   hint: 
-  partnerSeat: {fileID: 8015296729368968875}
+  partnerSeat: {fileID: 6834995867890044494}
   partnerStartScore: 14
   cardValues: 050000000700000009000000i
   timeLimit: 20
@@ -115,7 +115,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5996289839505323591}
-  - {fileID: 3086622878448877489}
+  - {fileID: 7120715173048207010}
   - {fileID: 8216652095604827456}
   m_Father: {fileID: 1019364039311196987}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -262,12 +262,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c773cd27d2749b141a9dac8e31fa07b1, type: 3}
---- !u!4 &3086622878448877489 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5189342620719790354, guid: c773cd27d2749b141a9dac8e31fa07b1, type: 3}
-  m_PrefabInstance: {fileID: 3086622878448877488}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &8015296729368968875 stripped
+--- !u!114 &6834995867890044494 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8362951002656125438, guid: c773cd27d2749b141a9dac8e31fa07b1, type: 3}
   m_PrefabInstance: {fileID: 3086622878448877488}
@@ -278,6 +273,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89dc02aad0783d444b3183ba9f632a3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardThrow.Seat
+--- !u!4 &7120715173048207010 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5189342620719790354, guid: c773cd27d2749b141a9dac8e31fa07b1, type: 3}
+  m_PrefabInstance: {fileID: 3086622878448877488}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4180279517068303442
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -3733,10 +3733,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardThrow.LevelManager
   hands:
-  - {fileID: 7231780634492830031, guid: c33d6d103fb693540a73557e8bd1d417, type: 3}
-  - {fileID: 7231780634492830031, guid: 84fe9cf72e4b9b446b2452e1c849789b, type: 3}
-  - {fileID: 7231780634492830031, guid: a8656f51af2195043a7e2881c9424a8f, type: 3}
-  - {fileID: 7231780634492830031, guid: 15d8ba316181b4f48b8cb29677db5144, type: 3}
+  - {fileID: 7231780634492830031, guid: a0707165de46113438e5f0bd6df6b1f2, type: 3}
+  - {fileID: 7231780634492830031, guid: 50138c74ad63edf4180e59e6e42cea38, type: 3}
+  - {fileID: 7231780634492830031, guid: b985b57b289fdbb418303429e1cd6d48, type: 3}
+  - {fileID: 7231780634492830031, guid: f176cdf07486de949b833edb039eee1e, type: 3}
   levelRoot: {fileID: 994248618}
 --- !u!1 &910252853
 GameObject:
