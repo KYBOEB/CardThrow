@@ -78,3 +78,5 @@ crashlytics-build.properties
 # IDE (настройки у каждого свои)
 .vscode/
 .idea/
+
+CLAUDE.md
