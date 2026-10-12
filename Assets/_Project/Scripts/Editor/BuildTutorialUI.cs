@@ -72,16 +72,17 @@ namespace CardThrow.EditorTools
             row.childControlWidth = row.childControlHeight = false;
             row.childForceExpandWidth = row.childForceExpandHeight = false;
 
-            GameObject keyA = Tint(NewImage("Key_A", icons, "icon_key_a", new Vector2(KeySize, KeySize))).gameObject;
-            GameObject keyD = Tint(NewImage("Key_D", icons, "icon_key_d", new Vector2(KeySize, KeySize))).gameObject;
-            GameObject wheel = Tint(NewImage("MouseWheel", icons, "icon_mouse_wheel", new Vector2(MouseSize, MouseSize))).gameObject;
-            GameObject keyQ = Tint(NewImage("Key_Q", icons, "icon_key_q", new Vector2(KeySize, KeySize))).gameObject;
-            GameObject keyE = Tint(NewImage("Key_E", icons, "icon_key_e", new Vector2(KeySize, KeySize))).gameObject;
+            // Клавиши и мышь — цветные бордово-золотые спрайты, их не тонируем (IconTint был для белых заглушек)
+            GameObject keyA = NewImage("Key_A", icons, "icon_key_a", new Vector2(KeySize, KeySize)).gameObject;
+            GameObject keyD = NewImage("Key_D", icons, "icon_key_d", new Vector2(KeySize, KeySize)).gameObject;
+            GameObject wheel = NewImage("MouseWheel", icons, "icon_mouse_wheel", new Vector2(MouseSize, MouseSize)).gameObject;
+            GameObject keyQ = NewImage("Key_Q", icons, "icon_key_q", new Vector2(KeySize, KeySize)).gameObject;
+            GameObject keyE = NewImage("Key_E", icons, "icon_key_e", new Vector2(KeySize, KeySize)).gameObject;
 
             // Слот нужен, чтобы Layout Group двигал слот, а код анимировал иконку внутри
             RectTransform dragSlot = NewRect("MouseDragSlot", icons);
             dragSlot.sizeDelta = new Vector2(MouseSize, MouseSize);
-            Image drag = Tint(NewImage("MouseDrag", dragSlot, "icon_mouse_drag", new Vector2(MouseSize, MouseSize)));
+            Image drag = NewImage("MouseDrag", dragSlot, "icon_mouse_drag", new Vector2(MouseSize, MouseSize)); // цветной спрайт — без тинта
             drag.rectTransform.anchorMin = drag.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
             drag.rectTransform.anchoredPosition = Vector2.zero;
 
