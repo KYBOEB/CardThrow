@@ -1,4 +1,4 @@
-using TMPro;
+﻿using TMPro;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -103,6 +103,17 @@ namespace CardThrow.EditorTools
             // Фейерверки по бокам от панели (под панелью, над затемнением)
             RectTransform left = Side(victory, "FireworksLeft", 0f);
             RectTransform right = Side(victory, "FireworksRight", 1f);
+
+            // Хостес слева у нижнего края экрана, поверх фейерверка и края панели (рука «выглядывает» на панель)
+            Image hostess = GetOrAdd<Image>(FindOrCreate("Hostess", victory));
+            hostess.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(CharDir + "hostess.png");
+            hostess.preserveAspect = true;
+            hostess.raycastTarget = false;
+            RectTransform hr = hostess.rectTransform;
+            hr.anchorMin = hr.anchorMax = hr.pivot = Vector2.zero;
+            hr.anchoredPosition = new Vector2(-10f, 0f);
+            hr.sizeDelta = new Vector2(470f, 705f);
+            hr.SetAsLastSibling();
 
             AudioSource src = GetOrAdd<AudioSource>(victory);
             src.playOnAwake = false; src.loop = false; src.spatialBlend = 0f;
