@@ -6,13 +6,25 @@ namespace CardThrow
     // поэтому разбитые предметы и разлетевшиеся фишки восстанавливаются автоматически.
     public class LevelManager : MonoBehaviour
     {
-        [SerializeField] private LevelConfig[] hands;   // Hand_01..Hand_08 по порядку
+        [Tooltip("По порядку: сначала раздачи обучения (IsTutorial), потом уровни. Например Hand_00, Hand_00b, Hand_00c, Hand_01…")]
+        [SerializeField] private LevelConfig[] hands;
         [SerializeField] private Transform levelRoot;
 
         private LevelConfig current;
 
         public int HandCount => hands != null ? hands.Length : 0;
         public LevelConfig Current => current;
+
+        // Сколько раздач в начале списка — обучение. Первая обычная раздача = этот индекс.
+        public int TutorialCount
+        {
+            get
+            {
+                int n = 0;
+                while (n < HandCount && hands[n] != null && hands[n].IsTutorial) n++;
+                return n;
+            }
+        }
 
         public LevelConfig LoadHand(int index)
         {
