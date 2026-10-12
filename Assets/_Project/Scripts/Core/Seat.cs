@@ -46,6 +46,8 @@ namespace CardThrow
         [Header("Зона на столе (D3)")]
         [Tooltip("SpriteRenderer внутри Zone (ZoneVisual). Размер подгоняется под BoxCollider2D зоны")]
         [SerializeField] private SpriteRenderer zoneVisual;
+        [Tooltip("Зона не заходит на бортик: её внешний край — не ближе этого к краю стола (ед.). Лишнее обрезается и у коллайдера")]
+        [SerializeField] private float zoneRailInset = 0.5f;
         [SerializeField] private Sprite partnerZoneSprite;     // Table/zone_partner
         [SerializeField] private Sprite opponentZoneSprite;    // Table/zone_opponent
         [Tooltip("Прозрачность зоны соперника вне прицеливания")]
@@ -105,6 +107,8 @@ namespace CardThrow
         private bool caught;     // карта в его зоне — «Шулер!»: тревога держится до новой раздачи
         private Collider2D zoneCollider;
         private Vector2 tableDir = Vector2.up;  // «к столу» (считается в LayoutAtTable)
+        private Vector2 tableEdgePoint;         // точка края стола напротив места (луч в LayoutAtTable)
+        private bool hasTableEdge;
 
         // Официантка: появляется, пока соперник отвернулся, уходит, когда он поворачивается обратно
         private SpriteRenderer waitress;
@@ -297,6 +301,8 @@ namespace CardThrow
                 RaycastHit2D hit = Physics2D.Raycast(seatPos - dir * probe, dir, probe * 2f, tableMask);
                 if (hit.collider != null)
                 {
+                    tableEdgePoint = hit.point;
+                    hasTableEdge = true;
                     float back = bodyHalfLength * visualScale - handsOnTable; // центр фигуры за краем стола
                     visualRoot.position = hit.point - dir * back;
                 }
@@ -371,10 +377,35 @@ namespace CardThrow
             BoxCollider2D box = zone.GetComponent<BoxCollider2D>();
             if (box == null) return;
 
+            ClipZoneToTable(box);
             Vector2 spriteSize = zoneVisual.sprite.bounds.size;
             if (spriteSize.x <= 0f || spriteSize.y <= 0f) return;
             zoneVisual.transform.localPosition = box.offset;
             zoneVisual.transform.localScale = new Vector3(box.size.x / spriteSize.x, box.size.y / spriteSize.y, 1f);
+        }
+
+        // Зона, заходящая за край стола, бесполезна (карта там уже «улетела со стола») и некрасиво лежит на бортике.
+        // Обрезаем её со стороны игрока до края сукна; коллайдер и картинка остаются одинаковыми.
+        private void ClipZoneToTable(BoxCollider2D box)
+        {
+            if (!hasTableEdge) return;
+            bool horizontal = Mathf.Abs(tableDir.x) > 0.5f;
+            int axis = horizontal ? 0 : 1;
+            float d = horizontal ? tableDir.x : tableDir.y;                // +1/−1: куда «к столу»
+            Vector2 center = (Vector2)zone.transform.position + box.offset; // зона не повёрнута и без масштаба (как в префабе)
+            float half = box.size[axis] * 0.5f;
+            float outer = center[axis] - d * half;                         // край зоны со стороны игрока
+            float limit = tableEdgePoint[axis] + d * zoneRailInset;        // дальше этого — бортик
+            float excess = (limit - outer) * d;                            // > 0 — зона залезла на бортик
+            if (excess <= 0f) return;
+
+            excess = Mathf.Min(excess, box.size[axis] - 0.4f);            // совсем в ноль не схлопываем
+            Vector2 size = box.size;
+            Vector2 offset = box.offset;
+            size[axis] -= excess;
+            offset[axis] += d * excess * 0.5f;                             // внутренний край зоны остаётся на месте
+            box.size = size;
+            box.offset = offset;
         }
 
         private void UpdateZoneVisual(float t)
