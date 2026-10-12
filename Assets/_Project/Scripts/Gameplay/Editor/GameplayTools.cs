@@ -303,6 +303,36 @@ namespace CardThrow
             Selection.activeObject = AssetDatabase.LoadAssetAtPath<GameObject>(ChipsPath);
         }
 
+        // ---------- 7. Движущаяся бутылка (вариант префаба Bottle) ----------
+
+        private const string BottleTossPath = ObstacleFolder + "/BottleToss.prefab";
+
+        [MenuItem("CardThrow/Алексей/7. Создать BottleToss (перекидка бутылки)")]
+        private static void CreateBottleToss()
+        {
+            if (AssetExists(BottleTossPath))
+            {
+                EditorUtility.DisplayDialog("Уже есть", "BottleToss.prefab уже создан. Настраивай его в инспекторе.", "OK");
+                return;
+            }
+
+            // Вариант префаба: всё, что меняется в Bottle (спрайт Кирилла, осколки), достанется и BottleToss
+            GameObject bottle = AssetDatabase.LoadAssetAtPath<GameObject>(BottlePath);
+            GameObject inst = (GameObject)PrefabUtility.InstantiatePrefab(bottle);
+            inst.name = "BottleToss";
+            Rigidbody2D rb = inst.AddComponent<Rigidbody2D>();
+            rb.bodyType = RigidbodyType2D.Kinematic;
+            rb.gravityScale = 0f;
+            rb.interpolation = RigidbodyInterpolation2D.Interpolate;
+            inst.AddComponent<ObstacleMover>();
+            PrefabUtility.SaveAsPrefabAsset(inst, BottleTossPath);
+            Object.DestroyImmediate(inst);
+
+            AssetDatabase.SaveAssets();
+            Debug.Log("[CT] Готово: " + BottleTossPath + " (вариант Bottle + ObstacleMover)");
+            Selection.activeObject = AssetDatabase.LoadAssetAtPath<GameObject>(BottleTossPath);
+        }
+
         // ---------- 3. Песочница ----------
 
         [MenuItem("CardThrow/Алексей/3. Собрать тестовый стол в открытой сцене")]

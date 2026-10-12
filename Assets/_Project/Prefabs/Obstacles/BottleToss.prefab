@@ -1,0 +1,116 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &6057027024663855804
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1205485014355005307, guid: 2381f99f95afa284a870d417623fe906, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205485014355005307, guid: 2381f99f95afa284a870d417623fe906, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205485014355005307, guid: 2381f99f95afa284a870d417623fe906, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205485014355005307, guid: 2381f99f95afa284a870d417623fe906, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205485014355005307, guid: 2381f99f95afa284a870d417623fe906, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205485014355005307, guid: 2381f99f95afa284a870d417623fe906, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205485014355005307, guid: 2381f99f95afa284a870d417623fe906, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205485014355005307, guid: 2381f99f95afa284a870d417623fe906, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205485014355005307, guid: 2381f99f95afa284a870d417623fe906, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205485014355005307, guid: 2381f99f95afa284a870d417623fe906, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6094833748812234665, guid: 2381f99f95afa284a870d417623fe906, type: 3}
+      propertyPath: m_Name
+      value: BottleToss
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6094833748812234665, guid: 2381f99f95afa284a870d417623fe906, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 937704022779253885}
+    - targetCorrespondingSourceObject: {fileID: 6094833748812234665, guid: 2381f99f95afa284a870d417623fe906, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6687842316725326000}
+  m_SourcePrefab: {fileID: 100100000, guid: 2381f99f95afa284a870d417623fe906, type: 3}
+--- !u!1 &43860603227618581 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6094833748812234665, guid: 2381f99f95afa284a870d417623fe906, type: 3}
+  m_PrefabInstance: {fileID: 6057027024663855804}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &937704022779253885
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43860603227618581}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 1
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &6687842316725326000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43860603227618581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee25491be5dd41248a07c71ab3199071, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CardThrow.ObstacleMover
+  pointA: {x: 0, y: -1.5}
+  pointB: {x: 0, y: 1.5}
+  speed: 2.5
+  pauseAtEnds: 0.8
+  phaseOffset: 0
+  airScale: 1.3
+  groundedMargin: 0.12
