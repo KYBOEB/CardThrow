@@ -279,9 +279,12 @@ namespace CardThrow
             ShowStepVisuals(step);
         }
 
-        // Подсказка про закрут: на столе есть бутылка, закрута нет, и игрок уже тянет карту (в части «Рикошет» — не нужна)
+        // Подсказка про закрут: на столе есть бутылка, игрок тянет карту (в части «Рикошет» — не нужна).
+        // Появляется, пока закрута нет, и ДЕРЖИТСЯ до отпускания ЛКМ: игрок крутит колесо/A-D и видит, как менять дальше
+        // (плейтест 12.10: подсказка пропадала после первого щелчка колеса). Сброс — aiming = false (бросок или отмена).
         private bool NeedsSpinHint() =>
-            lastSpin == 0 && aiming && bottleTarget != null && stage != TutorialStage.Ricochet;
+            aiming && bottleTarget != null && stage != TutorialStage.Ricochet &&
+            (lastSpin == 0 || currentStep == StepSpin);
 
         private bool IsCardStepDone()
         {

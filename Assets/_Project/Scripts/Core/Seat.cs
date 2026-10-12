@@ -80,11 +80,15 @@ namespace CardThrow
         [Header("Официантка отвлекает соперника (плейтест 12.10)")]
         [Tooltip("Characters/waitress.png. Пусто — соперник просто отворачивается, без официантки")]
         [SerializeField] private Sprite waitressSprite;
-        [Tooltip("Где стоит официантка: от головы игрока, в сторону его взгляда, но за краем стола (ед.)")]
-        [SerializeField] private float waitressDistance = 1.5f;
-        [SerializeField] private float waitressScale = 1f;
-        [Tooltip("Официантка стоит чуть «за плечом»: на столько градусов дальше, чем повёрнута голова")]
-        [SerializeField] private float waitressExtraAngle = 40f;
+        [Tooltip("Официантка стоит СБОКУ от соперника, вдоль края стола: столько ед. от центра его фигуры. " +
+                 "Фигура игрока ≈ 2.6 ед. в ширину, официантка ≈ 2 ед. → 2.4 — рядом, но не впритык")]
+        [SerializeField] private float waitressSide = 2.4f;
+        [Tooltip("…и на столько ед. дальше от стола, чем центр фигуры: на сукно она не заходит")]
+        [SerializeField] private float waitressBack = 0.7f;
+        [Tooltip("Спрайт уже подогнан PPU под игроков (Кирилл). 0.9 — чуть меньше игрока (0.7 выглядела ребёнком)")]
+        [SerializeField] private float waitressScale = 0.9f;
+        [Tooltip("Затемнение и прозрачность: официантка — фон, рисуется ПОД игроками")]
+        [SerializeField] private Color waitressTint = new Color(0.45f, 0.45f, 0.5f, 0.9f);
         [SerializeField] private float waitressEnterTime = 0.5f;
         [Tooltip("Карта влетела в зону этого соперника — он резко поворачивается к столу (градусов в секунду)")]
         [SerializeField] private float caughtTurnSpeed = 1440f;
@@ -113,6 +117,7 @@ namespace CardThrow
 
         // Официантка: появляется, пока соперник отвернулся, уходит, когда он поворачивается обратно
         private SpriteRenderer waitress;
+        private Vector2 sideDir = Vector2.right;  // куда отворачивается голова и где встаёт официантка
         private Vector3 waitressNear, waitressFar;
         private float waitressT, waitressTarget, waitressSpeed;
 
@@ -212,25 +217,51 @@ namespace CardThrow
         {
             if (waitressSprite == null || isPartner) return;
 
-            // Куда смотрит отвернувшийся игрок + немного «за плечо», чтобы официантка стояла за краем стола
-            float lookDeg = Mathf.Atan2(tableDir.y, tableDir.x) * Mathf.Rad2Deg + turnSign * (headTurnAngle + waitressExtraAngle);
-            Vector2 look = new Vector2(Mathf.Cos(lookDeg * Mathf.Deg2Rad), Mathf.Sin(lookDeg * Mathf.Deg2Rad));
-            Vector3 from = head != null ? head.position : transform.position;
-            waitressNear = from + (Vector3)(look * waitressDistance);
-            waitressFar = waitressNear + (Vector3)(look * 2.5f); // откуда приходит
+            // Сбоку от фигуры соперника и чуть дальше от стола: «подошла к его плечу из зала».
+            Vector3 figure = visualRoot != null ? visualRoot.position : transform.position - (Vector3)(tableDir * pushBack);
+            waitressNear = figure + (Vector3)(sideDir * waitressSide - tableDir * waitressBack);
+            waitressFar = waitressNear + (Vector3)(sideDir * 1.5f); // приходит сбоку, из зала
 
             GameObject go = new GameObject("Waitress");
             go.transform.SetParent(transform, true);
-            go.transform.rotation = Quaternion.Euler(0f, 0f, lookDeg + 90f); // лицом к игроку (спрайт нарисован «вверх»)
+            Vector2 toPlayer = (Vector2)(figure - waitressNear);
+            float faceDeg = Mathf.Atan2(toPlayer.y, toPlayer.x) * Mathf.Rad2Deg - 90f; // спрайт нарисован «вверх»
+            go.transform.rotation = Quaternion.Euler(0f, 0f, faceDeg);
             go.transform.localScale = Vector3.one * waitressScale;
             waitress = go.AddComponent<SpriteRenderer>();
             waitress.sprite = waitressSprite;
+            // Поднос у неё в правой руке. Если правая рука смотрит на стол — зеркалим: поднос всегда со стороны зала,
+            // а не над бортиком (плейтест 12.10)
+            float rad = faceDeg * Mathf.Deg2Rad;
+            Vector2 spriteRight = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
+            waitress.flipX = Vector2.Dot(spriteRight, tableDir) > 0f;
             if (bodyRenderer != null)
             {
                 waitress.sortingLayerID = bodyRenderer.sortingLayerID;
-                waitress.sortingOrder = bodyRenderer.sortingOrder + 2;
+                waitress.sortingOrder = bodyRenderer.sortingOrder - 1; // второй план: под телами всех игроков
             }
             ApplyWaitress();
+        }
+
+        // Направление «вбок вдоль края стола», куда смотрит голова при данном знаке поворота
+        // (поворот tableDir на ±90°; +1 — против часовой, как и поворот головы)
+        private Vector2 SideFor(float sign) =>
+            sign > 0f ? new Vector2(-tableDir.y, tableDir.x) : new Vector2(tableDir.y, -tableDir.x);
+
+        // Сидит ли с этой стороны сосед по тому же краю стола ближе, чем нужно официантке
+        private bool SideBlocked(Vector2 side)
+        {
+            if (transform.parent == null) return false;
+            Vector2 me = transform.position;
+            foreach (Seat other in transform.parent.GetComponentsInChildren<Seat>(true))
+            {
+                if (other == this) continue;
+                Vector2 d = (Vector2)other.transform.position - me;
+                float along = Vector2.Dot(d, side);
+                float across = Mathf.Abs(Vector2.Dot(d, tableDir));
+                if (across < 1.5f && along > 0f && along < waitressSide + 0.9f) return true;
+            }
+            return false;
         }
 
         private void MoveWaitress(bool come, float duration)
@@ -244,8 +275,8 @@ namespace CardThrow
         {
             float k = waitressT * waitressT * (3f - 2f * waitressT); // плавный старт и остановка
             waitress.transform.position = Vector3.Lerp(waitressFar, waitressNear, k);
-            Color c = waitress.color;
-            c.a = k;
+            Color c = waitressTint;
+            c.a = waitressTint.a * k;
             waitress.color = c;
             waitress.enabled = waitressT > 0.001f;
         }
@@ -288,6 +319,10 @@ namespace CardThrow
             // Поэтому снизу знак минус: все отворачиваются от крупье (он слева), будто смотрят в зал.
             tableDir = dir;
             turnSign = dir.y <= 0f ? 1f : -1f;
+            // Официантке нужно свободное место сбоку. Если с «правильной» стороны сидит сосед, а с другой пусто —
+            // отворачиваемся в другую сторону (голова всегда смотрит туда, где официантка)
+            if (!isPartner && SideBlocked(SideFor(turnSign)) && !SideBlocked(SideFor(-turnSign))) turnSign = -turnSign;
+            sideDir = SideFor(turnSign);
 
             if (visualRoot != null)
             {

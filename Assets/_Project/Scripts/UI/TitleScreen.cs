@@ -18,6 +18,8 @@ namespace CardThrow
         [SerializeField] private Button playButton;
         [SerializeField] private TMP_Text playLabel;
         [SerializeField] private TMP_Text highScoreLabel;
+        [Tooltip("Табличка рекорда (фон + рамка + текст). Пусто — прячется только текст")]
+        [SerializeField] private GameObject highScoreRoot;
         [SerializeField] private float fadeDuration = 0.25f;
 
         [Header("Кнопка «дышит», чтобы её заметили")]
@@ -87,7 +89,8 @@ namespace CardThrow
         {
             if (highScoreLabel == null || texts == null) return;
             int best = SaveSystem.HighScore;
-            highScoreLabel.gameObject.SetActive(best > 0); // «Рекорд: 0» на первом запуске не показываем
+            GameObject root = highScoreRoot != null ? highScoreRoot : highScoreLabel.gameObject;
+            root.SetActive(best > 0); // «Рекорд: 0» на первом запуске не показываем — вместе с табличкой
             highScoreLabel.text = string.Format(texts.highScoreFormat, UiTexts.FormatNumber(best));
         }
     }

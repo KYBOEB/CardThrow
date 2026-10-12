@@ -20,6 +20,9 @@ namespace CardThrow.EditorTools
         private const string FigureName = "Visual";
         private static readonly string[] FigureParts = { "Body", "Head", "PartnerGlow" };
         private const float FigureScale = 2.0f; // фигура игрока 3.2 × 2.4 ед. — читается рядом со столом 19 × 9.5
+        private const float WaitressScale = 0.9f; // waitress.png уже подогнан PPU 193 под игроков (Кирилл); 0.9 — чуть меньше игрока
+        private const float WaitressSide = 2.4f;  // сбоку от соперника, не впритык (фигура ≈ 2.6 ед., официантка ≈ 2 ед.)
+        private const float WaitressBack = 0.7f;  // дальше от стола, чем центр фигуры
 
         [MenuItem("CardThrow/Посадка игроков: обновить (Seat + камера)")]
         public static void Run()
@@ -87,7 +90,12 @@ namespace CardThrow.EditorTools
                 SerializedProperty scale = so.FindProperty("visualScale");
                 if (scale != null) scale.floatValue = FigureScale;
                 SerializedProperty wScale = so.FindProperty("waitressScale");
-                if (wScale != null) wScale.floatValue = FigureScale; // официантка того же масштаба, что и игроки
+                if (wScale != null) wScale.floatValue = WaitressScale; // НЕ FigureScale: размер уже задан PPU спрайта
+                // Префаб хранит свои значения — дефолты из Seat.cs его не перебивают, поэтому прописываем явно
+                SerializedProperty wSide = so.FindProperty("waitressSide");
+                if (wSide != null) wSide.floatValue = WaitressSide;
+                SerializedProperty wBack = so.FindProperty("waitressBack");
+                if (wBack != null) wBack.floatValue = WaitressBack;
                 so.ApplyModifiedPropertiesWithoutUndo();
 
                 PrefabUtility.SaveAsPrefabAsset(root, SeatPath);
