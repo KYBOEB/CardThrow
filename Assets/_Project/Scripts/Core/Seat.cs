@@ -46,6 +46,8 @@ namespace CardThrow
         [Header("Зона на столе (D3)")]
         [Tooltip("SpriteRenderer внутри Zone (ZoneVisual). Размер подгоняется под BoxCollider2D зоны")]
         [SerializeField] private SpriteRenderer zoneVisual;
+        [Tooltip("Зона не заходит на бортик: её внешний край — не ближе этого к краю стола (ед.). Лишнее обрезается и у коллайдера")]
+        [SerializeField] private float zoneRailInset = 0.5f;
         [SerializeField] private Sprite partnerZoneSprite;     // Table/zone_partner
         [SerializeField] private Sprite opponentZoneSprite;    // Table/zone_opponent
         [Tooltip("Прозрачность зоны соперника вне прицеливания")]
@@ -74,6 +76,18 @@ namespace CardThrow
         [Tooltip("Диапазон счёта соперника, включительно. 21 не берём — у соперника не должно быть «блэкджека»")]
         [SerializeField] private Vector2Int opponentScoreRange = new Vector2Int(12, 20);
 
+        [Header("Официантка отвлекает соперника (плейтест 12.10)")]
+        [Tooltip("Characters/waitress.png. Пусто — соперник просто отворачивается, без официантки")]
+        [SerializeField] private Sprite waitressSprite;
+        [Tooltip("Где стоит официантка: от головы игрока, в сторону его взгляда, но за краем стола (ед.)")]
+        [SerializeField] private float waitressDistance = 1.5f;
+        [SerializeField] private float waitressScale = 1f;
+        [Tooltip("Официантка стоит чуть «за плечом»: на столько градусов дальше, чем повёрнута голова")]
+        [SerializeField] private float waitressExtraAngle = 40f;
+        [SerializeField] private float waitressEnterTime = 0.5f;
+        [Tooltip("Карта влетела в зону этого соперника — он резко поворачивается к столу (градусов в секунду)")]
+        [SerializeField] private float caughtTurnSpeed = 1440f;
+
         [Header("Тревога соперника (D3)")]
         [SerializeField] private Color alertLabelColor = new Color(1f, 0.25f, 0.2f);
         [SerializeField] private float alertPulseAmount = 0.25f;
@@ -90,6 +104,16 @@ namespace CardThrow
         private Vector3 baseLabelScale = Vector3.one;
         private bool aiming;     // игра в состоянии Aiming
         private bool alert;      // соперник повернулся обратно к столу
+        private bool caught;     // карта в его зоне — «Шулер!»: тревога держится до новой раздачи
+        private Collider2D zoneCollider;
+        private Vector2 tableDir = Vector2.up;  // «к столу» (считается в LayoutAtTable)
+        private Vector2 tableEdgePoint;         // точка края стола напротив места (луч в LayoutAtTable)
+        private bool hasTableEdge;
+
+        // Официантка: появляется, пока соперник отвернулся, уходит, когда он поворачивается обратно
+        private SpriteRenderer waitress;
+        private Vector3 waitressNear, waitressFar;
+        private float waitressT, waitressTarget, waitressSpeed;
 
         public string DisplayName => displayName;
         public bool IsPartner => isPartner;
@@ -117,12 +141,15 @@ namespace CardThrow
             ApplyVariety();
             LayoutAtTable();
             SetupZoneVisual();
+            SetupWaitress();
+            if (zone != null) zoneCollider = zone.GetComponent<Collider2D>();
             RefreshLabel();
         }
 
         private void OnEnable()
         {
             GameEvents.StateChanged += OnStateChanged;
+            GameEvents.CardFlightFinished += OnCardFlightFinished;
             // Раздача создаётся до SetState(HandIntro), но на всякий случай берём текущее состояние
             aiming = GameManager.Instance != null && GameManager.Instance.State == GameState.Aiming;
         }
@@ -130,6 +157,7 @@ namespace CardThrow
         private void OnDisable()
         {
             GameEvents.StateChanged -= OnStateChanged;
+            GameEvents.CardFlightFinished -= OnCardFlightFinished;
         }
 
         public void SetScore(int value)
@@ -143,6 +171,7 @@ namespace CardThrow
             targetHeadAngle = baseHeadAngle + (away ? LookAwayAngle : 0f);
             currentTurnSpeed = headTurnSpeed;
             alert = false; // мгновенный поворот — это служебный сброс, а не «заметил»
+            MoveWaitress(away, waitressEnterTime);
         }
 
         // Плавный поворот за заданное время (например, за 3 с до конца «окна внимания»).
@@ -152,6 +181,7 @@ namespace CardThrow
             targetHeadAngle = baseHeadAngle + (away ? LookAwayAngle : 0f);
             currentTurnSpeed = turnDuration > 0.01f ? headTurnAngle / turnDuration : headTurnSpeed;
             alert = !away && !isPartner;
+            MoveWaitress(away, turnDuration); // официантка уходит ровно к моменту, когда он смотрит на стол
         }
 
         private float LookAwayAngle => turnSign * headTurnAngle;
@@ -160,6 +190,62 @@ namespace CardThrow
         {
             aiming = state == GameState.Aiming;
             if (state != GameState.Aiming && state != GameState.Flying) alert = false;
+            if (state == GameState.HandIntro || state == GameState.Title) caught = false;
+        }
+
+        // Карта влетела в МОЮ зону: резко поворачиваюсь к столу, официантка исчезает, счёт горит красным
+        private void OnCardFlightFinished(FlightReport report)
+        {
+            if (isPartner || zoneCollider == null || report.result != FlightResult.EnteredOpponentZone) return;
+            if (!zoneCollider.OverlapPoint(report.finalPosition)) return;
+            caught = true;
+            targetHeadAngle = baseHeadAngle;
+            currentTurnSpeed = caughtTurnSpeed;
+            MoveWaitress(false, 0.15f);
+        }
+
+        // ---------- Официантка ----------
+
+        private void SetupWaitress()
+        {
+            if (waitressSprite == null || isPartner) return;
+
+            // Куда смотрит отвернувшийся игрок + немного «за плечо», чтобы официантка стояла за краем стола
+            float lookDeg = Mathf.Atan2(tableDir.y, tableDir.x) * Mathf.Rad2Deg + turnSign * (headTurnAngle + waitressExtraAngle);
+            Vector2 look = new Vector2(Mathf.Cos(lookDeg * Mathf.Deg2Rad), Mathf.Sin(lookDeg * Mathf.Deg2Rad));
+            Vector3 from = head != null ? head.position : transform.position;
+            waitressNear = from + (Vector3)(look * waitressDistance);
+            waitressFar = waitressNear + (Vector3)(look * 2.5f); // откуда приходит
+
+            GameObject go = new GameObject("Waitress");
+            go.transform.SetParent(transform, true);
+            go.transform.rotation = Quaternion.Euler(0f, 0f, lookDeg + 90f); // лицом к игроку (спрайт нарисован «вверх»)
+            go.transform.localScale = Vector3.one * waitressScale;
+            waitress = go.AddComponent<SpriteRenderer>();
+            waitress.sprite = waitressSprite;
+            if (bodyRenderer != null)
+            {
+                waitress.sortingLayerID = bodyRenderer.sortingLayerID;
+                waitress.sortingOrder = bodyRenderer.sortingOrder + 2;
+            }
+            ApplyWaitress();
+        }
+
+        private void MoveWaitress(bool come, float duration)
+        {
+            if (waitress == null) return;
+            waitressTarget = come ? 1f : 0f;
+            waitressSpeed = 1f / Mathf.Max(0.05f, duration);
+        }
+
+        private void ApplyWaitress()
+        {
+            float k = waitressT * waitressT * (3f - 2f * waitressT); // плавный старт и остановка
+            waitress.transform.position = Vector3.Lerp(waitressFar, waitressNear, k);
+            Color c = waitress.color;
+            c.a = k;
+            waitress.color = c;
+            waitress.enabled = waitressT > 0.001f;
         }
 
         private void Update()
@@ -168,6 +254,12 @@ namespace CardThrow
             {
                 float z = Mathf.MoveTowardsAngle(head.localEulerAngles.z, targetHeadAngle, currentTurnSpeed * Time.deltaTime);
                 head.localEulerAngles = new Vector3(0f, 0f, z);
+            }
+
+            if (waitress != null && !Mathf.Approximately(waitressT, waitressTarget))
+            {
+                waitressT = Mathf.MoveTowards(waitressT, waitressTarget, waitressSpeed * Time.deltaTime);
+                ApplyWaitress();
             }
 
             float t = Time.unscaledTime; // пульсы не замедляются в slow-mo
@@ -192,6 +284,7 @@ namespace CardThrow
 
             // Поворот головы против часовой (+) уводит взгляд игрока сверху стола вправо, а игрока снизу — влево.
             // Поэтому снизу знак минус: все отворачиваются от крупье (он слева), будто смотрят в зал.
+            tableDir = dir;
             turnSign = dir.y <= 0f ? 1f : -1f;
 
             if (visualRoot != null)
@@ -208,6 +301,8 @@ namespace CardThrow
                 RaycastHit2D hit = Physics2D.Raycast(seatPos - dir * probe, dir, probe * 2f, tableMask);
                 if (hit.collider != null)
                 {
+                    tableEdgePoint = hit.point;
+                    hasTableEdge = true;
                     float back = bodyHalfLength * visualScale - handsOnTable; // центр фигуры за краем стола
                     visualRoot.position = hit.point - dir * back;
                 }
@@ -282,10 +377,35 @@ namespace CardThrow
             BoxCollider2D box = zone.GetComponent<BoxCollider2D>();
             if (box == null) return;
 
+            ClipZoneToTable(box);
             Vector2 spriteSize = zoneVisual.sprite.bounds.size;
             if (spriteSize.x <= 0f || spriteSize.y <= 0f) return;
             zoneVisual.transform.localPosition = box.offset;
             zoneVisual.transform.localScale = new Vector3(box.size.x / spriteSize.x, box.size.y / spriteSize.y, 1f);
+        }
+
+        // Зона, заходящая за край стола, бесполезна (карта там уже «улетела со стола») и некрасиво лежит на бортике.
+        // Обрезаем её со стороны игрока до края сукна; коллайдер и картинка остаются одинаковыми.
+        private void ClipZoneToTable(BoxCollider2D box)
+        {
+            if (!hasTableEdge) return;
+            bool horizontal = Mathf.Abs(tableDir.x) > 0.5f;
+            int axis = horizontal ? 0 : 1;
+            float d = horizontal ? tableDir.x : tableDir.y;                // +1/−1: куда «к столу»
+            Vector2 center = (Vector2)zone.transform.position + box.offset; // зона не повёрнута и без масштаба (как в префабе)
+            float half = box.size[axis] * 0.5f;
+            float outer = center[axis] - d * half;                         // край зоны со стороны игрока
+            float limit = tableEdgePoint[axis] + d * zoneRailInset;        // дальше этого — бортик
+            float excess = (limit - outer) * d;                            // > 0 — зона залезла на бортик
+            if (excess <= 0f) return;
+
+            excess = Mathf.Min(excess, box.size[axis] - 0.4f);            // совсем в ноль не схлопываем
+            Vector2 size = box.size;
+            Vector2 offset = box.offset;
+            size[axis] -= excess;
+            offset[axis] += d * excess * 0.5f;                             // внутренний край зоны остаётся на месте
+            box.size = size;
+            box.offset = offset;
         }
 
         private void UpdateZoneVisual(float t)
@@ -309,7 +429,7 @@ namespace CardThrow
         private void UpdateAlert(float t)
         {
             if (scoreLabel == null || isPartner) return;
-            if (!alert)
+            if (!alert && !caught)
             {
                 if (scoreLabel.color != baseLabelColor) scoreLabel.color = baseLabelColor;
                 scoreLabel.transform.localScale = baseLabelScale;
