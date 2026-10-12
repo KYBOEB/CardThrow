@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace CardThrow
 {
-    // Настройки правил и очков. Значения балансирует Егор прямо в ассете Data/GameSettings.asset.
+    // Настройки правил и очков (ассет Data/GameSettings.asset).
     // В ScriptableObject-настройках public-поля допустимы: это чистые данные.
     [CreateAssetMenu(menuName = "CardThrow/Game Settings", fileName = "GameSettings")]
     public class GameSettings : ScriptableObject

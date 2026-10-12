@@ -4,10 +4,9 @@ using UnityEngine;
 namespace CardThrow
 {
     // «Сок» игры (game feel): тряска камеры, стоп-кадр на ударе, зум-толчок на успехе, брызги частиц, всплывающие очки.
-    // Только СЛУШАЕТ GameEvents и ничего не решает — исход броска, очки и состояние по-прежнему у GameManager.
+    // Только СЛУШАЕТ GameEvents и ничего не решает — исход броска, очки и состояние остаются за GameManager.
     // Частицы — свой пул из спрайтов (без ParticleSystem и без аллокаций в игре): каждый эффект — пара строк настройки,
     // а время — unscaledDeltaTime, поэтому эффекты живут и во время стоп-кадра.
-    // Владелец — Данила (передано Алексеем 12.10, задача A5).
     public class FeedbackManager : MonoBehaviour
     {
         [Header("Данные")]
@@ -181,7 +180,7 @@ namespace CardThrow
 
         private void OnStateChanged(GameState state)
         {
-            // Новая раздача или экран — всё «сокоделие» прошлого броска гасим сразу
+            // Новая раздача или титул — эффекты прошлого броска гасим сразу
             if (state == GameState.HandIntro || state == GameState.Title)
             {
                 EndHitStop();
@@ -201,7 +200,7 @@ namespace CardThrow
         {
             switch (kind)
             {
-                case ObstacleKind.Ricochet: // звон стакана: холодные искры
+                case ObstacleKind.Ricochet: // рикошет от пепельницы: холодные искры
                     Burst(sparkleSprite, point, 10, 4f, 0.35f, 0.6f, 0.2f, glassSparkColor, 360f);
                     Burst(starSprite, point, 3, 2f, 0.4f, 0.5f, 0.1f, Color.white, 180f);
                     Shake(shakeSmall);
@@ -213,7 +212,7 @@ namespace CardThrow
                     Shake(shakeSmall);
                     break;
 
-                case ObstacleKind.Breakable: // бутылка/домик: осколки + пена, стоп-кадр и сильная тряска
+                case ObstacleKind.Breakable: // стакан/домик: осколки + брызги, стоп-кадр и сильная тряска
                     Burst(shardSprite, point, 16, 6f, 0.6f, 0.9f, 0.5f, Color.white, 720f);
                     Burst(foamSprite, point, 10, 2.5f, 0.8f, 0.6f, 1.6f, Color.white, 0f);
                     Shake(shakeStrong * 0.7f);

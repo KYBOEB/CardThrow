@@ -5,18 +5,18 @@ using UnityEngine;
 
 namespace CardThrow.EditorTools
 {
-    // Меню  CardThrow → «Уровни: проверить проходимость».
-    // Перебирает броски (угол × сила × закрут) на НАСТОЯЩЕЙ модели полёта: тот же FlightSimulator.StepWithCollisions,
-    // те же коллайдеры препятствий, зон и стола, те же правила исхода, что в CardFlight. Ничего не ломает и не двигает.
-    // Что проверяет: выделенные в Project префабы раздач (Prefabs/Levels/Hand_*.prefab) или, если ничего не выделено, — все.
-    // Как: на время проверки ставит экземпляр раздачи в открытую сцену Main (нужен её TableSurface), считает, удаляет.
-    // Ограничение: движущиеся предметы (ObstacleMover, официантки) считаются стоящими на месте — снимок в момент проверки.
+    // Меню CardThrow → «Уровни: проверить проходимость».
+    // Перебирает броски (угол × сила × дуга) на той же модели полёта, что и игра: FlightSimulator.StepWithCollisions,
+    // те же коллайдеры и правила исхода, что в CardFlight. Сцену и префабы не изменяет.
+    // Проверяет выделенные в Project префабы раздач или, если ничего не выделено, все из Prefabs/Levels.
+    // Экземпляр раздачи временно ставится в открытую сцену Main (нужен её TableSurface) и затем удаляется.
+    // Ограничение: движущиеся предметы (ObstacleMover) считаются неподвижными.
     public static class CheckLevelPassability
     {
         private const string LevelsDir = "Assets/_Project/Prefabs/Levels";
         private const string SettingsPath = "Assets/_Project/Data/FlightSettings.asset";
 
-        // Сетка перебора: 114 углов × 29 сил × 7 закрутов ≈ 23 тыс. бросков на раздачу (несколько секунд)
+        // Сетка перебора: 114 углов × 29 сил × 7 шагов дуги ≈ 23 тыс. бросков на раздачу (несколько секунд)
         private const float AngleRange = 85f;      // ± градусов от направления «вдоль стола» (+X)
         private const float AngleStep = 1.5f;
         private const float PowerMin = 0.3f;
@@ -26,7 +26,7 @@ namespace CardThrow.EditorTools
         private const float MaxFlightTime = 12f;
         private const float PushIgnoreTime = 0.2f;
         private const float DefaultGrace = 0.3f;
-        private static readonly Vector2 DefaultOrigin = new Vector2(-7.6f, 0f); // CONTEXT §4: точка броска крупье
+        private static readonly Vector2 DefaultOrigin = new Vector2(-7.6f, 0f); // запасная точка броска крупье
 
         private enum Outcome { Success, Breakable, Opponent, OffTable, Stopped }
 
@@ -123,7 +123,7 @@ namespace CardThrow.EditorTools
             for (int spin = -maxSpin; spin <= maxSpin; spin++)
             {
                 float progress = (handIndex + (spin + maxSpin) / (2f * maxSpin + 1f)) / handCount;
-                if (EditorUtility.DisplayCancelableProgressBar("Проверка проходимости", $"{name}: закрут {spin:+0;-0;0}", progress))
+                if (EditorUtility.DisplayCancelableProgressBar("Проверка проходимости", $"{name}: дуга {spin:+0;-0;0}", progress))
                     return false;
 
                 for (int a = 0; a < angles; a++)
@@ -142,7 +142,7 @@ namespace CardThrow.EditorTools
                         success++;
                         bySpin[spin + maxSpin]++;
                         if (ricochets > 0) withRicochet++;
-                        // Примеры: первый удачный бросок для каждого закрута (не больше трёх)
+                        // Примеры: первый удачный бросок для каждого шага дуги (не больше трёх)
                         if (examples.Count < 3 && (examples.Count == 0 || examples[examples.Count - 1].spin != spin))
                             examples.Add(new Sample { angle = angle, power = power, spin = spin, ricochets = ricochets });
                     }
@@ -151,12 +151,12 @@ namespace CardThrow.EditorTools
 
             float percent = total > 0 ? 100f * success / total : 0f;
             StringBuilder sb = new StringBuilder();
-            sb.Append($"• {name}: удачных {success} из {total} ({percent:0.00}%), из них с рикошетом {withRicochet}. По закруту:");
+            sb.Append($"• {name}: удачных {success} из {total} ({percent:0.00}%), из них с рикошетом {withRicochet}. По дуге:");
             for (int i = 0; i < bySpin.Length; i++) sb.Append($" {i - maxSpin:+0;-0;0}={bySpin[i]}");
-            sb.Append($"\n    Провалы: бутылка/домик {fails[(int)Outcome.Breakable]}, соперник {fails[(int)Outcome.Opponent]}, " +
+            sb.Append($"\n    Провалы: стакан/домик {fails[(int)Outcome.Breakable]}, соперник {fails[(int)Outcome.Opponent]}, " +
                       $"со стола {fails[(int)Outcome.OffTable]}, остановилась мимо {fails[(int)Outcome.Stopped]}");
             foreach (Sample e in examples)
-                sb.Append($"\n    Пример: угол {e.angle:+0.0;-0.0;0}°, сила {e.power * 100f:0}%, закрут {e.spin:+0;-0;0}" +
+                sb.Append($"\n    Пример: угол {e.angle:+0.0;-0.0;0}°, сила {e.power * 100f:0}%, дуга {e.spin:+0;-0;0}" +
                           (e.ricochets > 0 ? $", рикошетов {e.ricochets}" : ""));
             if (success == 0) sb.Append("\n    ⚠ НЕПРОХОДИМА — ни одного удачного броска!");
 
@@ -240,7 +240,7 @@ namespace CardThrow.EditorTools
         {
             GameObject launch = GameObject.Find("LaunchPoint"); // активный объект сцены (дочерний у Dealer)
             if (launch != null) return launch.transform.position;
-            Debug.LogWarning("[CT] Проходимость: LaunchPoint в сцене не найден — беру точку из CONTEXT " + DefaultOrigin);
+            Debug.LogWarning("[CT] Проходимость: LaunchPoint в сцене не найден — беру точку по умолчанию " + DefaultOrigin);
             return DefaultOrigin;
         }
 

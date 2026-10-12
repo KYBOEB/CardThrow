@@ -4,17 +4,17 @@ using TMPro;
 
 namespace CardThrow
 {
-    // Интерактивное обучение (CardThrow_CONTEXT.md: раздел 2 «Обучение», 5.3, 5.4).
+    // Интерактивное обучение.
     // Ничего не симулирует и не решает исход: только слушает те же GameEvents, что и вся игра,
     // и показывает подсказку (HintChanged), иконки управления и стрелку-указатель.
     //
     // Обучение — 3 раздачи подряд, приём задаёт LevelConfig.TutorialStage:
     //   Throw    — выбрать карту → бросок (стрелка на зону напарника);
-    //   Spin     — выбрать карту → бросок; как только игрок ТЯНЕТ карту без закрута — подсказка меняется
-    //              на «закрути: колесо / Q / E» и стрелку на бутылку (плейтест: без этого никто не догадывается);
-    //   Ricochet — выбрать карту → бросок через стакан (стрелка на стакан). Что без отскока не пройти —
-    //              обеспечивает раскладка стола (проверяется меню «Уровни: проверить проходимость»), а не if в коде.
-    // Текущий шаг = первый невыполненный, поэтому при переигровке (карта и закрут сохранены) шаги пропускаются сами.
+    //   Spin     — выбрать карту → бросок; как только игрок тянет карту без дуги — подсказка про дугу
+    //              (колесо / Q / E) и стрелка на стакан;
+    //   Ricochet — выбрать карту → бросок с рикошетом от пепельницы (стрелка на пепельницу). Что без отскока
+    //              не пройти — обеспечивает раскладка стола, а не if в коде.
+    // Текущий шаг = первый невыполненный, поэтому при переигровке (карта и дуга сохранены) шаги пропускаются сами.
     public class TutorialController : MonoBehaviour
     {
         private const int StepCard = 0, StepSpin = 1, StepThrow = 2, StepCount = 3;
@@ -30,7 +30,7 @@ namespace CardThrow
         [SerializeField] private GameObject[] step3Icons;   // мышь «оттяг»
         [SerializeField] private RectTransform arrow;       // Image tut_arrow
         [SerializeField] private TMP_Text skipHintLabel;
-        [Tooltip("Необязательно: кнопка на подсказке пропуска (жюри может пропустить мышью)")]
+        [Tooltip("Необязательно: кнопка на подсказке пропуска (пропуск мышью)")]
         [SerializeField] private Button skipButton;
 
         [Header("Стрелка")]
@@ -217,7 +217,7 @@ namespace CardThrow
         private void OnCardThrown(ThrowParams p)
         {
             aiming = false;
-            // Карту и закрут НЕ берём из p: их уже прислали CardSelected/SpinChanged,
+            // Карту и дугу НЕ берём из p: их уже прислали CardSelected/SpinChanged,
             // а отладочный бросок (Shift+S/F) шлёт spinStep = 0 и сбил бы шаг при переигровке.
             throwOrigin = p.origin;
             hasFlightReport = false;
@@ -279,9 +279,9 @@ namespace CardThrow
             ShowStepVisuals(step);
         }
 
-        // Подсказка про закрут: на столе есть бутылка, игрок тянет карту (в части «Рикошет» — не нужна).
-        // Появляется, пока закрута нет, и ДЕРЖИТСЯ до отпускания ЛКМ: игрок крутит колесо/A-D и видит, как менять дальше
-        // (плейтест 12.10: подсказка пропадала после первого щелчка колеса). Сброс — aiming = false (бросок или отмена).
+        // Подсказка про дугу: на столе есть стакан, игрок тянет карту (в части «Рикошет» — не нужна).
+        // Появляется, пока дуги нет, и держится до отпускания ЛКМ, чтобы игрок видел, как менять дугу дальше.
+        // Сброс — aiming = false (бросок или отмена).
         private bool NeedsSpinHint() =>
             aiming && bottleTarget != null && stage != TutorialStage.Ricochet &&
             (lastSpin == 0 || currentStep == StepSpin);
@@ -303,7 +303,7 @@ namespace CardThrow
             string s = texts.tutorialSteps[step];
             if (step == StepThrow && stage == TutorialStage.Ricochet && !string.IsNullOrEmpty(texts.tutorialRicochetStep))
                 s = texts.tutorialRicochetStep;
-            // В раздаче нет бутылки (Hand_00 без препятствия) — не говорим про бутылку, учим закруту без неё
+            // В раздаче нет стакана — подсказка про дугу без упоминания препятствия
             if (step == StepSpin && bottleTarget == null && !string.IsNullOrEmpty(texts.tutorialSpinNoObstacle))
                 s = texts.tutorialSpinNoObstacle;
             LevelConfig level = GameManager.Instance != null ? GameManager.Instance.CurrentLevel : null;
@@ -394,7 +394,7 @@ namespace CardThrow
             SetActiveAll(step3Icons, step == StepThrow);
 
             // Куда показывает стрелка: шаг «карта» и бросок в части «Бросок» — зона напарника;
-            // закрут — бутылка; бросок в части «Рикошет» — стакан; иначе стрелки нет
+            // дуга — стакан; бросок в части «Рикошет» — пепельница; иначе стрелки нет
             arrowTarget = null;
             if (step == StepCard || (step == StepThrow && stage == TutorialStage.Throw)) { arrowTarget = partnerTarget; arrowOffset = partnerArrowOffset; }
             else if (step == StepSpin) { arrowTarget = bottleTarget; arrowOffset = bottleArrowOffset; }

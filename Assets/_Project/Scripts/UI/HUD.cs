@@ -5,9 +5,8 @@ using UnityEngine.UI;
 
 namespace CardThrow
 {
-    // Игровой HUD (CardThrow_CONTEXT.md 5.3): ТОЛЬКО слушает GameEvents и рисует. Ничего не решает.
+    // Игровой HUD: только слушает GameEvents и отображает состояние, ничего не решает.
     // Единственное действие — кнопка «Заново» → GameManager.Instance.RestartRun() (дублирует клавишу R).
-    //
     // Скрипт висит на корне HUD, который всегда активен (иначе OnDisable отпишет события).
     // Видимость — через CanvasGroup.alpha; части, которых нет в обучении, — SetActive на дочерних объектах.
     public class HUD : MonoBehaviour
@@ -35,7 +34,7 @@ namespace CardThrow
         [SerializeField] private GameObject timerRoot;
         [SerializeField] private Image timerFill;            // Image Type = Filled, Horizontal, Origin Left
         [SerializeField] private TMP_Text timerLabel;        // необязательно: секунды поверх полосы
-        [Tooltip("Множитель к цвету спрайта: спрайт-заглушка уже золотой, поэтому почти белый")]
+        [Tooltip("Множитель к цвету спрайта полосы в обычном режиме")]
         [SerializeField] private Color timerNormalColor = new Color(1f, 0.85f, 0.35f);
         [SerializeField] private Color timerWarningColor = new Color(1f, 0.22f, 0.18f);
         [SerializeField] private float timerPulseAmount = 0.06f;
@@ -56,16 +55,16 @@ namespace CardThrow
         [SerializeField] private TMP_Text scoreLabel;
         [SerializeField] private float scoreCountDuration = 0.5f;
 
-        [Header("Карта и закрут (нижний левый угол)")]
+        [Header("Карта и дуга (нижний левый угол)")]
         [SerializeField] private TMP_Text cardLabel;
-        [SerializeField] private RectTransform spinGroup;    // «тычок» при смене закрута
+        [SerializeField] private RectTransform spinGroup;    // «тычок» при смене дуги
         [SerializeField] private Image spinArrow;
         [SerializeField] private TMP_Text spinLabel;
         [Tooltip("Спрайт стрелки без поворота показывает дугу ВЛЕВО (+). Если наоборот — снять галочку")]
         [SerializeField] private bool spinSpriteCurvesLeft = true;
         [SerializeField] private float spinTiltPerStep = 15f;
-        [Tooltip("Иконки закрута по силе: [0] прямо, [1..3] дуга сильнее. Рисуют дугу ВЛЕВО (+); для − зеркалим. " +
-                 "Если пусто — старый режим: одна стрелка с наклоном")]
+        [Tooltip("Иконки дуги по силе: [0] прямо, [1..3] дуга сильнее. Рисуют дугу ВЛЕВО (+); для − зеркалим. " +
+                 "Если пусто — одна стрелка с наклоном")]
         [SerializeField] private Sprite[] spinSprites;
 
         [Header("Подсказка над столом (только обучение)")]
@@ -83,6 +82,7 @@ namespace CardThrow
         private GameState state = GameState.Title;
         private bool isTutorial;
         private bool timerWarning;
+        private int shownSeconds = -1;
         private int lastSuspicion;
         private int shownScore;
         private int targetScore;
@@ -182,8 +182,8 @@ namespace CardThrow
             }
 
             if (texts == null) return;
-            // «Уровень 2» без «/3»: игрок не видит, сколько осталось (UiTexts.levelFormat = «Уровень {0}»)
-            string levelShort = isTutorial ? texts.tutorialLabel : string.Format(texts.levelFormat, levelNumber, totalLevels); // {1} в формате не используем, но передаём — старый текст «{0}/{1}» не сломается
+            // Номер уровня без общего числа: игрок не знает, сколько осталось. totalLevels передаётся для формата «{0}/{1}»
+            string levelShort = isTutorial ? texts.tutorialLabel : string.Format(texts.levelFormat, levelNumber, totalLevels);
             bool hasTitle = !isTutorial && !string.IsNullOrEmpty(title);
 
             if (levelLabel != null) levelLabel.text = levelShort;
@@ -304,7 +304,12 @@ namespace CardThrow
         private void ApplyTimer(float remaining, float total)
         {
             if (timerFill != null) timerFill.fillAmount = total > 0f ? Mathf.Clamp01(remaining / total) : 0f;
-            if (timerLabel != null) timerLabel.text = Mathf.CeilToInt(Mathf.Max(0f, remaining)).ToString();
+            int seconds = Mathf.CeilToInt(Mathf.Max(0f, remaining));
+            if (timerLabel != null && seconds != shownSeconds)
+            {
+                shownSeconds = seconds; // строку создаём раз в секунду, а не каждый кадр
+                timerLabel.text = seconds.ToString();
+            }
         }
 
         private void SetTimerWarning(bool on)
@@ -346,7 +351,7 @@ namespace CardThrow
 
             if (spinArrow == null) return;
 
-            // Набор иконок: сила закрута видна по изгибу дуги, направление — по зеркалу
+            // Набор иконок: сила дуги видна по изгибу, направление — по зеркалу
             if (spinSprites != null && spinSprites.Length > 0)
             {
                 int i = Mathf.Min(System.Math.Abs(step), spinSprites.Length - 1);
@@ -358,7 +363,7 @@ namespace CardThrow
                 return;
             }
 
-            // Знак закрута → зеркало по X; величина → наклон и размер. При 0 стрелка полупрозрачная
+            // Без иконок: знак дуги → зеркало по X, величина → наклон и размер. При 0 стрелка полупрозрачная
             float mirror = (step < 0 ? -1f : 1f) * (spinSpriteCurvesLeft ? 1f : -1f);
             float size = 0.8f + 0.1f * Mathf.Abs(step);
             RectTransform rt = spinArrow.rectTransform;

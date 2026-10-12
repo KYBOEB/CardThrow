@@ -5,11 +5,11 @@ using UnityEngine;
 
 namespace CardThrow.EditorTools
 {
-    // Меню  CardThrow → «Уровни: обновить список раздач».
+    // Меню CardThrow → «Уровни: обновить список раздач».
     // Заполняет LevelManager.hands в открытой сцене Main всеми префабами Prefabs/Levels/Hand_*.prefab:
     // сначала раздачи обучения (галочка Is Tutorial), потом обычные — каждая группа по имени
     // (Hand_00, Hand_00b, Hand_00c, затем Hand_01, Hand_02 …). Hand_Template и префабы без LevelConfig пропускаются.
-    // Новая раздача Егора попадает в игру одним пунктом меню — без ручного перетаскивания в инспекторе. Сцену сохраняет.
+    // Новая раздача попадает в игру одним пунктом меню, без ручного перетаскивания в инспекторе. Сцена сохраняется.
     public static class UpdateHandList
     {
         private const string LevelsDir = "Assets/_Project/Prefabs/Levels";

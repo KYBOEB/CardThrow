@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace CardThrow
 {
-    // Хрупкий предмет: бутылка, карточный домик, поднос. Владелец — Алексей (A2, A4).
+    // Хрупкий предмет: стакан, карточный домик, поднос.
     // Ломается от карты (OnCardHit) или от сильного удара фишки (цепная реакция).
     // При поломке: спрайт «разбито», коллайдеры выключаются, звук, короткий «пинок» масштабом
-    // и разлёт обломков (осколки у бутылки, карты у домика) — обломки чисто визуальные, без физики.
+    // и разлёт обломков (осколки у стакана, карты у домика) — обломки чисто визуальные, без физики.
     public class BreakableObstacle : Obstacle
     {
         [SerializeField] private SpriteRenderer spriteRenderer;
@@ -16,7 +16,7 @@ namespace CardThrow
         private float chainBreakSpeed = 2.5f;
 
         [Header("Обломки (необязательно)")]
-        [SerializeField, Tooltip("Спрайт обломка: fx_shard для бутылки, card_back для домика. Пусто — без обломков")]
+        [SerializeField, Tooltip("Спрайт обломка: fx_shard для стакана, card_back для домика. Пусто — без обломков")]
         private Sprite debrisSprite;
         [SerializeField] private int debrisCount = 5;
         [SerializeField] private float debrisScale = 0.6f;

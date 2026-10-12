@@ -2,39 +2,39 @@ using UnityEngine;
 
 namespace CardThrow
 {
-    // Движение препятствия туда-обратно между точками A и B (уровень 4 «Перекидка»). Владелец — Алексей.
-    // Соперники «перекидывают» бутылку: в середине пути она «в воздухе» — увеличивается (1 → 1.3 → 1),
-    // а коллайдер выключен, и карта пролетает ПОД ней. На концах бутылка «приземляется»: коллайдер включён.
+    // Движение препятствия туда-обратно между точками A и B (уровень «Перекидка»).
+    // Режим tossInAir: стакан «перекидывают» — в середине пути он «в воздухе» (масштаб 1 → 1.3 → 1),
+    // коллайдер выключен, и карта пролетает ПОД ним. На концах стакан «приземляется»: коллайдер включён.
     //
     // Двигаем Rigidbody2D (Kinematic) через MovePosition в FixedUpdate — тогда CircleCast карты на каждом шаге
-    // видит актуальное положение бутылки.
+    // видит актуальное положение стакана.
     // Превью траектории движение НЕ предсказывает (точки считаются по текущему снимку стола) — так задумано:
     // игрок должен поймать момент, а не просто прочитать ответ с превью.
     [RequireComponent(typeof(Rigidbody2D))]
     public class ObstacleMover : MonoBehaviour
     {
         [Header("Кто передаёт (если заданы — точки A/B ниже не нужны)")]
-        [SerializeField, Tooltip("Игрок, у которого бутылка стоит в начале (например Seat_Opp_1)")] private Transform holderA;
+        [SerializeField, Tooltip("Игрок, у которого стакан стоит в начале (например Seat_Opp_1)")] private Transform holderA;
         [SerializeField, Tooltip("Игрок напротив, которому её передают")] private Transform holderB;
-        [SerializeField, Tooltip("Насколько бутылка стоит ближе к центру стола, чем сам игрок, ед.")]
+        [SerializeField, Tooltip("Насколько стакан стоит ближе к центру стола, чем сам игрок, ед.")]
         private float holderInset = 1.3f;
 
-        [Header("Путь вручную (смещения от позиции бутылки), если игроки не заданы")]
+        [Header("Путь вручную (смещения от позиции стакана), если игроки не заданы")]
         [SerializeField] private Vector2 pointA = new Vector2(0f, -3f);
         [SerializeField] private Vector2 pointB = new Vector2(0f, 3f);
 
         [Header("Темп")]
         [SerializeField, Tooltip("Скорость полёта между точками, ед/с")] private float speed = 2.5f;
         [SerializeField, Tooltip("Сколько секунд стоит на каждом конце")] private float pauseAtEnds = 0.8f;
-        [SerializeField, Tooltip("Начать с середины цикла, чтобы две бутылки на уровне не летали синхронно (0..1)")]
+        [SerializeField, Tooltip("Начать с середины цикла, чтобы два стакана на уровне не летали синхронно (0..1)")]
         [Range(0f, 1f)] private float phaseOffset = 0f;
 
         [Header("«Перекидка»")]
-        [SerializeField, Tooltip("Вкл: в середине пути бутылка в воздухе — карта проходит под ней.\n" +
-                                 "Выкл: бутылка скользит по столу — разбить её можно на всём пути")]
-        private bool tossInAir = false; // по итогам проверки 12.10: бутылку передают по столу, а не перекидывают
+        [SerializeField, Tooltip("Вкл: в середине пути стакан в воздухе — карта проходит под ним.\n" +
+                                 "Выкл: стакан скользит по столу — разбить его можно на всём пути")]
+        private bool tossInAir = false; // по умолчанию стакан передают по столу, а не перекидывают
         [SerializeField, Tooltip("Масштаб в верхней точке полёта")] private float airScale = 1.3f;
-        [SerializeField, Tooltip("Доля пути у каждого конца, где бутылка ещё/уже «на столе» (коллайдер включён)")]
+        [SerializeField, Tooltip("Доля пути у каждого конца, где стакан ещё/уже «на столе» (коллайдер включён)")]
         [Range(0f, 0.45f)] private float groundedMargin = 0.12f;
 
         private Rigidbody2D rb;
@@ -70,7 +70,7 @@ namespace CardThrow
 
         private void FixedUpdate()
         {
-            if (breakable != null && breakable.IsBroken) return; // разбитая бутылка лежит на месте
+            if (breakable != null && breakable.IsBroken) return; // разбитый стакан остаётся на месте
             if (!IsGameRunning()) return;
 
             clock = (clock + Time.fixedDeltaTime) % CycleTime;
@@ -108,7 +108,7 @@ namespace CardThrow
         // Плавный старт и остановка (smoothstep)
         private static float Smooth(float x) => x * x * (3f - 2f * x);
 
-        // В игре бутылка движется, только пока игрок целится или карта летит.
+        // В игре стакан движется, только пока игрок целится или карта летит.
         // Без GameManager (песочница) — движется всегда.
         private static bool IsGameRunning()
         {

@@ -3,13 +3,9 @@ using UnityEngine;
 
 namespace CardThrow
 {
-    // Игрок за столом: счёт над головой, поворот головы («смотрит на стол / отвернулся»), подсветка напарника.
-    // D3 — читаемость стола (CONTEXT §8):
-    //   • зона карт видна на сукне: напарник — золото, соперник — красный;
-    //   • во время прицеливания зоны соперников пульсируют красным («сюда нельзя»);
-    //   • золотой контур напарника мягко «дышит»;
-    //   • когда соперник поворачивается обратно (за 3 с до конца окна внимания), его счёт краснеет и пульсирует.
-    // Публичный API (CONTEXT 5.3) не изменён — добавлены только приватные поля и визуал.
+    // Игрок за столом: счёт, поворот головы («смотрит на стол / отвернулся»), посадка у края стола, зона карт.
+    // Зона напарника — золотая, соперника — красная; при прицеливании зоны пульсируют.
+    // Соперник, поворачивающийся обратно к столу, подсвечивает свой счёт красным.
     public class Seat : MonoBehaviour
     {
         [SerializeField] private string displayName = "Игрок";
@@ -21,11 +17,11 @@ namespace CardThrow
         [SerializeField] private TMP_Text scoreLabel;          // TextMeshPro (world space) над головой
         [SerializeField] private Transform head;               // спрайт головы, вращается по Z
         [SerializeField] private GameObject partnerHighlight;  // золотой контур
-        [Tooltip("На сколько градусов игрок отворачивает голову. Шея человека — до ~80°: 150° выглядело как перелом (плейтест 12.10)")]
+        [Tooltip("На сколько градусов игрок отворачивает голову. Шея человека поворачивается до ~80°")]
         [SerializeField, Range(20f, 90f)] private float headTurnAngle = 70f;
         [SerializeField] private float headTurnSpeed = 360f;   // градусов в секунду
 
-        [Header("Посадка за столом (D3b)")]
+        [Header("Посадка за столом")]
         [Tooltip("Visual: Body + Head + PartnerGlow. Поворачивается руками к столу (к своей зоне) и отодвигается за край")]
         [SerializeField] private Transform visualRoot;
         [Tooltip("Масштаб фигуры игрока (спрайты 1.6×1.2 ед. при PPU 200)")]
@@ -36,18 +32,18 @@ namespace CardThrow
         [SerializeField] private float handsOnTable = 0.6f;
         [Tooltip("Половина длины спрайта тела вдоль «руки→кресло» до масштаба: player_body 240 px / PPU 200 / 2")]
         [SerializeField] private float bodyHalfLength = 0.6f;
-        [Tooltip("Слой триггера TableSurface (CONTEXT §4)")]
+        [Tooltip("Слой триггера TableSurface")]
         [SerializeField] private LayerMask tableMask = 1 << 9;
         [Tooltip("Счёт рисуется поверх зоны карт игрока (его «стопка»). Сдвиг от центра зоны к игроку")]
         [SerializeField] private float labelOffsetOnZone = 0f;
-        [Tooltip("Половина размера стола (CONTEXT §4: 19 × 9.5). По ней выбирается ближайший край — туда игрок и садится")]
+        [Tooltip("Половина размера стола (19 × 9.5). По ней выбирается ближайший край — туда игрок и садится")]
         [SerializeField] private Vector2 tableHalfSize = new Vector2(9.5f, 4.75f);
 
-        [Header("Зона на столе (D3)")]
+        [Header("Зона на столе")]
         [Tooltip("SpriteRenderer внутри Zone (ZoneVisual). Размер подгоняется под BoxCollider2D зоны")]
         [SerializeField] private SpriteRenderer zoneVisual;
         [Tooltip("Зона не заходит на бортик: её внешний край — не ближе этого к внешнему краю стола (ед.). Лишнее обрезается и у коллайдера. " +
-                 "Бортик в table_felt.png = 160 px / PPU 200 = 0.8 ед. + 0.1 зазор. Новое имя поля — чтобы старое 0.5 из префабов не перебивало")]
+                 "Бортик в table_felt.png = 160 px / PPU 200 = 0.8 ед. + 0.1 зазор.")]
         [SerializeField] private float zoneRailWidth = 0.9f;
         [SerializeField] private Sprite partnerZoneSprite;     // Table/zone_partner
         [SerializeField] private Sprite opponentZoneSprite;    // Table/zone_opponent
@@ -57,7 +53,7 @@ namespace CardThrow
         [SerializeField, Range(0f, 1f)] private float opponentAimingMinAlpha = 0.7f;
         [SerializeField] private float zonePulseFrequency = 1.5f;   // ударов в секунду
 
-        [Header("Напарник (D3)")]
+        [Header("Напарник")]
         [SerializeField] private Color partnerLabelColor = new Color(1f, 0.82f, 0.3f);
         [SerializeField, Range(0f, 1f)] private float glowMinAlpha = 0.55f;
         [SerializeField] private float glowPulseFrequency = 0.8f;
@@ -66,7 +62,7 @@ namespace CardThrow
         [Tooltip("Зона напарника при прицеливании пульсирует между этим значением и 1 — «кидай сюда»")]
         [SerializeField, Range(0f, 1f)] private float partnerAimingMinAlpha = 0.55f;
 
-        [Header("Разнообразие (D3c)")]
+        [Header("Разнообразие")]
         [Tooltip("Visual/Body — спрайт тела; голова — SpriteRenderer на head")]
         [SerializeField] private SpriteRenderer bodyRenderer;
         [Tooltip("player_body_1..4. В одной раздаче пары «тело + голова» не повторяются")]
@@ -77,7 +73,7 @@ namespace CardThrow
         [Tooltip("Диапазон счёта соперника, включительно. 21 не берём — у соперника не должно быть «блэкджека»")]
         [SerializeField] private Vector2Int opponentScoreRange = new Vector2Int(12, 20);
 
-        [Header("Официантка отвлекает соперника (плейтест 12.10)")]
+        [Header("Официантка отвлекает соперника")]
         [Tooltip("Characters/waitress.png. Пусто — соперник просто отворачивается, без официантки")]
         [SerializeField] private Sprite waitressSprite;
         [Tooltip("Официантка стоит СБОКУ от соперника, вдоль края стола: столько ед. от центра его фигуры. " +
@@ -85,7 +81,7 @@ namespace CardThrow
         [SerializeField] private float waitressSide = 2.4f;
         [Tooltip("…и на столько ед. дальше от стола, чем центр фигуры: на сукно она не заходит")]
         [SerializeField] private float waitressBack = 0.7f;
-        [Tooltip("Спрайт уже подогнан PPU под игроков (Кирилл). 0.9 — чуть меньше игрока (0.7 выглядела ребёнком)")]
+        [Tooltip("Масштаб официантки (PPU спрайта подогнан под игроков). 0.9 — чуть меньше игрока")]
         [SerializeField] private float waitressScale = 0.9f;
         [Tooltip("Затемнение и прозрачность: официантка — фон, рисуется ПОД игроками")]
         [SerializeField] private Color waitressTint = new Color(0.45f, 0.45f, 0.5f, 0.9f);
@@ -93,7 +89,7 @@ namespace CardThrow
         [Tooltip("Карта влетела в зону этого соперника — он резко поворачивается к столу (градусов в секунду)")]
         [SerializeField] private float caughtTurnSpeed = 1440f;
 
-        [Header("Тревога соперника (D3)")]
+        [Header("Тревога соперника")]
         [SerializeField] private Color alertLabelColor = new Color(1f, 0.25f, 0.2f);
         [SerializeField] private float alertPulseAmount = 0.25f;
         [SerializeField] private float alertPulseFrequency = 3f;
@@ -103,7 +99,7 @@ namespace CardThrow
         private float targetHeadAngle;
         private float currentTurnSpeed;
 
-        // D3: кэш (только Awake, без GetComponent в Update)
+        // Кэш: заполняется в Awake, чтобы не вызывать GetComponent в Update
         private SpriteRenderer glowRenderer;
         private Color baseLabelColor = Color.white;
         private Vector3 baseLabelScale = Vector3.one;
@@ -231,7 +227,7 @@ namespace CardThrow
             waitress = go.AddComponent<SpriteRenderer>();
             waitress.sprite = waitressSprite;
             // Поднос у неё в правой руке. Если правая рука смотрит на стол — зеркалим: поднос всегда со стороны зала,
-            // а не над бортиком (плейтест 12.10)
+            // а не над бортиком
             float rad = faceDeg * Mathf.Deg2Rad;
             Vector2 spriteRight = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
             waitress.flipX = Vector2.Dot(spriteRight, tableDir) > 0f;
@@ -301,15 +297,14 @@ namespace CardThrow
             UpdateAlert(t);
         }
 
-        // ---------- D3: визуал ----------
+        // ---------- Визуал ----------
 
-        // Фигура «садится» за стол: руки (верх спрайта, +Y) смотрят на свою зону, сама фигура — за краем.
-        // Направление берём из локальной позиции Zone, поэтому Егор ставит Seat где угодно — поворот подстроится сам.
-        // Seat в раздачах не повёрнут и не масштабирован (rotation 0, scale 1) — считаем в локальных координатах.
+        // Фигура «садится» за стол: руки (верх спрайта, +Y) смотрят на стол, сама фигура — за краем.
+        // Seat в раздачах не повёрнут и не масштабирован (rotation 0, scale 1).
         private void LayoutAtTable()
         {
-            // Направление «к столу» = нормаль ближайшего края стола (центр стола в (0,0), CONTEXT §4).
-            // Не зависит от того, где стоит зона: Егор может двигать зоны к игрокам, игрок не развернётся.
+            // Направление «к столу» = нормаль ближайшего края стола (центр стола в (0,0)).
+            // Не зависит от положения зоны: зону можно сдвигать, фигура не развернётся.
             Vector2 p = transform.position;
             Vector2 dir = Mathf.Abs(p.x) / tableHalfSize.x > Mathf.Abs(p.y) / tableHalfSize.y
                 ? new Vector2(-Mathf.Sign(p.x), 0f)
@@ -332,7 +327,7 @@ namespace CardThrow
                 visualRoot.localPosition = -dir * pushBack; // запасной вариант
 
                 // Ищем внешний край стола: луч снаружи к Seat по направлению «к столу» попадает в триггер TableSurface.
-                // Тогда любая фигура (сверху, снизу, напарник у торца) садится ровно к бортику, где бы Егор ни поставил Seat.
+                // Тогда любая фигура (сверху, снизу, напарник у торца) садится ровно к бортику, где бы ни стоял Seat.
                 Vector2 seatPos = transform.position;
                 const float probe = 30f;
                 RaycastHit2D hit = Physics2D.Raycast(seatPos - dir * probe, dir, probe * 2f, tableMask);
@@ -402,7 +397,7 @@ namespace CardThrow
             }
         }
 
-        // Спрайт зоны по роли + размер по коллайдеру (Егор меняет размер зоны в каждой раздаче)
+        // Спрайт зоны по роли + размер по коллайдеру (размер зоны свой в каждой раздаче)
         private void SetupZoneVisual()
         {
             if (zoneVisual == null) return;

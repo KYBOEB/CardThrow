@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace CardThrow
 {
-    // Точки траектории при прицеливании (CONTEXT, раздел 3 «Превью»). Владелец — Алексей.
+    // Точки траектории при прицеливании.
     // Считает путь ТЕМ ЖЕ FlightSimulator.StepWithCollisions, что и настоящая карта, поэтому точки совпадают с полётом.
     // Показывает только часть пути (fraction) — так растёт сложность. Ничего не ломает.
     public class TrajectoryPreview : MonoBehaviour
@@ -21,10 +21,10 @@ namespace CardThrow
         [SerializeField] private Color dangerColor = new Color(1f, 0.25f, 0.25f, 1f); // точки внутри чужой зоны
         [SerializeField] private string sortingLayer = "FX";
 
-        [Header("Рикошет (плейтест 12.10: «непонятно, куда отлетит»)")]
-        [Tooltip("Если путь задевает стакан — после точки отскока всегда показываем хотя бы столько ед. пути, даже сверх доли превью")]
+        [Header("Рикошет")]
+        [Tooltip("Если путь задевает пепельницу — после точки отскока всегда показываем хотя бы столько ед. пути, даже сверх доли превью")]
         [SerializeField] private float ricochetReveal = 2.2f;
-        [SerializeField] private Color ricochetColor = new Color(0.6f, 0.9f, 1f, 1f); // точки после отскока — «стеклянные»
+        [SerializeField] private Color ricochetColor = new Color(0.6f, 0.9f, 1f, 1f); // цвет точек после отскока
 
         private SpriteRenderer[] dots;
         private SpriteRenderer cross;
@@ -37,7 +37,7 @@ namespace CardThrow
         {
             if (settings == null)
             {
-                Debug.LogError("[CT] TrajectoryPreview: не задан FlightSettings (меню CardThrow → Алексей → 4)", this);
+                Debug.LogError("[CT] TrajectoryPreview: не задан FlightSettings (Data/FlightSettings.asset)", this);
                 enabled = false;
                 return;
             }
@@ -86,7 +86,7 @@ namespace CardThrow
 
             float total = pathLength[count];
             float visible = total * Mathf.Clamp01(fraction);
-            // Стакан — единственное место, где превью раскрывает больше обычного: игрок должен видеть,
+            // Пепельница — единственное место, где превью раскрывает больше обычного: игрок должен видеть,
             // куда уйдёт карта после отскока, иначе рикошет — лотерея. Даже на уровнях с коротким превью.
             if (firstRicochetAt >= 0f) visible = Mathf.Min(total, Mathf.Max(visible, firstRicochetAt + ricochetReveal));
 

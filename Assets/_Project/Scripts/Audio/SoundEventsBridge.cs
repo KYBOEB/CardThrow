@@ -2,9 +2,8 @@ using UnityEngine;
 
 namespace CardThrow
 {
-    // Мост «игровые события → общие звуки» (CardThrow_CONTEXT.md 5.3). Только слушает GameEvents
-    // и вызывает AudioManager.Play / PlayLoop. Звуки разрушения (бутылка, домик) играют сами
-    // препятствия — здесь Breakable намеренно не озвучиваем, иначе будет двойной звук.
+    // Мост «игровые события → общие звуки»: только слушает GameEvents и вызывает AudioManager.
+    // Звуки разрушения (стакан, домик) и толкания фишек играют сами препятствия — здесь их не дублируем.
     public class SoundEventsBridge : MonoBehaviour
     {
         [SerializeField] private GameSettings settings;     // timerWarningAt — с какой секунды тикать
@@ -91,8 +90,7 @@ namespace CardThrow
             switch (kind)
             {
                 case ObstacleKind.Ricochet: AudioManager.Play(SoundId.GlassClink); break;
-                // Pushable и Breakable: звук играет само препятствие (PushableObstacle / BreakableObstacle) —
-                // здесь не дублируем (QA/Triage, Артас 12.10: фишки звучали дважды)
+                // Pushable и Breakable озвучивают сами PushableObstacle / BreakableObstacle
             }
         }
 

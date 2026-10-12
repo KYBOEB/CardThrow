@@ -7,7 +7,7 @@ namespace CardThrow
     {
         public Vector2 pos;   // позиция центра карты (ед. мира)
         public Vector2 vel;   // скорость (ед/с)
-        public float spin;    // закрут (рад/с): на сколько радиан в секунду поворачивается вектор скорости
+        public float spin;    // кривизна дуги (рад/с): на сколько радиан в секунду поворачивается вектор скорости
         public float time;    // сколько секунд карта уже летит
 
         public bool IsStopped => vel == Vector2.zero;
@@ -16,7 +16,7 @@ namespace CardThrow
     // Что произошло за шаг с учётом столкновений.
     public enum StepEvent { None, Ricochet, HitBreakable, HitPushable }
 
-    // Модель полёта карты (CONTEXT, раздел 3). Владелец — Алексей.
+    // Детерминированная модель полёта карты.
     // Launch/Step — чистая математика. StepWithCollisions добавляет столкновения (только ЧИТАЕТ физику).
     // Эти функции вызывают и CardFlight (в FixedUpdate), и TrajectoryPreview (в цикле),
     // поэтому превью траектории совпадает с реальным полётом.
@@ -56,7 +56,7 @@ namespace CardThrow
                 return st;
             }
 
-            // 2. Закрут: поворачиваем направление скорости, модуль не меняется.
+            // 2. Дуга: поворачиваем направление скорости, модуль не меняется.
             Vector2 dir = st.vel / speed;
             dir = Rotate(dir, st.spin * dt);
 
@@ -67,7 +67,7 @@ namespace CardThrow
             st.vel = dir * speed;
             st.pos += st.vel * dt;
 
-            // 5. Закрут постепенно затухает.
+            // 5. Дуга постепенно затухает.
             st.spin *= Mathf.Max(0f, 1f - s.spinDecay * dt);
             st.time += dt;
             return st;
@@ -75,7 +75,7 @@ namespace CardThrow
 
         // Шаг с учётом препятствий. Перед перемещением «протягиваем» круг радиуса карты по пути за этот шаг
         // (CircleCast). Нет попадания — обычный Step. Попадание:
-        //   Ricochet  — отражаем скорость от нормали, теряем часть энергии, закрут ×0.5;
+        //   Ricochet  — отражаем скорость от нормали, теряем часть энергии, кривизна дуги ×0.5;
         //   Breakable / Pushable — ставим карту в точку касания и сообщаем вызывающему.
         // Метод НИЧЕГО не ломает и не толкает: побочные эффекты делает только CardFlight.
         // ignore — коллайдер, который сейчас пропускаем (фишка, которую карта только что задела).
@@ -110,7 +110,7 @@ namespace CardThrow
                     if (h.collider == null || h.collider == ignore) continue;
                     Obstacle o = h.collider.GetComponentInParent<Obstacle>();
                     if (o == null || (ignoreObstacle != null && o == ignoreObstacle)) continue;
-                    // Карта уже внутри стакана (distance = 0) — не отражаем, иначе она «застрянет», дёргаясь туда-обратно.
+                    // Карта уже внутри пепельницы (distance = 0) — не отражаем, иначе она «застрянет», дёргаясь туда-обратно.
                     if (o.Kind == ObstacleKind.Ricochet && h.distance <= 0f) continue;
                     if (h.distance < bestDistance)
                     {
@@ -150,7 +150,7 @@ namespace CardThrow
         }
 
         // Поворот вектора на угол (радианы). Положительный угол = против часовой стрелки,
-        // поэтому положительный закрут уводит карту влево относительно направления полёта.
+        // поэтому положительная дуга уводит карту влево относительно направления полёта.
         public static Vector2 Rotate(Vector2 v, float radians)
         {
             float c = Mathf.Cos(radians);

@@ -2,8 +2,7 @@ using UnityEngine;
 
 namespace CardThrow
 {
-    // Выход из игры. Жюри запускает игру в редакторе — там «выход» = остановить Play.
-    // В сборке — закрыть приложение. UnityEditor упомянут только внутри #if UNITY_EDITOR (CONTEXT §6).
+    // Выход из игры: в редакторе останавливает Play, в сборке закрывает приложение.
     public static class GameQuit
     {
         public static void Quit()

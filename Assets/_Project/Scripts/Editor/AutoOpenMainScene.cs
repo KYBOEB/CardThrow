@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace CardThrow.EditorTools
 {
-    // Жюри запускает игру в редакторе. Два страховочных механизма:
-    // 1) Свежескачанный проект открывается с пустой Untitled-сценой (данные о последней сцене лежат
-    //    в Library/, которой нет в репозитории) → один раз за сессию открываем Main.unity.
-    // 2) Кнопка Play всегда стартует со сцены Main, даже если открыта другая сцена или префаб
-    //    (EditorSceneManager.playModeStartScene). Разработчикам песочниц: меню CardThrow → «Play всегда из Main»
-    //    снимает галку только на своём компьютере (EditorPrefs, не попадает в git).
+    // Страховка для запуска проекта прямо в редакторе:
+    // 1) Свежий клон открывается с пустой Untitled-сценой (последняя сцена хранится в Library/,
+    //    которой нет в репозитории) — один раз за сессию открываем Main.unity.
+    // 2) Play всегда стартует со сцены Main, даже если открыта другая сцена или префаб
+    //    (EditorSceneManager.playModeStartScene). Пункт меню «CardThrow/Play всегда из Main»
+    //    отключает это локально (EditorPrefs, не попадает в git).
     [InitializeOnLoad]
     public static class AutoOpenMainScene
     {

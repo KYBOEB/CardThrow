@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace CardThrow
 {
+    // Шина событий: системы общаются друг с другом только через неё.
     public static class GameEvents
     {
         public static event Action<GameState> StateChanged;            // GameManager
@@ -33,7 +34,7 @@ namespace CardThrow
         public static void RaiseCardFlightFinished(FlightReport r) => CardFlightFinished?.Invoke(r);
         public static void RaiseThrowResolved(ThrowOutcome o, int gained) => ThrowResolved?.Invoke(o, gained);
 
-        // Сброс подписок при входе в Play Mode (на случай отключённого Domain Reload)
+        // Сброс подписок при входе в Play Mode (если Domain Reload отключён)
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void ResetAll()
         {

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace CardThrow
 {
-    // Полёт брошенной карты (CONTEXT, разделы 3 и 5.3). Владелец — Алексей.
+    // Полёт брошенной карты.
     // Карта БЕЗ Rigidbody2D и коллайдера: в FixedUpdate двигаем transform по FlightSimulator,
     // столкновения ищем CircleCast'ом, зоны и край стола — OverlapPoint.
     public class CardFlight : MonoBehaviour
@@ -54,7 +54,7 @@ namespace CardThrow
 
             if (settings == null)
             {
-                Debug.LogError("[CT] CardFlight: не задан FlightSettings (меню CardThrow → Алексей → Настроить префаб Card)", this);
+                Debug.LogError("[CT] CardFlight: не задан FlightSettings (Data/FlightSettings.asset)", this);
                 return;
             }
             zoneFilter = MakeTriggerFilter(settings.zoneMask);
@@ -73,7 +73,7 @@ namespace CardThrow
             GameEvents.CardHitObstacle -= OnAnyObstacleHit;
         }
 
-        // ---------- Публичный API (контракт CONTEXT 5.3) ----------
+        // ---------- Публичный API ----------
 
         public void Launch(ThrowParams p)
         {
@@ -161,7 +161,6 @@ namespace CardThrow
                 return;
             }
 
-            // Край стола.
             if (!IsOnTable(state.pos))
             {
                 Finish(FlightResult.OffTable, 0f);
@@ -207,7 +206,7 @@ namespace CardThrow
             finishRoutine = StartCoroutine(FinishRoutine(report));
         }
 
-        // Короткая заглушка визуала (полноценный game feel — задача A5), затем отчёт GameManager'у.
+        // Короткая анимация итога, затем отчёт GameManager'у.
         private IEnumerator FinishRoutine(FlightReport report)
         {
             if (report.result == FlightResult.HitBreakable && crumpledSprite != null && cardRenderer != null)
@@ -242,7 +241,7 @@ namespace CardThrow
             if (!IsFlying && !finishing && cardRenderer != null && cardRenderer.enabled) ShowFace();
         }
 
-        // Цепная реакция: бутылку разбила разлетевшаяся фишка, пока карта ещё летит → бросок провален.
+        // Цепная реакция: стакан разбила разлетевшаяся фишка, пока карта ещё летит → бросок провален.
         private void OnAnyObstacleHit(Vector2 point, ObstacleKind kind)
         {
             if (raisingOwnHit || !IsFlying) return;

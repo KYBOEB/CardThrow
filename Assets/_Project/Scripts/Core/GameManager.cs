@@ -5,13 +5,13 @@ using UnityEngine.InputSystem;
 
 namespace CardThrow
 {
-    // Единственный, кто меняет состояние игры и решает исход броска (CardThrow_CONTEXT.md, разделы 5.3, 5.4).
+    // Единственный, кто меняет состояние игры и решает исход броска.
     // Остальные системы узнают о происходящем только через GameEvents.
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; private set; }
 
-        [Header("Ссылки (проставлены в Main.unity)")]
+        [Header("Ссылки на объекты сцены")]
         [SerializeField] private GameSettings settings;
         [SerializeField] private LevelManager levelManager;
         [SerializeField] private DealerHand dealerHand;
@@ -27,7 +27,7 @@ namespace CardThrow
         private const int TutorialLevel = 0;   // индекс первой раздачи обучения
         private const int Blackjack = 21;
 
-        // Первая обычная раздача = число раздач обучения в начале списка (Hand_00, Hand_00b, Hand_00c → 3)
+        // Индекс первой обычной раздачи = число раздач обучения в начале списка
         private int FirstRealLevel => Mathf.Min(levelManager.TutorialCount, Mathf.Max(0, levelManager.HandCount - 1));
 
         // Текущая раздача
@@ -127,7 +127,7 @@ namespace CardThrow
         {
             if (!isActiveAndEnabled) return;
             Debug.Log("[CT] RestartRun");
-            StartRun(); // внутри StopAllCoroutines + сброс очков и подозрения
+            StartRun(); // StartRun уже останавливает корутины и сбрасывает очки и подозрение
         }
 
         public void SkipTutorial()
@@ -227,7 +227,6 @@ namespace CardThrow
 
         // ---------- Загрузка уровня ----------
 
-        // Порядок из 5.4
         private void LoadLevel(int index, bool isRetry)
         {
             int prevSelected = dealerHand.SelectedIndex;
@@ -366,8 +365,8 @@ namespace CardThrow
                     score += gained;
                     GameEvents.RaiseScoreChanged(score);
 
-                    // Награда за чистую раздачу: одно сердце назад. Ошибка на уровне 1 не обрекает весь забег,
-                    // но три промаха подряд по-прежнему — поражение (плейтест 12.10)
+                    // Награда за чистую раздачу: одно сердце назад. Ранняя ошибка не обрекает весь забег,
+                    // но три промаха подряд — поражение.
                     if (suspicion > 0 && settings.suspicionHealOnSuccess > 0)
                     {
                         suspicion = Mathf.Max(0, suspicion - settings.suspicionHealOnSuccess);
@@ -383,7 +382,7 @@ namespace CardThrow
             FinishThrow(outcome, gained);
         }
 
-        // Формула из раздела 2, все константы — в GameSettings
+        // База + секунды до конца окна + точность + рикошеты + дуга + бонусы; константы — в GameSettings
         private int CalculateScore(FlightReport r)
         {
             int seconds = Mathf.FloorToInt(secondsLeftAtThrow);
@@ -478,7 +477,7 @@ namespace CardThrow
         // Shift+N → «Уровень N» как в HUD (раздачи обучения не считаются)
         private void DebugLoadLevelNumber(int number) => DebugLoadHand(levelManager.TutorialCount + number - 1);
 
-        // Shift+S — «карта легла к напарнику, номинал правильный»; Shift+F — «задела бутылку».
+        // Shift+S — «карта легла к напарнику, номинал правильный»; Shift+F — «задела стакан».
         // Идёт через те же события, что и настоящий бросок, поэтому проверяет весь конвейер: UI, обучение, звук.
         private void DebugFakeFlight(bool success)
         {

@@ -4,11 +4,9 @@ using UnityEngine.UI;
 
 namespace CardThrow
 {
-    // Пауза: Esc (если игрок не тянет карту — тогда Esc отменяет прицел, как раньше) или P.
-    // Останавливает время (Time.timeScale = 0 → стоят таймер раздачи, полёт карты, анимации), глушит звуки
-    // (музыка играет дальше — см. AudioManager), выключает прицел и выбор карты через AimController.SetEnabled / DealerHand.SetInteractable.
-    // В меню: «Продолжить», «Выйти из игры» (GameQuit) и ползунок громкости музыки. «Заново» — клавиша R (её ловит GameManager).
-    // Работает на unscaled-времени, потому что во время паузы timeScale = 0.
+    // Пауза по Esc или P. Пока игрок тянет карту, Esc отменяет прицел и паузу не открывает.
+    // Останавливает время (Time.timeScale = 0), глушит звуки (музыка продолжает играть — см. AudioManager),
+    // блокирует прицел и выбор карты. «Заново» — клавиша R (обрабатывает GameManager).
     public class PauseMenu : MonoBehaviour
     {
         [SerializeField] private CanvasGroup group;
@@ -24,9 +22,6 @@ namespace CardThrow
         private bool paused;
         private bool playerAiming;      // игрок тянет карту — Esc принадлежит прицелу
         private int aimEndFrame = -1;   // кадр, в котором прицел сняли (тем же Esc) — паузу в этом кадре не открываем
-        private float savedTimeScale = 1f;
-
-        public bool IsPaused => paused;
 
         private void Awake()
         {
@@ -69,7 +64,7 @@ namespace CardThrow
 
         private void LateUpdate()
         {
-            // Стоп-кадр FeedbackManager мог вернуть timeScale — пауза главнее
+            // Стоп-кадр FeedbackManager мог восстановить timeScale — пауза приоритетнее
             if (paused && Time.timeScale != 0f) Time.timeScale = 0f;
         }
 
@@ -85,7 +80,6 @@ namespace CardThrow
         {
             if (paused || !CanPause()) return;
             paused = true;
-            savedTimeScale = Time.timeScale > 0f ? Time.timeScale : 1f;
             Time.timeScale = 0f;
             AudioListener.pause = true;
             if (aim != null) aim.SetEnabled(false);
@@ -97,7 +91,7 @@ namespace CardThrow
         {
             if (!paused) return;
             paused = false;
-            Time.timeScale = savedTimeScale;
+            Time.timeScale = 1f; // не восстанавливаем «сохранённое»: пауза во время стоп-кадра оставила бы игру в замедлении
             AudioListener.pause = false;
             PlayerPrefs.Save(); // громкость музыки — на диск один раз, а не на каждый сдвиг ползунка
             bool aiming = GameManager.Instance != null && GameManager.Instance.State == GameState.Aiming;

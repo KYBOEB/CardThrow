@@ -48,7 +48,7 @@ namespace CardThrow
             if (playButton != null) playButton.onClick.RemoveListener(OnPlayClicked);
         }
 
-        // Только визуал (лёгкая пульсация кнопки), без Find/GetComponent
+        // Только визуал: лёгкая пульсация кнопки «Играть»
         private void Update()
         {
             if (!visible || playButton == null) return;

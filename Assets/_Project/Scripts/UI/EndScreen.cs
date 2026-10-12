@@ -5,10 +5,9 @@ using UnityEngine.UI;
 
 namespace CardThrow
 {
-    // Экран конца забега. Один класс на два режима: в сцене два экземпляра —
-    // GameOverScreen (mode = GameOver) и VictoryScreen (mode = Victory).
-    // Показывает заголовок, причину/подзаголовок, итоговые очки, рекорд, «Новый рекорд!» и кнопку «Ещё раз (R)».
-    // R обрабатывает GameManager; кнопка — для мыши.
+    // Экран конца забега: один класс, в сцене два экземпляра — GameOverScreen и VictoryScreen (поле mode).
+    // Показывает заголовок, причину, итоговые очки, рекорд и «Новый рекорд!».
+    // Клавишу R обрабатывает GameManager, кнопка «Ещё раз» — для мыши.
     public class EndScreen : MonoBehaviour
     {
         [Header("Режим")]

@@ -2,14 +2,14 @@ using UnityEngine;
 
 namespace CardThrow
 {
-    // Висит на корне префаба раздачи. Данные заполняет Егор в инспекторе.
-    // Обучение = несколько ПЕРВЫХ раздач в списке LevelManager с isTutorial (Hand_00, Hand_00b, Hand_00c).
+    // Данные раздачи; висит на корне её префаба.
+    // Обучение = несколько первых раздач в списке LevelManager с isTutorial.
     public class LevelConfig : MonoBehaviour
     {
         [Header("Уровень")]
         [Tooltip("Уровень 0: обучение — без таймера, подозрения и очков")]
         [SerializeField] private bool isTutorial;
-        [Tooltip("Только для обучения: Throw — выбрать карту и кинуть; Spin — + закрут; Ricochet — бросок через стакан")]
+        [Tooltip("Только для обучения: Throw — выбрать карту и кинуть; Spin — + дуга; Ricochet — рикошет от пепельницы")]
         [SerializeField] private TutorialStage tutorialStage = TutorialStage.Throw;
         [SerializeField] private string handTitle = "Уровень";
         [Tooltip("В обучении оставьте пустым: подсказки ведёт TutorialController")]

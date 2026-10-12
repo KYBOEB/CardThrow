@@ -6,10 +6,9 @@ using UnityEngine.UI;
 
 namespace CardThrow
 {
-    // Праздник на экране победы (на объекте VictoryScreen рядом с EndScreen).
-    // • Крупная надпись выигрыша «67 000 000 $» набегает от нуля — шуточный «джекпот смены».
-    // • Фейерверки слева и справа от панели: залпы UI-частиц (fx_sparkle / fx_star), у каждого залпа — хлопок.
-    // Всё на unscaled-времени (на финише может идти slow-mo), без внешних пакетов. Пул частиц создаётся один раз.
+    // Праздник на экране победы (на объекте VictoryScreen рядом с EndScreen): набегающий «джекпот смены»
+    // и фейерверк из UI-частиц по бокам от панели, у каждого залпа — хлопок.
+    // Всё на unscaled-времени (на финише может идти slow-mo); частицы берутся из пула.
     public class VictoryCelebration : MonoBehaviour
     {
         [Header("Джекпот")]
@@ -46,21 +45,19 @@ namespace CardThrow
 
         private class Particle { public RectTransform rt; public Image img; public Vector2 vel; public float age, life; public Color color; }
         private readonly List<Particle> pool = new List<Particle>();
-        private Coroutine routine;
 
         private void OnEnable() => GameEvents.StateChanged += OnStateChanged;
         private void OnDisable() { GameEvents.StateChanged -= OnStateChanged; Stop(); }
 
         private void OnStateChanged(GameState state)
         {
-            if (state == GameState.Victory) { Stop(); routine = StartCoroutine(Celebrate()); }
+            if (state == GameState.Victory) { Stop(); StartCoroutine(Celebrate()); }
             else Stop();
         }
 
         private void Stop()
         {
             StopAllCoroutines(); // и залпы, и счётчик джекпота
-            routine = null;
             foreach (Particle p in pool) { p.age = p.life; p.img.enabled = false; }
         }
 

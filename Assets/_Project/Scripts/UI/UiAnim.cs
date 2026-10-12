@@ -30,17 +30,6 @@ namespace CardThrow
             SetInteractive(group, visible);
         }
 
-        // Масштаб по кривой: curve(0..1) → множитель масштаба
-        public static IEnumerator ScaleByCurve(Transform target, AnimationCurve curve, float duration)
-        {
-            if (target == null || curve == null) yield break;
-            for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
-            {
-                target.localScale = Vector3.one * curve.Evaluate(t / duration);
-                yield return null;
-            }
-            target.localScale = Vector3.one * curve.Evaluate(1f);
-        }
 
         // Короткий «тычок»: 1 → 1+amount → 1 (синус-полуволна)
         public static IEnumerator Punch(Transform target, float amount, float duration)

@@ -4,23 +4,20 @@ using UnityEngine;
 
 namespace CardThrow
 {
-    // «Час пик» (уровень 5). Владелец — Алексей.
-    // Вешается на корень раздачи. Каждые interval секунд официантка выбегает из-за длинного края стола,
-    // подбегает к 1–2 стаканам и переставляет их в случайную точку полосы вдоль длинного края:
-    // |y| ∈ [yMin; yMax], x ∈ [xMin; xMax], не ближе minDistance к зоне напарника и другим предметам.
-    // Пока игрок не целится или карта летит — официантки не выходят. Если игрок бросил карту,
-    // пока официантка несёт стакан, стакан сразу «ставится» на место: полёт карты честный.
-    // Плейтест 12.10 (Данила): официантка НЕ заходит на стол. Подходит к краю (за бортик, между сидящими игроками),
-    // и стакан «скользит» от неё к новой точке. Коллайдер стакана переносится сразу в момент броска —
-    // превью и полёт честные, едет только картинка (дочерний Visual).
+    // «Час пик»: официантки переставляют пепельницы между бросками. Вешается на корень раздачи.
+    // Каждые interval секунд официантка подходит к длинному краю стола (за бортик, между сидящими игроками),
+    // и 1–2 пепельницы «скользят» от неё в случайные точки полосы |y| ∈ [yMin; yMax], x ∈ [xMin; xMax],
+    // не ближе minDistance к зоне напарника и другим предметам. Официантки выходят, только пока игрок целится.
+    // Коллайдер переносится сразу, едет только картинка (дочерний Visual) — превью и полёт честные.
+    // Если карту бросили во время перестановки, она мгновенно завершается.
     public class WaiterRush : MonoBehaviour
     {
         [Header("Ритм")]
-        [SerializeField] private float interval = 7f; // пауза между уходом официантки и следующим выходом (плейтест 12.10)
+        [SerializeField] private float interval = 7f; // пауза между уходом официантки и следующим выходом
         [SerializeField, Min(1)] private int minPerWave = 1;
         [SerializeField, Min(1), Tooltip("Последний уровень: 1 официантка за раз. Сложнее — поставить 2")] private int maxPerWave = 1;
 
-        [Header("Куда ставить стакан")]
+        [Header("Куда ставить пепельницу")]
         [SerializeField] private float xMin = -5f;
         [SerializeField] private float xMax = 5f;
         [SerializeField, Tooltip("Полоса вдоль длинного края: |y| от yMin до yMax")] private float yMin = 2f;
@@ -28,10 +25,9 @@ namespace CardThrow
         [SerializeField, Tooltip("Не ближе этого к зоне напарника и к другим предметам")] private float minDistance = 1.5f;
 
         [Header("Официантка")]
-        [SerializeField, Tooltip("Спрайт официантки (пока — поднос; заменить, когда Кирилл пришлёт)")]
+        [SerializeField, Tooltip("Спрайт официантки")]
         private Sprite waiterSprite;
         [SerializeField] private float waiterScale = 1f;
-        [SerializeField, Tooltip("За краем стола, откуда выбегает официантка (|y|)")] private float offTableY = 5.6f;
         [SerializeField, Tooltip("Скорость шага официантки, ед/с (одинаковая на любом расстоянии)")] private float walkSpeed = 2.5f;
         [SerializeField] private string sortingLayer = "FX";
 
@@ -39,7 +35,7 @@ namespace CardThrow
         [SerializeField, Tooltip("Где стоит официантка, |y|: бортик ≈ 5.15 + полкорпуса официантки ≈ 1")] private float standY = 6.2f;
         [SerializeField, Tooltip("Не ближе этого по X к сидящему игроку на той же стороне — не перекрывать соперников")] private float seatClearance = 2.3f;
         [SerializeField] private float standXMax = 8.5f;
-        [SerializeField, Tooltip("Сколько стакан скользит от официантки до новой точки, с")] private float tossTime = 0.45f;
+        [SerializeField, Tooltip("Сколько пепельница скользит от официантки до новой точки, с")] private float tossTime = 0.45f;
 
         private readonly List<Transform> glasses = new List<Transform>();
         private readonly List<Transform> others = new List<Transform>();
@@ -75,7 +71,7 @@ namespace CardThrow
             StartCoroutine(Loop());
         }
 
-        // Стаканы и прочие предметы — внутри этой раздачи. Если их нет в детях (песочница) — ищем по сцене.
+        // Пепельницы и прочие предметы — внутри этой раздачи. Если их нет в детях (песочница) — ищем по сцене.
         private void CollectObjects()
         {
             RicochetObstacle[] g = GetComponentsInChildren<RicochetObstacle>();
@@ -137,7 +133,7 @@ namespace CardThrow
             return gm == null || gm.State == GameState.Aiming; // без GameManager (песочница) — всегда
         }
 
-        // Случайная точка полосы, далеко от зоны напарника и других предметов (включая другие стаканы)
+        // Случайная точка полосы, далеко от зоны напарника и других предметов (включая другие пепельницы)
         private bool TryFindSpot(Transform glass, out Vector2 spot)
         {
             for (int attempt = 0; attempt < 30; attempt++)
@@ -149,7 +145,7 @@ namespace CardThrow
                 return true;
             }
             spot = glass.position;
-            return false; // места нет — этот стакан в этот раз не трогаем
+            return false; // места нет — эту пепельницу в этот раз не трогаем
         }
 
         private bool TooClose(Vector2 spot, List<Transform> list, Transform skip)
@@ -159,7 +155,7 @@ namespace CardThrow
             return false;
         }
 
-        // Официантка: из-за экрана → к краю стола (за бортик) → стакан скользит от неё к новой точке → уходит
+        // Официантка: из-за экрана → к краю стола (за бортик) → пепельница скользит от неё к новой точке → уходит
         private IEnumerator Move(Transform glass, Vector2 target)
         {
             float side = Mathf.Sign(target.y == 0f ? 1f : target.y);
@@ -172,10 +168,10 @@ namespace CardThrow
             job.waiter = CreateWaiter(enter, side);
             inProgress.Add(job);
 
-            yield return Run(job.waiter.transform, enter, stand, LegTime(enter, stand), null);
+            yield return Run(job.waiter.transform, enter, stand, LegTime(enter, stand));
             yield return Toss(job);
             yield return new WaitForSeconds(0.2f);
-            yield return Run(job.waiter.transform, stand, enter, LegTime(stand, enter), null);
+            yield return Run(job.waiter.transform, stand, enter, LegTime(stand, enter));
 
             inProgress.Remove(job);
             if (job.waiter != null) Destroy(job.waiter);
@@ -233,7 +229,7 @@ namespace CardThrow
         // Время участка по длине пути: официантка идёт, а не телепортируется
         private float LegTime(Vector2 a, Vector2 b) => Vector2.Distance(a, b) / Mathf.Max(0.1f, walkSpeed);
 
-        private IEnumerator Run(Transform who, Vector2 a, Vector2 b, float time, Transform carried)
+        private IEnumerator Run(Transform who, Vector2 a, Vector2 b, float time)
         {
             float t = 0f;
             while (t < time)
@@ -243,11 +239,8 @@ namespace CardThrow
                 float k = Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(t / time));
                 Vector2 p = Vector2.Lerp(a, b, k);
                 who.position = p;
-                if (carried != null) carried.position = new Vector3(p.x, p.y, carried.position.z);
                 yield return null;
             }
-            if (carried != null) carried.position = new Vector3(b.x, b.y, carried.position.z);
-            Physics2D.SyncTransforms(); // коллайдер стакана сразу на новом месте — для превью и полёта
         }
 
         private GameObject CreateWaiter(Vector2 at, float side)
@@ -263,7 +256,7 @@ namespace CardThrow
             return go;
         }
 
-        // Бросок во время перестановки: всё «доигрываем» мгновенно — стаканы встают на места, официантки исчезают
+        // Бросок во время перестановки: всё «доигрываем» мгновенно — пепельницы встают на места, официантки исчезают
         private void OnCardThrown(ThrowParams p)
         {
             cardFlying = true;

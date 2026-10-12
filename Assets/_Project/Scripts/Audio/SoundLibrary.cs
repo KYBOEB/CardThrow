@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace CardThrow
 {
-    // Таблица «SoundId → клипы». Наполняет Артас в ассете Data/SoundLibrary.asset.
+    // Таблица «SoundId → клипы» (ассет Data/SoundLibrary.asset).
     [CreateAssetMenu(menuName = "CardThrow/Sound Library", fileName = "SoundLibrary")]
     public class SoundLibrary : ScriptableObject
     {

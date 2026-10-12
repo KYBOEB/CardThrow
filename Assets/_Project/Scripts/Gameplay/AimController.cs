@@ -4,9 +4,9 @@ using UnityEngine.InputSystem;
 
 namespace CardThrow
 {
-    // Прицел-рогатка и закрут (CONTEXT, раздел 2 «Управление»). Владелец — Алексей.
+    // Прицел-рогатка и дуга броска.
     // ЛКМ зажать и тянуть НАЗАД → направление и сила; отпустить → бросок.
-    // Колесо мыши / Q / E → закрут. ПКМ / Esc → отмена прицела.
+    // Колесо мыши / Q / E → дуга. ПКМ / Esc → отмена прицела.
     public class AimController : MonoBehaviour
     {
         [SerializeField] private CardFlight cardFlight;
@@ -24,7 +24,7 @@ namespace CardThrow
         [SerializeField, Tooltip("На сколько карта отъезжает назад в пальцах при 100% силы")]
         private float cardPullback = 0.6f;
 
-        [Header("Закрут")]
+        [Header("Дуга")]
         [SerializeField, Tooltip("Пауза между шагами колеса: трекпад шлёт много мелких событий")]
         private float scrollCooldown = 0.1f;
 
@@ -43,7 +43,7 @@ namespace CardThrow
             cam = Camera.main;
             if (preview == null) preview = FindAnyObjectByType<TrajectoryPreview>();
             if (cardFlight == null) cardFlight = FindAnyObjectByType<CardFlight>();
-            if (settings == null) Debug.LogError("[CT] AimController: не задан FlightSettings (меню CardThrow → Алексей → 4)", this);
+            if (settings == null) Debug.LogError("[CT] AimController: не задан FlightSettings (Data/FlightSettings.asset)", this);
         }
 
         // ---------- Публичный API ----------
@@ -80,7 +80,6 @@ namespace CardThrow
                 return;
             }
 
-            // Отмена: ПКМ или Esc.
             if (mouse.rightButton.wasPressedThisFrame || (kb != null && kb.escapeKey.wasPressedThisFrame))
             {
                 CancelAim();

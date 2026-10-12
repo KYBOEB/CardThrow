@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace CardThrow
 {
-    // Параметры полёта карты. Смысл полей и стартовые значения — CONTEXT, раздел 3.
+    // Параметры модели полёта карты: общие для реального полёта и превью траектории.
     [CreateAssetMenu(menuName = "CardThrow/Flight Settings", fileName = "FlightSettings")]
     public class FlightSettings : ScriptableObject
     {
@@ -16,7 +16,7 @@ namespace CardThrow
         public float friction = 2.5f;
         public float stopSpeed = 0.15f;
 
-        [Header("Закрут")]
+        [Header("Дуга")]
         public float curvePerStep = 0.35f;
         public float spinDecay = 0.3f;
         public int maxSpinStep = 3;

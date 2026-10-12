@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace CardThrow
 {
+    // Рекорд хранится в PlayerPrefs.
     public static class SaveSystem
     {
         private const string HighScoreKey = "CT_HighScore";

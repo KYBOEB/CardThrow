@@ -5,7 +5,7 @@ using UnityEngine;
 namespace CardThrow
 {
     // Итог броска по центру экрана: крупный заголовок + подзаголовок из UiTexts, «+N» при успехе.
-    // Появление: масштаб 0.6 → 1.1 → 1 за 0.25 с (кривая popCurve), затем держится и гаснет.
+    // Появляется с «выпрыгиванием» по кривой popCurve, держится и гаснет.
     // Всё на unscaled time: slow-mo на успехе (FeedbackManager) не замедляет попап.
     public class ResultPopup : MonoBehaviour
     {
@@ -94,7 +94,7 @@ namespace CardThrow
             if (state == GameState.Title || state == GameState.HandIntro) HideNow();
         }
 
-        // «Перебор!» / «Недобор!» — по сумме у напарника (CONTEXT, таблица исходов)
+        // «Перебор!» / «Недобор!» — по сумме очков напарника после броска
         private string WrongValueTitle(GameManager gm)
         {
             if (gm == null || gm.CurrentLevel == null) return texts.GetTitle(ThrowOutcome.WrongValue);
