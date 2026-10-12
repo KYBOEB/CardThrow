@@ -8,8 +8,8 @@
 |---|---|---|---|
 | `Table/table_felt`, `Table/floor_tile`, `Table/zone_opponent`, `Table/zone_partner` | ИИ-генерация (Gemini) + скрипт (бесшовный тайл, эмблема «21») | Кирилл | собственный арт команды |
 | `Characters/player_body_1–4`, `Characters/player_head_1–4`, `Characters/waitress` | ИИ-генерация (Gemini) + скрипт | Кирилл | собственный арт команды |
-| `Characters/dealer_idle`, `dealer_pull` | скрипт Python на основе фигур игроков Кирилла | Данила (с помощью Claude) | собственный арт команды |
-| `Characters/dealer_pinch` | скрипт Python из `dealer_idle`: предплечье повёрнуто в локте, рукав целый (`ArtWork/_tools/make_dealer_arm.py`) | Кирилл (с помощью Claude) | собственный арт команды |
+| `Characters/dealer_idle` | скрипт Python на основе фигур игроков Кирилла | Данила (с помощью Claude) | собственный арт команды |
+| `Characters/dealer_pinch`, `dealer_pull` | скрипт Python из `dealer_idle`: плавный изгиб руки в локте и плече, рукав целый (`ArtWork/_tools/make_dealer_bend.py`, `make_dealer_pull.py`) | Кирилл (с помощью Claude) | собственный арт команды |
 | `Characters/dealer_body`, `dealer_hand_idle/pinch/pull` | ИИ-генерация (Gemini) + скрипт / скрипт | Кирилл, Данила | собственный арт команды |
 | `Characters/hostess` | ИИ-генерация (Gemini) + скрипт (вырезка фона, правая кисть восстановлена зеркальной копией левой, `ArtWork/_tools/make_hostess.py`) | Кирилл | собственный арт команды |
 | `Characters/partner_glow` | скрипт Python | Данила (с помощью Claude) | собственный арт команды |
