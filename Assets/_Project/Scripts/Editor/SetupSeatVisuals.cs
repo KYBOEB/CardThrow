@@ -79,6 +79,11 @@ namespace CardThrow.EditorTools
                 Set(so, "bodyRenderer", body != null ? body.GetComponent<SpriteRenderer>() : null);
                 SetSprites(so, "bodySprites", "player_body_");
                 SetSprites(so, "headSprites", "player_head_");
+                // Официантка (Кирилл): если спрайта ещё нет — поле пустое, соперники просто отворачиваются
+                Sprite waitress = AssetDatabase.LoadAssetAtPath<Sprite>(CharactersDir + "waitress.png");
+                SerializedProperty w = so.FindProperty("waitressSprite");
+                if (w != null) w.objectReferenceValue = waitress;
+                if (waitress == null) Debug.Log("[CT] Characters/waitress.png пока нет — официантки не будет (это не ошибка)");
                 SerializedProperty scale = so.FindProperty("visualScale");
                 if (scale != null) scale.floatValue = FigureScale;
                 so.ApplyModifiedPropertiesWithoutUndo();
