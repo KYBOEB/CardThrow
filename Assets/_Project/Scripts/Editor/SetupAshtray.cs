@@ -44,6 +44,7 @@ namespace CardThrow.EditorTools
             if (ashtray == null) return;
 
             foreach (string hand in Hands) ReplaceGlasses(hand, ashtray);
+            OneBigAshtrayInTutorial(ashtray);
             UpdateTexts();
 
             AssetDatabase.SaveAssets();
@@ -160,6 +161,45 @@ namespace CardThrow.EditorTools
 
                 PrefabUtility.SaveAsPrefabAsset(root, path);
                 Debug.Log($"[CT] {hand}: стаканов → пепельниц: {glasses.Count}");
+            }
+            finally
+            {
+                PrefabUtility.UnloadPrefabContents(root);
+            }
+        }
+
+        // О3 (Hand_00c): две пепельницы стопкой налезали друг на друга (шаг 0.69 при диаметре 0.9).
+        // Вместо них — одна большая (×1.4, r ≈ 0.63) посередине: стенка той же высоты, ничего не пересекается.
+        // Модель полёта: 0.28% (две) → 0.24% (одна большая) — обучение остаётся проходимым, отскок от плоской грани.
+        // Масштаб — у экземпляра в раздаче: коллайдер растёт вместе с картинкой, префаб для Уровня 2 не меняется.
+        private const float TutorialAshtrayScale = 1.4f;
+
+        private static void OneBigAshtrayInTutorial(GameObject ashtrayPrefab)
+        {
+            string path = Levels + "Hand_00c.prefab";
+            GameObject root = PrefabUtility.LoadPrefabContents(path);
+            try
+            {
+                List<Transform> items = FindInstances(root, "Ashtray");
+                items.AddRange(FindInstances(root, "Glass"));
+                if (items.Count == 0) { Debug.LogWarning("[CT] Hand_00c: нет ни пепельниц, ни стаканов"); return; }
+                if (items.Count == 1 && Mathf.Approximately(items[0].localScale.x, TutorialAshtrayScale)) return; // уже сделано
+
+                Vector3 mean = Vector3.zero;
+                foreach (Transform t in items) mean += t.localPosition;
+                mean /= items.Count;
+                Transform parent = items[0].parent;
+                int sibling = items[0].GetSiblingIndex();
+                foreach (Transform t in items) Object.DestroyImmediate(t.gameObject);
+
+                GameObject ash = (GameObject)PrefabUtility.InstantiatePrefab(ashtrayPrefab, parent);
+                ash.name = "Ashtray";
+                ash.transform.localPosition = mean;
+                ash.transform.localScale = new Vector3(TutorialAshtrayScale, TutorialAshtrayScale, 1f);
+                ash.transform.SetSiblingIndex(Mathf.Min(sibling, parent.childCount - 1));
+
+                PrefabUtility.SaveAsPrefabAsset(root, path);
+                Debug.Log($"[CT] Hand_00c: {items.Count} → 1 пепельница ×{TutorialAshtrayScale} в ({mean.x:0.##}, {mean.y:0.##})");
             }
             finally
             {
