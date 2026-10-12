@@ -32,7 +32,7 @@ namespace CardThrow
         [Header("«Перекидка»")]
         [SerializeField, Tooltip("Вкл: в середине пути бутылка в воздухе — карта проходит под ней.\n" +
                                  "Выкл: бутылка скользит по столу — разбить её можно на всём пути")]
-        private bool tossInAir = true;
+        private bool tossInAir = false; // по итогам проверки 12.10: бутылку передают по столу, а не перекидывают
         [SerializeField, Tooltip("Масштаб в верхней точке полёта")] private float airScale = 1.3f;
         [SerializeField, Tooltip("Доля пути у каждого конца, где бутылка ещё/уже «на столе» (коллайдер включён)")]
         [Range(0f, 0.45f)] private float groundedMargin = 0.12f;
