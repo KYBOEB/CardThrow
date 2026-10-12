@@ -21,6 +21,11 @@ namespace CardThrow
         [SerializeField] private Color dangerColor = new Color(1f, 0.25f, 0.25f, 1f); // точки внутри чужой зоны
         [SerializeField] private string sortingLayer = "FX";
 
+        [Header("Рикошет (плейтест 12.10: «непонятно, куда отлетит»)")]
+        [Tooltip("Если путь задевает стакан — после точки отскока всегда показываем хотя бы столько ед. пути, даже сверх доли превью")]
+        [SerializeField] private float ricochetReveal = 2.2f;
+        [SerializeField] private Color ricochetColor = new Color(0.6f, 0.9f, 1f, 1f); // точки после отскока — «стеклянные»
+
         private SpriteRenderer[] dots;
         private SpriteRenderer cross;
         private Vector2[] path;          // точки пути на каждом шаге симуляции
@@ -61,6 +66,7 @@ namespace CardThrow
             path[0] = st.pos;
             pathLength[0] = 0f;
             bool hitSomething = false;
+            float firstRicochetAt = -1f; // длина пути до первого отскока (−1 — отскока нет)
 
             for (int i = 0; i < settings.maxPreviewSteps && !st.IsStopped; i++)
             {
@@ -74,11 +80,15 @@ namespace CardThrow
                     hitSomething = true; // обрываем: дальше путь непредсказуем
                     break;
                 }
-                // Ricochet — просто продолжаем: отскок виден в точках
+                // Ricochet — продолжаем: отскок виден в точках. Запоминаем, где был первый.
+                if (ev == StepEvent.Ricochet && firstRicochetAt < 0f) firstRicochetAt = pathLength[count];
             }
 
             float total = pathLength[count];
             float visible = total * Mathf.Clamp01(fraction);
+            // Стакан — единственное место, где превью раскрывает больше обычного: игрок должен видеть,
+            // куда уйдёт карта после отскока, иначе рикошет — лотерея. Даже на уровнях с коротким превью.
+            if (firstRicochetAt >= 0f) visible = Mathf.Min(total, Mathf.Max(visible, firstRicochetAt + ricochetReveal));
 
             // 2. Расставляем точки через равные промежутки до видимой длины.
             int seg = 0;
@@ -96,7 +106,8 @@ namespace CardThrow
                 SpriteRenderer dot = dots[used++];
                 dot.transform.position = pos;
                 dot.transform.localScale = Vector3.one * Mathf.Lerp(dotScaleStart, dotScaleEnd, t);
-                Color c = IsInOpponentZone(pos) ? dangerColor : dotColor;
+                Color c = IsInOpponentZone(pos) ? dangerColor
+                        : (firstRicochetAt >= 0f && d > firstRicochetAt ? ricochetColor : dotColor);
                 c.a = Mathf.Lerp(1f, alphaEnd, t);
                 dot.color = c;
                 dot.enabled = true;

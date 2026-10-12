@@ -10,7 +10,8 @@ namespace CardThrow
     //
     // Обучение — 3 раздачи подряд, приём задаёт LevelConfig.TutorialStage:
     //   Throw    — выбрать карту → бросок (стрелка на зону напарника);
-    //   Spin     — выбрать карту → закрут ≠ 0 → бросок (стрелка на бутылку);
+    //   Spin     — выбрать карту → бросок; как только игрок ТЯНЕТ карту без закрута — подсказка меняется
+    //              на «закрути: колесо / Q / E» и стрелку на бутылку (плейтест: без этого никто не догадывается);
     //   Ricochet — выбрать карту → бросок через стакан (стрелка на стакан). Что без отскока не пройти —
     //              обеспечивает раскладка стола (проверяется меню «Уровни: проверить проходимость»), а не if в коде.
     // Текущий шаг = первый невыполненный, поэтому при переигровке (карта и закрут сохранены) шаги пропускаются сами.
@@ -58,6 +59,7 @@ namespace CardThrow
         // Наблюдаемое состояние ввода — обновляется ВСЕГДА (CardSelected приходит до HandStarted)
         private int lastCardValue;
         private int lastSpin;
+        private bool aiming;       // игрок сейчас тянет карту (AimChanged > 0)
 
         // Состояние обучения
         private bool tutorialActive;   // текущий уровень — обучение и забег идёт
@@ -115,6 +117,7 @@ namespace CardThrow
             GameEvents.HandStarted += OnHandStarted;
             GameEvents.CardSelected += OnCardSelected;
             GameEvents.SpinChanged += OnSpinChanged;
+            GameEvents.AimChanged += OnAimChanged;
             GameEvents.CardThrown += OnCardThrown;
             GameEvents.CardFlightFinished += OnCardFlightFinished;
             GameEvents.ThrowResolved += OnThrowResolved;
@@ -127,6 +130,7 @@ namespace CardThrow
             GameEvents.HandStarted -= OnHandStarted;
             GameEvents.CardSelected -= OnCardSelected;
             GameEvents.SpinChanged -= OnSpinChanged;
+            GameEvents.AimChanged -= OnAimChanged;
             GameEvents.CardThrown -= OnCardThrown;
             GameEvents.CardFlightFinished -= OnCardFlightFinished;
             GameEvents.ThrowResolved -= OnThrowResolved;
@@ -202,8 +206,17 @@ namespace CardThrow
             if (guiding) RefreshStep();
         }
 
+        private void OnAimChanged(float power01)
+        {
+            bool now = power01 > 0f;
+            if (now == aiming) return; // событие приходит каждый кадр оттяга — реагируем только на начало/конец
+            aiming = now;
+            if (guiding) RefreshStep();
+        }
+
         private void OnCardThrown(ThrowParams p)
         {
+            aiming = false;
             // Карту и закрут НЕ берём из p: их уже прислали CardSelected/SpinChanged,
             // а отладочный бросок (Shift+S/F) шлёт spinStep = 0 и сбил бы шаг при переигровке.
             throwOrigin = p.origin;
@@ -252,7 +265,7 @@ namespace CardThrow
         {
             int step;
             if (!IsCardStepDone()) step = StepCard;
-            else if (stage == TutorialStage.Spin && lastSpin == 0) step = StepSpin;
+            else if (NeedsSpinHint()) step = StepSpin;
             else step = StepThrow;
             if (step == currentStep) return;
             currentStep = step;
@@ -265,6 +278,10 @@ namespace CardThrow
             GameEvents.RaiseHintChanged(hint);
             ShowStepVisuals(step);
         }
+
+        // Подсказка про закрут: на столе есть бутылка, закрута нет, и игрок уже тянет карту (в части «Рикошет» — не нужна)
+        private bool NeedsSpinHint() =>
+            lastSpin == 0 && aiming && bottleTarget != null && stage != TutorialStage.Ricochet;
 
         private bool IsCardStepDone()
         {

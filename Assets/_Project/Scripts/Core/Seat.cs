@@ -21,7 +21,8 @@ namespace CardThrow
         [SerializeField] private TMP_Text scoreLabel;          // TextMeshPro (world space) над головой
         [SerializeField] private Transform head;               // спрайт головы, вращается по Z
         [SerializeField] private GameObject partnerHighlight;  // золотой контур
-        [SerializeField] private float lookAwayAngle = 150f;
+        [Tooltip("На сколько градусов игрок отворачивает голову. Шея человека — до ~80°: 150° выглядело как перелом (плейтест 12.10)")]
+        [SerializeField, Range(20f, 90f)] private float headTurnAngle = 70f;
         [SerializeField] private float headTurnSpeed = 360f;   // градусов в секунду
 
         [Header("Посадка за столом (D3b)")]
@@ -79,6 +80,7 @@ namespace CardThrow
         [SerializeField] private float alertPulseFrequency = 3f;
 
         private float baseHeadAngle;
+        private float turnSign = 1f;   // в какую сторону отворачиваться: всегда от крупье (к правому торцу стола)
         private float targetHeadAngle;
         private float currentTurnSpeed;
 
@@ -138,7 +140,7 @@ namespace CardThrow
 
         public void SetLookingAway(bool away)
         {
-            targetHeadAngle = baseHeadAngle + (away ? lookAwayAngle : 0f);
+            targetHeadAngle = baseHeadAngle + (away ? LookAwayAngle : 0f);
             currentTurnSpeed = headTurnSpeed;
             alert = false; // мгновенный поворот — это служебный сброс, а не «заметил»
         }
@@ -147,10 +149,12 @@ namespace CardThrow
         // Поворот обратно к столу = соперник вот-вот заметит → тревога на счёте.
         public void SetLookingAway(bool away, float turnDuration)
         {
-            targetHeadAngle = baseHeadAngle + (away ? lookAwayAngle : 0f);
-            currentTurnSpeed = turnDuration > 0.01f ? Mathf.Abs(lookAwayAngle) / turnDuration : headTurnSpeed;
+            targetHeadAngle = baseHeadAngle + (away ? LookAwayAngle : 0f);
+            currentTurnSpeed = turnDuration > 0.01f ? headTurnAngle / turnDuration : headTurnSpeed;
             alert = !away && !isPartner;
         }
+
+        private float LookAwayAngle => turnSign * headTurnAngle;
 
         private void OnStateChanged(GameState state)
         {
@@ -185,6 +189,10 @@ namespace CardThrow
             Vector2 dir = Mathf.Abs(p.x) / tableHalfSize.x > Mathf.Abs(p.y) / tableHalfSize.y
                 ? new Vector2(-Mathf.Sign(p.x), 0f)
                 : new Vector2(0f, p.y == 0f ? 1f : -Mathf.Sign(p.y));
+
+            // Поворот головы против часовой (+) уводит взгляд игрока сверху стола вправо, а игрока снизу — влево.
+            // Поэтому снизу знак минус: все отворачиваются от крупье (он слева), будто смотрят в зал.
+            turnSign = dir.y <= 0f ? 1f : -1f;
 
             if (visualRoot != null)
             {
