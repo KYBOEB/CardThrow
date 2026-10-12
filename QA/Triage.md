@@ -91,4 +91,4 @@
 
 | Время | Что случилось (шаги с ▶ Play) | Приор. | Кому | Issue |
 |---|---|---|---|---|
-| 18:40 | Фишки звучат дважды на каждый удар: `PushableObstacle.OnCardHit` играет `scatterSound` сам, а `SoundEventsBridge.OnCardHitObstacle` на `ObstacleKind.Pushable` ещё раз играет `ChipsScatter`. Шаги: ▶ Play → Shift+3 («Стена») → бросить карту в стопку фишек → два наложенных звука, громче остальных. Исправление в одну строку: убрать `case ObstacleKind.Pushable` из `SoundEventsBridge` (как уже сделано для Breakable). | P2 | Данила | — |
+| 18:40 | Фишки звучат дважды на каждый удар: `PushableObstacle.OnCardHit` играет `scatterSound` сам, а `SoundEventsBridge.OnCardHitObstacle` на `ObstacleKind.Pushable` ещё раз играет `ChipsScatter`. Шаги: ▶ Play → Shift+3 («Стена») → бросить карту в стопку фишек → два наложенных звука, громче остальных. Исправление в одну строку: убрать `case ObstacleKind.Pushable` из `SoundEventsBridge` (как уже сделано для Breakable). | P2 | Данила | ✅ Закрыт 12.10 21:30: Данила убрал Pushable из `SoundEventsBridge`, проверено по коду |
