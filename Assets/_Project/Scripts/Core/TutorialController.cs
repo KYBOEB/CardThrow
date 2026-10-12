@@ -4,12 +4,16 @@ using TMPro;
 
 namespace CardThrow
 {
-    // Интерактивное обучение на уровне 0 (CardThrow_CONTEXT.md: раздел 2 «Обучение», 5.3, 5.4).
+    // Интерактивное обучение (CardThrow_CONTEXT.md: раздел 2 «Обучение», 5.3, 5.4).
     // Ничего не симулирует и не решает исход: только слушает те же GameEvents, что и вся игра,
     // и показывает подсказку (HintChanged), иконки управления и стрелку-указатель.
     //
-    // Текущий шаг = первый невыполненный: карта не та → шаг 1; закрут = 0 → шаг 2; иначе → шаг 3.
-    // Поэтому при переигровке (карта и закрут сохранены) шаги 1–2 пропускаются сами.
+    // Обучение — 3 раздачи подряд, приём задаёт LevelConfig.TutorialStage:
+    //   Throw    — выбрать карту → бросок (стрелка на зону напарника);
+    //   Spin     — выбрать карту → закрут ≠ 0 → бросок (стрелка на бутылку);
+    //   Ricochet — выбрать карту → бросок через стакан (стрелка на стакан). Что без отскока не пройти —
+    //              обеспечивает раскладка стола (проверяется меню «Уровни: проверить проходимость»), а не if в коде.
+    // Текущий шаг = первый невыполненный, поэтому при переигровке (карта и закрут сохранены) шаги пропускаются сами.
     public class TutorialController : MonoBehaviour
     {
         private const int StepCard = 0, StepSpin = 1, StepThrow = 2, StepCount = 3;
@@ -32,6 +36,7 @@ namespace CardThrow
         [Tooltip("Смещение стрелки от напарника, в единицах Canvas (1920×1080). Стрелка всегда смотрит на цель")]
         [SerializeField] private Vector2 partnerArrowOffset = new Vector2(0f, -150f);
         [SerializeField] private Vector2 bottleArrowOffset = new Vector2(0f, 130f);
+        [SerializeField] private Vector2 glassArrowOffset = new Vector2(0f, 130f);
         [Tooltip("Куда «смотрит» спрайт tut_arrow без поворота, градусы (−90 = вниз, 90 = вверх)")]
         [SerializeField] private float arrowSpriteAngle = -90f;
         [SerializeField] private float arrowBobAmplitude = 18f;
@@ -63,7 +68,9 @@ namespace CardThrow
         // Цели стрелки (кэш на уровень)
         private Transform partnerTarget;
         private Transform bottleTarget;
+        private Transform glassTarget;
         private Zone partnerZone;
+        private TutorialStage stage = TutorialStage.Spin;
         private Transform arrowTarget;
         private Vector2 arrowOffset;
 
@@ -243,7 +250,10 @@ namespace CardThrow
 
         private void RefreshStep()
         {
-            int step = !IsCardStepDone() ? StepCard : (lastSpin == 0 ? StepSpin : StepThrow);
+            int step;
+            if (!IsCardStepDone()) step = StepCard;
+            else if (stage == TutorialStage.Spin && lastSpin == 0) step = StepSpin;
+            else step = StepThrow;
             if (step == currentStep) return;
             currentStep = step;
 
@@ -271,6 +281,8 @@ namespace CardThrow
             if (texts == null || texts.tutorialSteps == null || step >= texts.tutorialSteps.Length) return "";
 
             string s = texts.tutorialSteps[step];
+            if (step == StepThrow && stage == TutorialStage.Ricochet && !string.IsNullOrEmpty(texts.tutorialRicochetStep))
+                s = texts.tutorialRicochetStep;
             // В раздаче нет бутылки (Hand_00 без препятствия) — не говорим про бутылку, учим закруту без неё
             if (step == StepSpin && bottleTarget == null && !string.IsNullOrEmpty(texts.tutorialSpinNoObstacle))
                 s = texts.tutorialSpinNoObstacle;
@@ -286,12 +298,23 @@ namespace CardThrow
             if (outcome == ThrowOutcome.Success)
             {
                 pendingFailHint = "";
-                GameEvents.RaiseHintChanged(texts.tutorialSuccess);
+                GameEvents.RaiseHintChanged(GetSuccessText());
                 return;
             }
 
             pendingFailHint = GetFailText(outcome);
             GameEvents.RaiseHintChanged(pendingFailHint);
+        }
+
+        // Промежуточные части обучения подводят к следующему приёму; последняя — к игре на время.
+        // Последняя = следующая раздача уже не обучение (так работает и с одной, и с тремя частями).
+        private string GetSuccessText()
+        {
+            GameManager gm = GameManager.Instance;
+            bool last = gm == null || gm.IsLastTutorialHand;
+            if (!last && stage == TutorialStage.Throw && !string.IsNullOrEmpty(texts.tutorialSuccessThrow)) return texts.tutorialSuccessThrow;
+            if (!last && stage == TutorialStage.Spin && !string.IsNullOrEmpty(texts.tutorialSuccessSpin)) return texts.tutorialSuccessSpin;
+            return texts.tutorialSuccess;
         }
 
         private string GetFailText(ThrowOutcome outcome)
@@ -325,8 +348,9 @@ namespace CardThrow
 
         private void CacheTargets(LevelConfig level)
         {
-            partnerTarget = null; bottleTarget = null; partnerZone = null;
+            partnerTarget = null; bottleTarget = null; glassTarget = null; partnerZone = null;
             if (level == null) return;
+            stage = level.TutorialStage;
 
             Seat partner = level.PartnerSeat;
             if (partner != null)
@@ -339,6 +363,8 @@ namespace CardThrow
 
             BreakableObstacle bottle = level.GetComponentInChildren<BreakableObstacle>();
             if (bottle != null) bottleTarget = bottle.transform;
+            RicochetObstacle glass = level.GetComponentInChildren<RicochetObstacle>();
+            if (glass != null) glassTarget = glass.transform;
         }
 
         private void ShowStepVisuals(int step)
@@ -347,12 +373,12 @@ namespace CardThrow
             SetActiveAll(step2Icons, step == StepSpin);
             SetActiveAll(step3Icons, step == StepThrow);
 
-            switch (step)
-            {
-                case StepCard: arrowTarget = partnerTarget; arrowOffset = partnerArrowOffset; break;
-                case StepSpin: arrowTarget = bottleTarget; arrowOffset = bottleArrowOffset; break;
-                default: arrowTarget = null; break;
-            }
+            // Куда показывает стрелка: шаг «карта» и бросок в части «Бросок» — зона напарника;
+            // закрут — бутылка; бросок в части «Рикошет» — стакан; иначе стрелки нет
+            arrowTarget = null;
+            if (step == StepCard || (step == StepThrow && stage == TutorialStage.Throw)) { arrowTarget = partnerTarget; arrowOffset = partnerArrowOffset; }
+            else if (step == StepSpin) { arrowTarget = bottleTarget; arrowOffset = bottleArrowOffset; }
+            else if (step == StepThrow && stage == TutorialStage.Ricochet) { arrowTarget = glassTarget; arrowOffset = glassArrowOffset; }
 
             if (arrow != null) arrow.gameObject.SetActive(arrowTarget != null);
             UpdateArrow(Time.unscaledTime); // без кадра в старой позиции

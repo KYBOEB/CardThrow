@@ -21,10 +21,14 @@ namespace CardThrow
         public GameState State { get; private set; } = GameState.Title;
         public LevelConfig CurrentLevel { get; private set; }
         public bool IsTutorial => CurrentLevel != null && CurrentLevel.IsTutorial;
+        // Текущая раздача — последняя часть обучения (после неё начинается игра на время)
+        public bool IsLastTutorialHand => IsTutorial && currentIndex + 1 >= levelManager.TutorialCount;
 
-        private const int TutorialLevel = 0;
-        private const int FirstRealLevel = 1;
+        private const int TutorialLevel = 0;   // индекс первой раздачи обучения
         private const int Blackjack = 21;
+
+        // Первая обычная раздача = число раздач обучения в начале списка (Hand_00, Hand_00b, Hand_00c → 3)
+        private int FirstRealLevel => Mathf.Min(levelManager.TutorialCount, Mathf.Max(0, levelManager.HandCount - 1));
 
         // Текущая раздача
         private int currentIndex = -1;
@@ -135,7 +139,8 @@ namespace CardThrow
             LoadLevel(FirstRealLevel, false);
         }
 
-        // Отладка (Shift+0..3): сбрасывает подозрение, очки не трогает
+        // Отладка (Shift+0 — обучение, Shift+1..5 — уровень N): сбрасывает подозрение, очки не трогает.
+        // index — индекс в списке LevelManager (с учётом раздач обучения)
         public void DebugLoadHand(int index)
         {
             if (!isActiveAndEnabled) return;
@@ -215,8 +220,6 @@ namespace CardThrow
                 return;
             }
 
-            if (IsTutorial) tutorialDone = true;
-
             int next = currentIndex + 1;
             if (next < levelManager.HandCount) LoadLevel(next, false);
             else SetState(GameState.Victory);
@@ -240,6 +243,7 @@ namespace CardThrow
             currentIndex = index;
             CurrentLevel = level;
             CacheSeats(level);
+            if (!level.IsTutorial) tutorialDone = true; // дошли до обычной раздачи (успехом, Tab или отладкой) — обучение пройдено
 
             dealerHand.SetCards(level.CardValues, isRetry ? prevSelected : -1);
             cardFlight.ResetCard();
@@ -250,7 +254,10 @@ namespace CardThrow
             warningFired = false;
             secondsLeftAtThrow = 0f;
 
-            GameEvents.RaiseHandStarted(index, levelManager.HandCount - 1, level.HandTitle);
+            // Контракт HandStarted: 0 = обучение (все его части), дальше «Уровень 1…N» без учёта раздач обучения
+            int tutorials = levelManager.TutorialCount;
+            int levelNumber = level.IsTutorial ? 0 : index - tutorials + 1;
+            GameEvents.RaiseHandStarted(levelNumber, levelManager.HandCount - tutorials, level.HandTitle);
             GameEvents.RaiseHintChanged(level.Hint);
             if (!level.IsTutorial) GameEvents.RaiseTimerChanged(timeRemaining, level.TimeLimit); // полная полоса на баннере
 
@@ -448,14 +455,19 @@ namespace CardThrow
 #if UNITY_EDITOR
         private bool HandleDebugHotkeys(Keyboard kb)
         {
-            if (kb.digit0Key.wasPressedThisFrame) { DebugLoadHand(0); return true; }
-            if (kb.digit1Key.wasPressedThisFrame) { DebugLoadHand(1); return true; }
-            if (kb.digit2Key.wasPressedThisFrame) { DebugLoadHand(2); return true; }
-            if (kb.digit3Key.wasPressedThisFrame) { DebugLoadHand(3); return true; }
+            if (kb.digit0Key.wasPressedThisFrame) { DebugLoadHand(TutorialLevel); return true; }
+            if (kb.digit1Key.wasPressedThisFrame) { DebugLoadLevelNumber(1); return true; }
+            if (kb.digit2Key.wasPressedThisFrame) { DebugLoadLevelNumber(2); return true; }
+            if (kb.digit3Key.wasPressedThisFrame) { DebugLoadLevelNumber(3); return true; }
+            if (kb.digit4Key.wasPressedThisFrame) { DebugLoadLevelNumber(4); return true; }
+            if (kb.digit5Key.wasPressedThisFrame) { DebugLoadLevelNumber(5); return true; }
             if (kb.sKey.wasPressedThisFrame) { DebugFakeFlight(true); return true; }
             if (kb.fKey.wasPressedThisFrame) { DebugFakeFlight(false); return true; }
             return false;
         }
+
+        // Shift+N → «Уровень N» как в HUD (раздачи обучения не считаются)
+        private void DebugLoadLevelNumber(int number) => DebugLoadHand(levelManager.TutorialCount + number - 1);
 
         // Shift+S — «карта легла к напарнику, номинал правильный»; Shift+F — «задела бутылку».
         // Идёт через те же события, что и настоящий бросок, поэтому проверяет весь конвейер: UI, обучение, звук.

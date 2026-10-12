@@ -13,6 +13,9 @@ namespace CardThrow
     public enum ObstacleKind { Ricochet, Breakable, Pushable }
     public enum ZoneType { Partner, Opponent }
 
+    // Часть обучения: какой приём учит раздача (LevelConfig.TutorialStage; на обычных уровнях не используется)
+    public enum TutorialStage { Throw, Spin, Ricochet }
+
     public struct ThrowParams
     {
         public Vector2 origin;
