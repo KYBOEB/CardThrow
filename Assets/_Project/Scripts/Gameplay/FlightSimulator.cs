@@ -96,7 +96,11 @@ namespace CardThrow
 
                 int count = Physics2D.CircleCast(st.pos, s.cardRadius, dir, filter, castHits, speed * dt);
 
-                // Берём ближайшее попадание, пропуская игнорируемый коллайдер.
+                // Игнорируем не только сам коллайдер, но и весь предмет, которому он принадлежит:
+                // стопка фишек — это несколько коллайдеров, а скорость карта должна потерять один раз.
+                Obstacle ignoreObstacle = ignore != null ? ignore.GetComponentInParent<Obstacle>() : null;
+
+                // Берём ближайшее попадание, пропуская игнорируемый предмет.
                 int best = -1;
                 float bestDistance = float.MaxValue;
                 Obstacle bestObstacle = null;
@@ -105,7 +109,7 @@ namespace CardThrow
                     RaycastHit2D h = castHits[i];
                     if (h.collider == null || h.collider == ignore) continue;
                     Obstacle o = h.collider.GetComponentInParent<Obstacle>();
-                    if (o == null) continue;
+                    if (o == null || (ignoreObstacle != null && o == ignoreObstacle)) continue;
                     // Карта уже внутри стакана (distance = 0) — не отражаем, иначе она «застрянет», дёргаясь туда-обратно.
                     if (o.Kind == ObstacleKind.Ricochet && h.distance <= 0f) continue;
                     if (h.distance < bestDistance)

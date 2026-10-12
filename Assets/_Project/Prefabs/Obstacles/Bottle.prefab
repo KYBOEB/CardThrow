@@ -146,3 +146,10 @@ MonoBehaviour:
   brokenSprite: {fileID: 21300000, guid: fc5936ad56d27cd4b9c6d9d28fbb9481, type: 3}
   breakSound: 6
   chainBreakSpeed: 2.5
+  debrisSprite: {fileID: 21300000, guid: f43f39bd07cc28248870d67811524265, type: 3}
+  debrisCount: 7
+  debrisScale: 0.8
+  debrisSpeed: 3.5
+  debrisLife: 0.6
+  punchScale: 1.15
+  punchTime: 0.15

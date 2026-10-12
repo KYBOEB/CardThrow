@@ -25,11 +25,14 @@ namespace CardThrow
             if (!AssetDatabase.IsValidFolder(ObstacleFolder))
                 AssetDatabase.CreateFolder(Root + "Prefabs", "Obstacles");
 
+            // Пересоздание с нуля меняет внутренние ID объектов → стаканы и бутылки в уровнях Егора станут Missing.
+            // Поэтому существующие префабы этот пункт больше не трогает: правки — через пункты 5 и 6.
             if (AssetExists(GlassPath) || AssetExists(BottlePath))
             {
-                if (!EditorUtility.DisplayDialog("Префабы уже есть",
-                        "Glass.prefab или Bottle.prefab уже существуют. Пересоздать (ручные правки в них пропадут)?",
-                        "Пересоздать", "Отмена")) return;
+                EditorUtility.DisplayDialog("Префабы уже есть",
+                    "Glass и Bottle уже созданы и стоят в уровнях. Пересоздавать нельзя — сломаются уровни.\n" +
+                    "Стакан меняет пункт 5, бутылку — пункт 6.", "OK");
+                return;
             }
 
             // Стакан: рикошет. Круглый коллайдер r = 0.3.
@@ -166,6 +169,138 @@ namespace CardThrow
             SpriteRenderer sr = t.GetComponent<SpriteRenderer>();
             if (sr == null) sr = t.gameObject.AddComponent<SpriteRenderer>();
             return sr;
+        }
+
+        // ---------- 5. Новый стакан: восьмиугольник ----------
+
+        private const float GlassRadius = 0.45f;
+
+        [MenuItem("CardThrow/Алексей/5. Стакан: восьмиугольник r = 0.45")]
+        private static void UpgradeGlass()
+        {
+            // Правим СУЩЕСТВУЮЩИЙ префаб (а не пересоздаём) — тогда стаканы в уровнях Егора обновятся сами.
+            GameObject root = PrefabUtility.LoadPrefabContents(GlassPath);
+
+            // Круглый коллайдер → правильный восьмиугольник: у гранёного стакана плоские грани,
+            // отражение от грани предсказуемо (угол падения = углу отражения).
+            foreach (CircleCollider2D c in root.GetComponents<CircleCollider2D>()) Object.DestroyImmediate(c, true);
+            PolygonCollider2D poly = root.GetComponent<PolygonCollider2D>();
+            if (poly == null) poly = root.AddComponent<PolygonCollider2D>();
+            var pts = new Vector2[8];
+            for (int i = 0; i < 8; i++)
+            {
+                // +22.5°: грани смотрят ровно вправо/влево/вверх/вниз, а не углы
+                float a = (22.5f + 45f * i) * Mathf.Deg2Rad;
+                pts[i] = new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * GlassRadius;
+            }
+            poly.pathCount = 1;
+            poly.SetPath(0, pts);
+
+            // Картинку подгоняем под диаметр коллайдера (дочерний Visual), сам корень не масштабируем —
+            // иначе вырос бы и коллайдер. Когда Кирилл заменит glass.png на 180 px — запусти пункт ещё раз.
+            SpriteRenderer rootSr = root.GetComponent<SpriteRenderer>();
+            Sprite sprite = rootSr != null && rootSr.sprite != null ? rootSr.sprite : LoadSprite("Obstacles/glass.png");
+            if (rootSr != null) Object.DestroyImmediate(rootSr, true);
+            SpriteRenderer vis = GetOrCreateChildRenderer(root.transform, "Visual", Vector3.zero, 0f);
+            vis.sprite = sprite;
+            vis.sortingLayerName = "Objects";
+            if (sprite != null)
+            {
+                float k = 2f * GlassRadius / Mathf.Max(sprite.bounds.size.x, sprite.bounds.size.y);
+                vis.transform.localScale = new Vector3(k, k, 1f);
+            }
+
+            PrefabUtility.SaveAsPrefabAsset(root, GlassPath);
+            PrefabUtility.UnloadPrefabContents(root);
+            Debug.Log("[CT] Стакан: восьмиугольник r = " + GlassRadius + ", картинка подогнана под диаметр.");
+        }
+
+        // ---------- 6. Фишки, карточный домик, осколки бутылки ----------
+
+        private const string ChipsPath = ObstacleFolder + "/Chips.prefab";
+        private const string CardHousePath = ObstacleFolder + "/CardHouse.prefab";
+
+        [MenuItem("CardThrow/Алексей/6. Создать Chips и CardHouse, осколки у Bottle")]
+        private static void CreateChipsAndCardHouse()
+        {
+            if (AssetExists(ChipsPath) || AssetExists(CardHousePath))
+            {
+                if (!EditorUtility.DisplayDialog("Префабы уже есть",
+                        "Chips или CardHouse уже существуют. Если их уже поставили в уровни, пересоздание их сломает.\n" +
+                        "Пересоздать?", "Пересоздать", "Отмена")) return;
+            }
+
+            // --- Стопка фишек: корень с круглым коллайдером + 5 фишек-детей с Rigidbody2D ---
+            GameObject chips = new GameObject("Chips");
+            int obstacleLayer = LayerMask.NameToLayer("Obstacle");
+            chips.layer = obstacleLayer;
+            chips.AddComponent<CircleCollider2D>().radius = 0.25f;
+            string[] colors = { "red", "blue", "green", "black", "red" };
+            var bodies = new Rigidbody2D[colors.Length];
+            for (int i = 0; i < colors.Length; i++)
+            {
+                GameObject chip = new GameObject("Chip_" + i);
+                chip.layer = obstacleLayer;
+                chip.transform.SetParent(chips.transform, false);
+                chip.transform.localPosition = new Vector3(0.015f * i, 0.03f * i, 0f); // стопка чуть «съезжает»
+                SpriteRenderer sr = chip.AddComponent<SpriteRenderer>();
+                sr.sprite = LoadSprite($"Obstacles/chip_{colors[i]}.png");
+                sr.sortingLayerName = "Objects";
+                sr.sortingOrder = i;
+                chip.AddComponent<CircleCollider2D>().radius = 0.2f;
+                Rigidbody2D rb = chip.AddComponent<Rigidbody2D>();
+                rb.bodyType = RigidbodyType2D.Dynamic;
+                rb.gravityScale = 0f;
+                rb.mass = 0.2f;
+                rb.linearDamping = 3f;
+                rb.angularDamping = 3f;
+                rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+                rb.interpolation = RigidbodyInterpolation2D.Interpolate;
+                bodies[i] = rb;
+            }
+            PushableObstacle push = chips.AddComponent<PushableObstacle>();
+            SerializedObject pso = new SerializedObject(push);
+            pso.FindProperty("stackCollider").objectReferenceValue = chips.GetComponent<CircleCollider2D>();
+            SerializedProperty arr = pso.FindProperty("chips");
+            arr.arraySize = bodies.Length;
+            for (int i = 0; i < bodies.Length; i++) arr.GetArrayElementAtIndex(i).objectReferenceValue = bodies[i];
+            pso.FindProperty("scatterSound").enumValueIndex = (int)SoundId.ChipsScatter;
+            pso.ApplyModifiedPropertiesWithoutUndo();
+            SavePrefab(chips, ChipsPath);
+
+            // --- Карточный домик: хрупкий, прямоугольник 1.2 × 0.8, при поломке разлетаются карты ---
+            GameObject house = NewObstacle("CardHouse", "Obstacles/cardhouse.png");
+            house.AddComponent<BoxCollider2D>().size = new Vector2(1.2f, 0.8f);
+            BreakableObstacle hb = house.AddComponent<BreakableObstacle>();
+            SerializedObject hso = new SerializedObject(hb);
+            hso.FindProperty("spriteRenderer").objectReferenceValue = house.GetComponent<SpriteRenderer>();
+            hso.FindProperty("brokenSprite").objectReferenceValue = LoadSprite("Obstacles/cardhouse_broken.png");
+            hso.FindProperty("breakSound").enumValueIndex = (int)SoundId.CardHouseCollapse;
+            hso.FindProperty("debrisSprite").objectReferenceValue = LoadSprite("Cards/card_back.png");
+            hso.FindProperty("debrisCount").intValue = 5;
+            hso.FindProperty("debrisScale").floatValue = 0.5f;
+            hso.FindProperty("debrisSpeed").floatValue = 2.5f;
+            hso.ApplyModifiedPropertiesWithoutUndo();
+            SavePrefab(house, CardHousePath);
+
+            // --- Бутылка: только добавляем осколки (префаб правим, а не пересоздаём) ---
+            GameObject bottle = PrefabUtility.LoadPrefabContents(BottlePath);
+            BreakableObstacle bb = bottle.GetComponent<BreakableObstacle>();
+            if (bb != null)
+            {
+                SerializedObject bso = new SerializedObject(bb);
+                bso.FindProperty("debrisSprite").objectReferenceValue = LoadSprite("VFX/fx_shard.png");
+                bso.FindProperty("debrisCount").intValue = 7;
+                bso.FindProperty("debrisScale").floatValue = 0.8f;
+                bso.FindProperty("debrisSpeed").floatValue = 3.5f;
+                bso.ApplyModifiedPropertiesWithoutUndo();
+                PrefabUtility.SaveAsPrefabAsset(bottle, BottlePath);
+            }
+            PrefabUtility.UnloadPrefabContents(bottle);
+
+            AssetDatabase.SaveAssets();
+            Debug.Log("[CT] Готово: " + ChipsPath + ", " + CardHousePath + ", осколки у Bottle.");
+            Selection.activeObject = AssetDatabase.LoadAssetAtPath<GameObject>(ChipsPath);
         }
 
         // ---------- 3. Песочница ----------
