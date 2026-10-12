@@ -248,6 +248,7 @@ namespace CardThrow
             dealerHand.SetCards(level.CardValues, isRetry ? prevSelected : -1);
             cardFlight.ResetCard();
             aimController.PreviewFraction = level.PreviewFraction;
+            if (!isRetry) aimController.ResetSpin(); // новый уровень — дуга 0; переигровка — дуга как была
             if (partnerSeat != null) partnerSeat.SetScore(level.PartnerStartScore);
 
             timeRemaining = level.TimeLimit;

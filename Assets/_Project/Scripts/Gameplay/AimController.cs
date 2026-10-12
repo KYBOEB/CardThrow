@@ -35,7 +35,7 @@ namespace CardThrow
         private bool aiming;
         private Vector2 dragStartWorld;
         private float lastPower = -1f;
-        private int spinStep;          // НЕ сбрасываем в SetEnabled: при переигровке закрут сохраняется
+        private int spinStep;          // НЕ сбрасываем в SetEnabled: при переигровке дуга сохраняется, на новом уровне — ResetSpin
         private float nextScrollTime;
 
         private void Awake()
@@ -47,6 +47,9 @@ namespace CardThrow
         }
 
         // ---------- Публичный API ----------
+
+        // Новая раздача (не переигровка) начинается с прямого броска: дуга → 0. Вызывает GameManager.LoadLevel.
+        public void ResetSpin() => SetSpin(0);
 
         public void SetEnabled(bool value)
         {

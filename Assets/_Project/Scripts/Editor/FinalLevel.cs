@@ -35,6 +35,8 @@ namespace CardThrow.EditorTools
         [MenuItem("CardThrow/Уровни: баланс для жюри (превью, время, финал Hand_05)")]
         public static void Run()
         {
+            if (!EditorUtility.DisplayDialog("CardThrow", "Это меню уже применено, повторный запуск откатит более поздние правки (вернёт стаканы в Hand_05). Запускать?", "Всё равно запустить", "Отмена"))
+                return;
             if (EditorApplication.isPlaying)
             {
                 EditorUtility.DisplayDialog("CardThrow", "Сначала выйди из Play (кнопка ▶ сверху).", "OK");

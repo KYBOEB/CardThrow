@@ -37,6 +37,8 @@ namespace CardThrow.EditorTools
         [MenuItem("CardThrow/Дуга вместо закрута, зона Ур.3, фигура крупье")]
         public static void Run()
         {
+            if (!EditorUtility.DisplayDialog("CardThrow", "Это меню уже применено, повторный запуск откатит более поздние правки (старый крупье DealerBody). Запускать?", "Всё равно запустить", "Отмена"))
+                return;
             if (EditorApplication.isPlaying)
             {
                 EditorUtility.DisplayDialog("CardThrow", "Сначала выйди из Play (кнопка ▶ сверху).", "OK");
