@@ -83,7 +83,7 @@ MonoBehaviour:
   isTutorial: 0
   tutorialStage: 0
   handTitle: "\u0421\u0442\u0435\u043D\u0430"
-  hint: "\u0414\u043E\u043C\u0438\u043A \u043F\u0435\u0440\u0435\u0434 \u043D\u0430\u043F\u0430\u0440\u043D\u0438\u043A\u043E\u043C \u2014 \u043E\u0431\u043E\u0439\u0434\u0438 \u0435\u0433\u043E \u0437\u0430\u043A\u0440\u0443\u0442\u043E\u043C. \u0424\u0438\u0448\u043A\u0438 \u0442\u043E\u0440\u043C\u043E\u0437\u044F\u0442 \u043A\u0430\u0440\u0442\u0443"
+  hint: "\u0414\u043E\u043C\u0438\u043A \u043F\u0435\u0440\u0435\u0434 \u043D\u0430\u043F\u0430\u0440\u043D\u0438\u043A\u043E\u043C \u2014 \u043E\u0431\u043E\u0439\u0434\u0438 \u0435\u0433\u043E \u0434\u0443\u0433\u043E\u0439. \u0424\u0438\u0448\u043A\u0438 \u0442\u043E\u0440\u043C\u043E\u0437\u044F\u0442 \u043A\u0430\u0440\u0442\u0443"
   partnerSeat: {fileID: 6834995867890044494}
   partnerStartScore: 13
   cardValues: 080000000300000006000000i
@@ -278,7 +278,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4700544729702952128, guid: c773cd27d2749b141a9dac8e31fa07b1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.2
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 4700544729702952128, guid: c773cd27d2749b141a9dac8e31fa07b1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -326,11 +326,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7034874400661430859, guid: c773cd27d2749b141a9dac8e31fa07b1, type: 3}
       propertyPath: m_Size.x
-      value: 1.2
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 7034874400661430859, guid: c773cd27d2749b141a9dac8e31fa07b1, type: 3}
       propertyPath: m_Size.y
-      value: 1.1
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 7958960309119823019, guid: c773cd27d2749b141a9dac8e31fa07b1, type: 3}
       propertyPath: m_Name

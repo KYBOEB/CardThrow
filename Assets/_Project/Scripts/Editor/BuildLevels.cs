@@ -85,7 +85,7 @@ namespace CardThrow.EditorTools
             return new LevelSpec
             {
                 file = "Hand_03", title = "Стена", time = 18f, preview = 0.55f,
-                hint = "Домик перед напарником — обойди его закрутом. Фишки тормозят карту",
+                hint = "Домик перед напарником — обойди его дугой. Фишки тормозят карту",
                 partner = new SeatSpec { name = "Seat_Partner", pos = new Vector2(7.9f, 0f), zoneLocal = new Vector2(0.2f, 0f), zoneSize = new Vector2(1.2f, 1.1f) },
                 opponents = new[]
                 {

@@ -80,7 +80,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardThrow.LevelConfig
   isTutorial: 1
   tutorialStage: 1
-  handTitle: "\u0417\u0430\u043A\u0440\u0443\u0442"
+  handTitle: "\u0414\u0443\u0433\u0430"
   hint: 
   partnerSeat: {fileID: 6834995867890044494}
   partnerStartScore: 14

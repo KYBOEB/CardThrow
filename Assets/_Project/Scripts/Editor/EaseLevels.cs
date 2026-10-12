@@ -16,7 +16,7 @@ namespace CardThrow.EditorTools
     {
         private const string Levels = "Assets/_Project/Prefabs/Levels/";
         private const string HousePrefab = "CardHouse";
-        private const string WallHint = "Домик перед напарником — обойди его закрутом. Фишки тормозят карту";
+        private const string WallHint = "Домик перед напарником — обойди его дугой. Фишки тормозят карту";
 
         [MenuItem("CardThrow/Уровни: облегчить Стену (Hand_03), Бутылку (Hand_04) и стаканы (Hand_00c)")]
         public static void Run()

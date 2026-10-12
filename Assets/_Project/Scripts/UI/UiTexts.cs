@@ -19,18 +19,18 @@ namespace CardThrow
         public string[] tutorialSteps =
         {
             "Напарник в золоте. У него {score} — дай ему 21: выбери карту клавишами A / D",
-            "Бутылку задевать нельзя. Закрути карту: колесо мыши или Q / E",
+            "Стакан задевать нельзя. Пусти карту дугой: колесо мыши или Q / E",
             "Зажми ЛКМ и тяни назад, как рогатку. Точки — путь карты. Отпусти!"
         };
 
         [Tooltip("Шаг 2, если в раздаче обучения нет бутылки")]
-        [TextArea(1, 2)] public string tutorialSpinNoObstacle = "Закрути карту: колесо мыши или Q / E — она полетит дугой";
+        [TextArea(1, 2)] public string tutorialSpinNoObstacle = "Пусти карту дугой: колесо мыши или Q / E";
 
         [Header("Обучение — три части (Бросок / Закрут / Рикошет)")]
         [Tooltip("Шаг броска в части «Рикошет» (вместо tutorialSteps[2]); стрелка показывает на пепельницу")]
         [TextArea(1, 2)] public string tutorialRicochetStep = "Путь закрыт. Отрази карту от пепельницы: целься в её грань, тяни ЛКМ и отпусти";
         [Tooltip("Успех в части «Бросок» — переход к закруту")]
-        [TextArea(1, 2)] public string tutorialSuccessThrow = "Есть! Теперь научимся закручивать карту";
+        [TextArea(1, 2)] public string tutorialSuccessThrow = "Есть! Теперь научимся пускать карту дугой";
         [Tooltip("Успех в части «Закрут» — переход к рикошету")]
         [TextArea(1, 2)] public string tutorialSuccessSpin = "Красиво! Последний приём — рикошет от пепельницы";
 
@@ -39,9 +39,9 @@ namespace CardThrow
         [TextArea(1, 2)] public string tutorialSuccess = "Отлично! Дальше — на время, пока соперники отвернулись";
         [TextArea(1, 2)] public string tutorialFailUndershoot = "Недолёт! Тяни сильнее";
         [TextArea(1, 2)] public string tutorialFailOvershoot = "Перелёт! Тяни чуть слабее";
-        [TextArea(1, 2)] public string tutorialFailSideways = "Мимо! Поправь прицел или закрут";
+        [TextArea(1, 2)] public string tutorialFailSideways = "Мимо! Поправь прицел или дугу";
         [TextArea(1, 2)] public string tutorialFailOffTable = "Слишком сильно — карта улетела со стола";
-        [TextArea(1, 2)] public string tutorialFailBreakable = "Бутылка! Закрути сильнее";
+        [TextArea(1, 2)] public string tutorialFailBreakable = "Стакан! Сделай дугу круче";
         [TextArea(1, 2)] public string tutorialFailOpponent = "Чужие карты трогать нельзя!";
         [TextArea(1, 2)] public string tutorialFailWrongValue = "Нужна карта, дающая ровно 21";
 
@@ -68,7 +68,7 @@ namespace CardThrow
         [Header("HUD")]
         [Tooltip("Нижняя строка управления — видна всю игру")]
         [TextArea(1, 2)]
-        public string controlsLine = "A / D — карта   •   ЛКМ: тянуть назад и отпустить — бросок   •   Колесо или Q / E — закрут   •   ПКМ / Esc — отмена   •   R — заново";
+        public string controlsLine = "A / D — карта   •   ЛКМ: тянуть назад и отпустить — бросок   •   Колесо или Q / E — дуга   •   ПКМ / Esc — отмена   •   R — заново";
         public string tutorialLabel = "Обучение";
         [Tooltip("{0} — номер уровня. Общее число уровней не показываем: игрок не знает, сколько осталось")]
         public string levelFormat = "Уровень {0}";
@@ -77,7 +77,7 @@ namespace CardThrow
         [Tooltip("{0} — номинал выбранной карты")]
         public string cardFormat = "Карта: {0}";
         [Tooltip("{0} — закрут со знаком: 0, +2, −1")]
-        public string spinFormat = "Закрут {0}";
+        public string spinFormat = "Дуга {0}";
         [Tooltip("{0} — очки")]
         public string scoreFormat = "Выигрыш: {0}";
         [Tooltip("{0} — очки за бросок")]
