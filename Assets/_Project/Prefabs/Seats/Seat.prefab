@@ -639,7 +639,7 @@ MonoBehaviour:
   scoreLabel: {fileID: 4586600613454170472}
   head: {fileID: 8911696871265555801}
   partnerHighlight: {fileID: 8901692846730030286}
-  lookAwayAngle: 150
+  headTurnAngle: 70
   headTurnSpeed: 360
   visualRoot: {fileID: 7547545413550132856}
   visualScale: 2
@@ -652,6 +652,7 @@ MonoBehaviour:
   labelOffsetOnZone: 0
   tableHalfSize: {x: 9.5, y: 4.75}
   zoneVisual: {fileID: 2600948945433089982}
+  zoneRailWidth: 0.9
   partnerZoneSprite: {fileID: 21300000, guid: a55e164fdda865640b63238c371db47f, type: 3}
   opponentZoneSprite: {fileID: 21300000, guid: 97e715812ef70ac4e890e127374832d9, type: 3}
   opponentIdleAlpha: 0.35
@@ -675,6 +676,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: da26393a508aa00469778c44433f600a, type: 3}
   randomOpponentScore: 1
   opponentScoreRange: {x: 12, y: 20}
+  waitressSprite: {fileID: 21300000, guid: dc01c51dfb70406ebfcd969dcb59e319, type: 3}
+  waitressDistance: 1.5
+  waitressScale: 2
+  waitressExtraAngle: 40
+  waitressEnterTime: 0.5
+  caughtTurnSpeed: 1440
   alertLabelColor: {r: 1, g: 0.25, b: 0.2, a: 1}
   alertPulseAmount: 0.25
   alertPulseFrequency: 3

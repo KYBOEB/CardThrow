@@ -91,8 +91,8 @@ namespace CardThrow
             switch (kind)
             {
                 case ObstacleKind.Ricochet: AudioManager.Play(SoundId.GlassClink); break;
-                case ObstacleKind.Pushable: AudioManager.Play(SoundId.ChipsScatter); break;
-                // Breakable: звук играет само препятствие (BreakableObstacle.breakSound)
+                // Pushable и Breakable: звук играет само препятствие (PushableObstacle / BreakableObstacle) —
+                // здесь не дублируем (QA/Triage, Артас 12.10: фишки звучали дважды)
             }
         }
 

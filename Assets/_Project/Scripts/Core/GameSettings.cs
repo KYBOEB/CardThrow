@@ -9,6 +9,8 @@ namespace CardThrow
     {
         [Header("Подозрение")]
         [Min(1)] public int maxSuspicion = 3;
+        [Tooltip("Чистый бросок (BLACKJACK) снимает столько подозрения — «восстанавливает сердце». 0 — не восстанавливать")]
+        [Min(0)] public int suspicionHealOnSuccess = 1;
 
         [Header("Тайминги, секунды")]
         public float handIntroDuration = 1.2f;

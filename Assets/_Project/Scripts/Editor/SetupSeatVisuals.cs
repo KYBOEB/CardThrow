@@ -86,6 +86,8 @@ namespace CardThrow.EditorTools
                 if (waitress == null) Debug.Log("[CT] Characters/waitress.png пока нет — официантки не будет (это не ошибка)");
                 SerializedProperty scale = so.FindProperty("visualScale");
                 if (scale != null) scale.floatValue = FigureScale;
+                SerializedProperty wScale = so.FindProperty("waitressScale");
+                if (wScale != null) wScale.floatValue = FigureScale; // официантка того же масштаба, что и игроки
                 so.ApplyModifiedPropertiesWithoutUndo();
 
                 PrefabUtility.SaveAsPrefabAsset(root, SeatPath);
