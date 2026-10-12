@@ -87,8 +87,8 @@ MonoBehaviour:
   partnerSeat: {fileID: 6834995867890044494}
   partnerStartScore: 15
   cardValues: 040000000800000006000000i
-  timeLimit: 18
-  previewFraction: 0.5
+  timeLimit: 20
+  previewFraction: 0.65
 --- !u!1 &5073485279629478486
 GameObject:
   m_ObjectHideFlags: 0

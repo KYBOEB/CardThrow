@@ -10,6 +10,9 @@ namespace CardThrow
     // |y| ∈ [yMin; yMax], x ∈ [xMin; xMax], не ближе minDistance к зоне напарника и другим предметам.
     // Пока игрок не целится или карта летит — официантки не выходят. Если игрок бросил карту,
     // пока официантка несёт стакан, стакан сразу «ставится» на место: полёт карты честный.
+    // Плейтест 12.10 (Данила): официантка НЕ заходит на стол. Подходит к краю (за бортик, между сидящими игроками),
+    // и стакан «скользит» от неё к новой точке. Коллайдер стакана переносится сразу в момент броска —
+    // превью и полёт честные, едет только картинка (дочерний Visual).
     public class WaiterRush : MonoBehaviour
     {
         [Header("Ритм")]
@@ -32,13 +35,27 @@ namespace CardThrow
         [SerializeField, Tooltip("Скорость шага официантки, ед/с (одинаковая на любом расстоянии)")] private float walkSpeed = 2.5f;
         [SerializeField] private string sortingLayer = "FX";
 
+        [Header("Подача с края стола")]
+        [SerializeField, Tooltip("Где стоит официантка, |y|: бортик ≈ 5.15 + полкорпуса официантки ≈ 1")] private float standY = 6.2f;
+        [SerializeField, Tooltip("Не ближе этого по X к сидящему игроку на той же стороне — не перекрывать соперников")] private float seatClearance = 2.3f;
+        [SerializeField] private float standXMax = 8.5f;
+        [SerializeField, Tooltip("Сколько стакан скользит от официантки до новой точки, с")] private float tossTime = 0.45f;
+
         private readonly List<Transform> glasses = new List<Transform>();
         private readonly List<Transform> others = new List<Transform>();
         private Zone partnerZone;
         private bool cardFlying;
         private readonly List<Coroutine> running = new List<Coroutine>();
-        private readonly List<(Transform glass, Vector2 target, GameObject waiter)> inProgress =
-            new List<(Transform, Vector2, GameObject)>();
+        private readonly List<Transform> seats = new List<Transform>();
+
+        private class Job
+        {
+            public Transform glass, visual;
+            public Vector3 visualLocal;
+            public Vector2 target, stand;
+            public GameObject waiter;
+        }
+        private readonly List<Job> inProgress = new List<Job>();
 
         private void OnEnable()
         {
@@ -68,6 +85,8 @@ namespace CardThrow
             Obstacle[] all = GetComponentsInChildren<Obstacle>();
             if (all.Length == 0) all = FindInScene<Obstacle>();
             foreach (Obstacle o in all) if (!(o is RicochetObstacle)) others.Add(o.transform);
+
+            foreach (Seat st in GetComponentsInChildren<Seat>()) seats.Add(st.transform);
 
             Zone[] zones = GetComponentsInChildren<Zone>();
             if (zones.Length == 0) zones = FindInScene<Zone>();
@@ -140,24 +159,75 @@ namespace CardThrow
             return false;
         }
 
-        // Официантка: из-за края → к стакану → несёт его к новой точке → убегает за край
+        // Официантка: из-за экрана → к краю стола (за бортик) → стакан скользит от неё к новой точке → уходит
         private IEnumerator Move(Transform glass, Vector2 target)
         {
-            Vector2 from = glass.position;
             float side = Mathf.Sign(target.y == 0f ? 1f : target.y);
-            Vector2 enter = new Vector2(from.x, side * offTableY);
-            Vector2 exit = new Vector2(target.x, side * offTableY);
+            Vector2 stand = new Vector2(FindStandX(target.x, side), side * standY);
+            Vector2 enter = new Vector2(stand.x, side * (standY + 3f));
 
-            GameObject waiter = CreateWaiter(enter);
-            var job = (glass, target, waiter);
+            var job = new Job { glass = glass, target = target, stand = stand };
+            job.visual = glass.Find("Visual");
+            if (job.visual != null) job.visualLocal = job.visual.localPosition;
+            job.waiter = CreateWaiter(enter, side);
             inProgress.Add(job);
 
-            yield return Run(waiter.transform, enter, from, LegTime(enter, from), null);
-            yield return Run(waiter.transform, from, target, LegTime(from, target), glass);   // несёт стакан
-            yield return Run(waiter.transform, target, exit, LegTime(target, exit), null);
+            yield return Run(job.waiter.transform, enter, stand, LegTime(enter, stand), null);
+            yield return Toss(job);
+            yield return new WaitForSeconds(0.2f);
+            yield return Run(job.waiter.transform, stand, enter, LegTime(stand, enter), null);
 
             inProgress.Remove(job);
-            if (waiter != null) Destroy(waiter);
+            if (job.waiter != null) Destroy(job.waiter);
+        }
+
+        // Коллайдер — сразу в новой точке (превью и полёт честные), картинка догоняет от рук официантки
+        private IEnumerator Toss(Job job)
+        {
+            Transform glass = job.glass;
+            if (glass == null) yield break;
+            glass.position = new Vector3(job.target.x, job.target.y, glass.position.z);
+            Physics2D.SyncTransforms();
+            if (job.visual == null) yield break;
+
+            Vector3 from = new Vector3(job.stand.x, job.stand.y, 0f) - new Vector3(job.target.x, job.target.y, 0f);
+            float t = 0f;
+            while (t < tossTime)
+            {
+                if (job.visual == null) yield break;
+                t += Time.deltaTime;
+                float k = 1f - Mathf.Pow(1f - Mathf.Clamp01(t / tossTime), 2f); // быстро вылетает, мягко встаёт
+                Vector3 p = glass.position + from * (1f - k);
+                job.visual.position = new Vector3(p.x, p.y, job.visual.position.z);
+                yield return null;
+            }
+            job.visual.localPosition = job.visualLocal;
+        }
+
+        // X у края стола ближе к цели, но не напротив сидящего игрока и не рядом с другой официанткой
+        private float FindStandX(float x, float side)
+        {
+            float bestX = Mathf.Clamp(x, -standXMax, standXMax);
+            for (int i = 0; i <= 40; i++)
+            {
+                float d = (i + 1) / 2 * 0.4f * (i % 2 == 0 ? 1f : -1f);
+                float c = Mathf.Clamp(x + d, -standXMax, standXMax);
+                if (IsClear(c, side)) return c;
+            }
+            return bestX; // свободного места нет — встанет напротив цели (редко: стол забит игроками)
+        }
+
+        private bool IsClear(float x, float side)
+        {
+            foreach (Transform s in seats)
+            {
+                if (s == null) continue;
+                Vector2 p = s.position;
+                if (Mathf.Abs(p.y) > 2f && Mathf.Sign(p.y) == side && Mathf.Abs(p.x - x) < seatClearance) return false;
+            }
+            foreach (Job j in inProgress)
+                if (Mathf.Sign(j.stand.y) == side && Mathf.Abs(j.stand.x - x) < seatClearance) return false;
+            return true;
         }
 
         // Время участка по длине пути: официантка идёт, а не телепортируется
@@ -180,11 +250,12 @@ namespace CardThrow
             Physics2D.SyncTransforms(); // коллайдер стакана сразу на новом месте — для превью и полёта
         }
 
-        private GameObject CreateWaiter(Vector2 at)
+        private GameObject CreateWaiter(Vector2 at, float side)
         {
             GameObject go = new GameObject("Waiter");
             go.transform.SetParent(transform, false); // внутри раздачи: удалится вместе с ней при перезапуске
             go.transform.position = at;
+            go.transform.rotation = Quaternion.Euler(0f, 0f, side > 0f ? 180f : 0f); // спрайт нарисован «вверх» — лицом к столу
             go.transform.localScale = Vector3.one * waiterScale;
             SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
             sr.sprite = waiterSprite;
@@ -198,9 +269,10 @@ namespace CardThrow
             cardFlying = true;
             foreach (Coroutine c in running) if (c != null) StopCoroutine(c);
             running.Clear();
-            foreach (var job in inProgress)
+            foreach (Job job in inProgress)
             {
                 if (job.glass != null) job.glass.position = new Vector3(job.target.x, job.target.y, job.glass.position.z);
+                if (job.visual != null) job.visual.localPosition = job.visualLocal;
                 if (job.waiter != null) Destroy(job.waiter);
             }
             inProgress.Clear();
