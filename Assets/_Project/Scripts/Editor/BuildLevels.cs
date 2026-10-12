@@ -8,8 +8,8 @@ namespace CardThrow.EditorTools
     // Раскладки подобраны перебором ~35 тыс. бросков на модели полёта (тот же расчёт, что меню «проверить проходимость»):
     //   Hand_02 «Рикошет» — напарник на ДЛИННОЙ стороне, путь закрыт стеной домиков; стакан у центра стола
     //                       поворачивает карту на 90° вверх (грань 45°). ≈0.29% удачных, из них ~2/3 — рикошетом.
-    //   Hand_03 «Стена»   — два домика перед напарником, фишки на прямой; обход закрутом или отскок от стакана
-    //                       у нижнего края. ≈0.17% удачных.
+    //   Hand_03 «Стена»   — два домика перед напарником, две стопки фишек; ТОЛЬКО закрут (стакана нет —
+    //                       у каждого уровня свой главный приём). ≈0.13% удачных.
     // Старый Hand_03 «Большой куш» перед пересборкой копируется в Hand_05 (запасной финальный уровень).
     // Префабы раздач — файлы Егора: перед запуском «замок» в #locks на Hand_02 и Hand_03.
     public static class BuildLevels
@@ -85,7 +85,7 @@ namespace CardThrow.EditorTools
             return new LevelSpec
             {
                 file = "Hand_03", title = "Стена", time = 18f, preview = 0.55f,
-                hint = "Домики стеной: обойди их закрутом или отрази карту от стакана",
+                hint = "Домики стеной — обойди их сильным закрутом. Фишки тормозят карту",
                 partner = new SeatSpec { name = "Seat_Partner", pos = new Vector2(7.9f, 0f), zoneLocal = new Vector2(0.2f, 0f), zoneSize = new Vector2(1.2f, 0.85f) },
                 opponents = new[]
                 {
@@ -98,7 +98,7 @@ namespace CardThrow.EditorTools
                     new ObstacleSpec { prefab = "CardHouse", pos = new Vector2(5.2f, 0.45f) },
                     new ObstacleSpec { prefab = "CardHouse", pos = new Vector2(5.2f, -0.45f) },
                     new ObstacleSpec { prefab = "Chips", pos = new Vector2(-2f, 0f) },
-                    new ObstacleSpec { prefab = "Glass", pos = new Vector2(1f, -3.3f) },
+                    new ObstacleSpec { prefab = "Chips", pos = new Vector2(1.5f, 1.6f) },
                 }
             };
         }

@@ -12,3 +12,4 @@
 | sfx_card_crumple_01 | Freesound — "Paper Crumple 3" (моно, нормализован) | WasabiWielder | CC0 | https://freesound.org/people/WasabiWielder/sounds/334200/ |
 | sfx_crowd_angry_01 | Freesound — "Voice_Crowd_Small_Expression_Boo_Stereo" (обрезан до 1.5 с, моно) | Nox_Sound | CC0 | https://freesound.org/people/Nox_Sound/sounds/752707/ |
 | amb_casino_loop | Freesound — "G16-05-Casino Ambience.wav" (луп 30 с с кроссфейдом, моно) | craigsmith | CC0 | https://freesound.org/people/craigsmith/sounds/438129/ |
+| sfx_bottle_toss_01 | Kenney — RPG Audio (cloth2, моно, нормализован) | Kenney | CC0 | https://kenney.nl/assets/rpg-audio |

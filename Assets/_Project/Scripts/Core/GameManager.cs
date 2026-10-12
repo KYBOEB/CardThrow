@@ -364,6 +364,14 @@ namespace CardThrow
                     gained = CalculateScore(report);
                     score += gained;
                     GameEvents.RaiseScoreChanged(score);
+
+                    // Награда за чистую раздачу: одно сердце назад. Ошибка на уровне 1 не обрекает весь забег,
+                    // но три промаха подряд по-прежнему — поражение (плейтест 12.10)
+                    if (suspicion > 0 && settings.suspicionHealOnSuccess > 0)
+                    {
+                        suspicion = Mathf.Max(0, suspicion - settings.suspicionHealOnSuccess);
+                        GameEvents.RaiseSuspicionChanged(suspicion, settings.maxSuspicion);
+                    }
                 }
             }
             else if (outcome == ThrowOutcome.WrongValue)

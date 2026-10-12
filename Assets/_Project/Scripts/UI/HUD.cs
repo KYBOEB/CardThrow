@@ -246,10 +246,14 @@ namespace CardThrow
                 eyes[i].transform.localScale = Vector3.one;
             }
 
-            // «Подпрыгивает» только что разбитое сердце; сброс в 0 — без анимации
+            // «Подпрыгивает» только что разбитое сердце или сердце, вернувшееся за BLACKJACK.
+            // Сброс при новом забеге — без анимации: очки там уже обнулены (ScoreChanged приходит раньше)
             int broken = n - current;
             if (current > lastSuspicion && broken >= 0 && broken < n && eyes[broken] != null)
                 Restart(ref eyeRoutine, UiAnim.Punch(eyes[broken].transform, eyeBounceAmount, eyeBounceDuration));
+            int healed = n - lastSuspicion; // сердце, которое снова стало целым
+            if (current < lastSuspicion && targetScore > 0 && healed >= 0 && healed < n && eyes[healed] != null)
+                Restart(ref eyeRoutine, UiAnim.Punch(eyes[healed].transform, eyeBounceAmount, eyeBounceDuration));
             lastSuspicion = current;
         }
 
