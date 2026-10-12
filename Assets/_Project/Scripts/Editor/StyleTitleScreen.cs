@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using TMPro;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -151,11 +152,13 @@ namespace CardThrow.EditorTools
                 s = s.Replace("Три промаха", "<color=#FF7A66>Три промаха</color>");
                 texts.rulesLines[i] = s;
             }
-            if (!string.IsNullOrEmpty(texts.highScoreFormat) && !texts.highScoreFormat.Contains("<"))
+            if (!string.IsNullOrEmpty(texts.highScoreFormat))
             {
-                // «Рекорд заведения: {0}» → мелкая кремовая подпись + крупное золотое число
-                string caption = texts.highScoreFormat.Replace("{0}", "").Trim().TrimEnd(':').ToUpperInvariant();
-                texts.highScoreFormat = $"<size=62%><color=#EADFC4>{caption}</color></size>   {{0}}";
+                // «Рекорд заведения: {0}» → мелкая кремовая подпись + крупное золотое число.
+                // Подпись приподнята (voffset) до середины цифр: иначе мелкий текст «сидит» на строке и всё смотрится ниже центра.
+                // Подпись берём из текущей строки без тегов — повторный запуск даёт тот же результат.
+                string caption = Regex.Replace(texts.highScoreFormat, "<[^>]+>", "").Replace("{0}", "").Trim().TrimEnd(':').Trim().ToUpperInvariant();
+                texts.highScoreFormat = $"<voffset=0.14em><size=60%><color=#EADFC4>{caption}</color></size></voffset>   {{0}}";
             }
             EditorUtility.SetDirty(texts);
         }
@@ -203,9 +206,11 @@ namespace CardThrow.EditorTools
             }
             plaque.anchorMin = plaque.anchorMax = new Vector2(0.5f, 0.5f);
             plaque.pivot = new Vector2(0.5f, 0.5f);
-            plaque.sizeDelta = new Vector2(600f, 72f);
-            plaque.anchoredPosition = new Vector2(0f, -305f);
-            EnsureFrame(plaque, 1);
+            // Ниже кнопки с зазором ~60 px: кнопка — главный акцент, табличка — второй
+            plaque.sizeDelta = new Vector2(560f, 76f);
+            plaque.anchoredPosition = new Vector2(0f, -350f);
+            Image frame = EnsureFrame(plaque, 1);
+            if (frame != null) frame.pixelsPerUnitMultiplier = 1f; // рамка вдвое толще, чем у панели правил
 
             high.transform.SetParent(plaque, false);
             high.transform.SetAsLastSibling();
@@ -213,7 +218,7 @@ namespace CardThrow.EditorTools
             Stretch(high.rectTransform);
             high.rectTransform.offsetMin = new Vector2(24f, 4f);
             high.rectTransform.offsetMax = new Vector2(-24f, -4f);
-            high.alignment = TextAlignmentOptions.Center;
+            high.alignment = TextAlignmentOptions.CenterGeoAligned; // центр по геометрии букв, а не по строке
             high.richText = true;
             high.enableAutoSizing = true;
             high.fontSizeMin = 18f;
@@ -228,7 +233,7 @@ namespace CardThrow.EditorTools
         // ---------- Общее ----------
 
         // Золотая рамка 9-slice поверх фона и под текстом (как у панелей HUD)
-        private static void EnsureFrame(RectTransform parent, int siblingIndex)
+        private static Image EnsureFrame(RectTransform parent, int siblingIndex)
         {
             Image frame = Find<Image>(parent, "Frame");
             if (frame == null)
@@ -244,6 +249,7 @@ namespace CardThrow.EditorTools
             frame.color = Color.white;
             Stretch(frame.rectTransform);
             frame.transform.SetSiblingIndex(Mathf.Min(siblingIndex, parent.childCount - 1));
+            return frame;
         }
 
         private static T Find<T>(Transform parent, string name) where T : Component
