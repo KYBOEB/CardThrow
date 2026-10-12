@@ -44,3 +44,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdac1cd36ef3a7d41aaddfb55abfdc35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardThrow.FeedbackManager
+  texts: {fileID: 11400000, guid: b7bcd0b42ad716145a158dbd15809a3a, type: 2}
+  popupFont: {fileID: 11400000, guid: 538d05740fd9009439c05f3826311f39, type: 2}
+  shardSprite: {fileID: 21300000, guid: f43f39bd07cc28248870d67811524265, type: 3}
+  foamSprite: {fileID: 21300000, guid: 433ab380ac441e64eb1c5e136a5c62ee, type: 3}
+  sparkleSprite: {fileID: 21300000, guid: 18c6841180574484e8a11e8d63d46367, type: 3}
+  coinSprite: {fileID: 21300000, guid: b621db5d5ecdc314a937c7676d0cdfee, type: 3}
+  dustSprite: {fileID: 21300000, guid: 759ba7002c8cad440a032871bf5b8a37, type: 3}
+  starSprite: {fileID: 21300000, guid: 59c45736f0d426d43bfecf0209342518, type: 3}
+  shakeSmall: 0.06
+  shakeMedium: 0.15
+  shakeStrong: 0.32
+  shakeDuration: 0.25
+  hitStopScale: 0.05
+  hitStopBreakable: 0.08
+  hitStopRicochet: 0.035
+  zoomPunch: 0.06
+  zoomDuration: 0.35
+  poolSize: 96
+  sortingLayer: FX
+  glassSparkColor: {r: 0.7, g: 0.9, b: 1, a: 1}
+  dustColor: {r: 1, g: 1, b: 1, a: 0.6}
+  popupFontSize: 7
+  popupRise: 1.2
+  popupDuration: 1.1
+  popupColor: {r: 1, g: 0.82, b: 0.3, a: 1}
