@@ -4,19 +4,21 @@ using UnityEngine;
 
 namespace CardThrow.EditorTools
 {
-    // Меню  CardThrow → «Уровни: облегчить Стену (Hand_03) и Бутылку (Hand_04)».  Плейтест 12.10, 19:40.
+    // Меню  CardThrow → «Уровни: облегчить Стену (Hand_03), Бутылку (Hand_04) и стенку стаканов (Hand_00c)».  Плейтест 12.10.
     //   Hand_03 «Стена»: два домика → один, по центру перед напарником (5.2, 0); зона напарника 1.2×0.85 → 1.2×1.1.
     //                    Модель полёта: 0.13% → 0.21% удачных бросков (между Ур.2 0.24% и Ур.4) — кривая сложности ровная.
     //   Hand_04 (Егор):  три домика → два: убирается верхний, центральный остаётся (прямой бросок по-прежнему закрыт).
+    //   Hand_00c (Егор): три стакана стопкой (шаг 0.34 при диаметре 0.9 — картинки налезают) → два крайних.
+    //                    Модель полёта: 0.27% → 0.28% — стенка работает так же, средний стакан ничего не добавлял.
     // Повторный запуск безопасен: если домиков уже столько, сколько нужно, ничего не удаляется.
-    // Hand_04 — файл Егора: перед запуском «замок» в #locks.
+    // Hand_04 и Hand_00c — файлы Егора: перед запуском «замок» в #locks.
     public static class EaseLevels
     {
         private const string Levels = "Assets/_Project/Prefabs/Levels/";
         private const string HousePrefab = "CardHouse";
         private const string WallHint = "Домик перед напарником — обойди его закрутом. Фишки тормозят карту";
 
-        [MenuItem("CardThrow/Уровни: облегчить Стену (Hand_03) и Бутылку (Hand_04)")]
+        [MenuItem("CardThrow/Уровни: облегчить Стену (Hand_03), Бутылку (Hand_04) и стаканы (Hand_00c)")]
         public static void Run()
         {
             if (EditorApplication.isPlaying)
@@ -54,6 +56,16 @@ namespace CardThrow.EditorTools
                 Debug.Log($"[CT] Hand_04: домиков {houses.Count} → {houses.Count - 1} (убран верхний)");
             });
 
+            Edit("Hand_00c", root =>
+            {
+                List<Transform> glasses = FindPrefabInstances(root, "Glass");
+                if (glasses.Count < 3) { Debug.Log($"[CT] Hand_00c: стаканов уже {glasses.Count} — не трогаю"); return; }
+                // Оставляем самый нижний и самый верхний — стенка той же высоты, без наложения картинок
+                glasses.Sort((a, b) => a.localPosition.y.CompareTo(b.localPosition.y));
+                for (int i = glasses.Count - 2; i >= 1; i--) Object.DestroyImmediate(glasses[i].gameObject);
+                Debug.Log($"[CT] Hand_00c: стаканов {glasses.Count} → 2 (крайние)");
+            });
+
             AssetDatabase.SaveAssets();
             Debug.Log("[CT] Готово. Дальше: «Уровни: проверить проходимость» — Ур.3 должен стать ≈0.2%.");
         }
@@ -75,7 +87,9 @@ namespace CardThrow.EditorTools
         }
 
         // Экземпляры префаба CardHouse внутри раздачи (по исходному префабу, запасной вариант — по имени)
-        private static List<Transform> FindHouses(GameObject root)
+        private static List<Transform> FindHouses(GameObject root) => FindPrefabInstances(root, HousePrefab);
+
+        private static List<Transform> FindPrefabInstances(GameObject root, string prefabName)
         {
             List<Transform> result = new List<Transform>();
             foreach (Transform t in root.GetComponentsInChildren<Transform>(true))
@@ -83,7 +97,7 @@ namespace CardThrow.EditorTools
                 if (!PrefabUtility.IsAnyPrefabInstanceRoot(t.gameObject)) continue;
                 GameObject source = PrefabUtility.GetCorrespondingObjectFromSource(t.gameObject);
                 string n = source != null ? source.name : t.name;
-                if (n == HousePrefab || t.name.StartsWith(HousePrefab)) result.Add(t);
+                if (n == prefabName || t.name.StartsWith(prefabName)) result.Add(t);
             }
             result.Sort((a, b) => string.CompareOrdinal(a.name, b.name));
             return result;

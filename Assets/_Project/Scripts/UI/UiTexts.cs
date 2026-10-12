@@ -27,12 +27,12 @@ namespace CardThrow
         [TextArea(1, 2)] public string tutorialSpinNoObstacle = "Закрути карту: колесо мыши или Q / E — она полетит дугой";
 
         [Header("Обучение — три части (Бросок / Закрут / Рикошет)")]
-        [Tooltip("Шаг броска в части «Рикошет» (вместо tutorialSteps[2]); стрелка показывает на стакан")]
-        [TextArea(1, 2)] public string tutorialRicochetStep = "Путь закрыт. Отрази карту от стакана: целься в его грань, тяни ЛКМ и отпусти";
+        [Tooltip("Шаг броска в части «Рикошет» (вместо tutorialSteps[2]); стрелка показывает на пепельницу")]
+        [TextArea(1, 2)] public string tutorialRicochetStep = "Путь закрыт. Отрази карту от пепельницы: целься в её грань, тяни ЛКМ и отпусти";
         [Tooltip("Успех в части «Бросок» — переход к закруту")]
         [TextArea(1, 2)] public string tutorialSuccessThrow = "Есть! Теперь научимся закручивать карту";
         [Tooltip("Успех в части «Закрут» — переход к рикошету")]
-        [TextArea(1, 2)] public string tutorialSuccessSpin = "Красиво! Последний приём — рикошет от стакана";
+        [TextArea(1, 2)] public string tutorialSuccessSpin = "Красиво! Последний приём — рикошет от пепельницы";
 
         [Header("Обучение — итог броска")]
         [Tooltip("Успех в последней части обучения")]
