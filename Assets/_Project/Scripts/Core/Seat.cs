@@ -46,8 +46,9 @@ namespace CardThrow
         [Header("Зона на столе (D3)")]
         [Tooltip("SpriteRenderer внутри Zone (ZoneVisual). Размер подгоняется под BoxCollider2D зоны")]
         [SerializeField] private SpriteRenderer zoneVisual;
-        [Tooltip("Зона не заходит на бортик: её внешний край — не ближе этого к краю стола (ед.). Лишнее обрезается и у коллайдера")]
-        [SerializeField] private float zoneRailInset = 0.5f;
+        [Tooltip("Зона не заходит на бортик: её внешний край — не ближе этого к внешнему краю стола (ед.). Лишнее обрезается и у коллайдера. " +
+                 "Бортик в table_felt.png = 160 px / PPU 200 = 0.8 ед. + 0.1 зазор. Новое имя поля — чтобы старое 0.5 из префабов не перебивало")]
+        [SerializeField] private float zoneRailWidth = 0.9f;
         [SerializeField] private Sprite partnerZoneSprite;     // Table/zone_partner
         [SerializeField] private Sprite opponentZoneSprite;    // Table/zone_opponent
         [Tooltip("Прозрачность зоны соперника вне прицеливания")]
@@ -141,6 +142,7 @@ namespace CardThrow
             ApplyVariety();
             LayoutAtTable();
             SetupZoneVisual();
+            PlaceScoreLabel();
             SetupWaitress();
             if (zone != null) zoneCollider = zone.GetComponent<Collider2D>();
             RefreshLabel();
@@ -307,9 +309,7 @@ namespace CardThrow
                     visualRoot.position = hit.point - dir * back;
                 }
             }
-            // Счёт — на зоне карт игрока (текст не поворачиваем, чтобы читался)
-            if (scoreLabel != null && zone != null)
-                scoreLabel.transform.position = zone.transform.position - (Vector3)(dir * labelOffsetOnZone);
+            // Счёт ставится в PlaceScoreLabel() — уже после обрезки зоны по бортику
         }
 
         // Внешность и счёт соперника — «случайные», но стабильные: при переигровке раздачи стол не меняется.
@@ -384,6 +384,17 @@ namespace CardThrow
             zoneVisual.transform.localScale = new Vector3(box.size.x / spriteSize.x, box.size.y / spriteSize.y, 1f);
         }
 
+        // Счёт — в центре зоны карт игрока (текст не поворачиваем, чтобы читался).
+        // Центр берём ПОСЛЕ ClipZoneToTable: обрезка сдвигает box.offset, а transform зоны остаётся на месте.
+        private void PlaceScoreLabel()
+        {
+            if (scoreLabel == null || zone == null) return;
+            BoxCollider2D box = zone.GetComponent<BoxCollider2D>();
+            Vector3 center = box != null ? zone.transform.TransformPoint(box.offset) : zone.transform.position;
+            center.z = scoreLabel.transform.position.z;
+            scoreLabel.transform.position = center - (Vector3)(tableDir * labelOffsetOnZone);
+        }
+
         // Зона, заходящая за край стола, бесполезна (карта там уже «улетела со стола») и некрасиво лежит на бортике.
         // Обрезаем её со стороны игрока до края сукна; коллайдер и картинка остаются одинаковыми.
         private void ClipZoneToTable(BoxCollider2D box)
@@ -395,7 +406,7 @@ namespace CardThrow
             Vector2 center = (Vector2)zone.transform.position + box.offset; // зона не повёрнута и без масштаба (как в префабе)
             float half = box.size[axis] * 0.5f;
             float outer = center[axis] - d * half;                         // край зоны со стороны игрока
-            float limit = tableEdgePoint[axis] + d * zoneRailInset;        // дальше этого — бортик
+            float limit = tableEdgePoint[axis] + d * zoneRailWidth;        // дальше этого — бортик
             float excess = (limit - outer) * d;                            // > 0 — зона залезла на бортик
             if (excess <= 0f) return;
 
