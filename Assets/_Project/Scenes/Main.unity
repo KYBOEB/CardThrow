@@ -4364,6 +4364,7 @@ MonoBehaviour:
   - {fileID: 7231780634492830031, guid: 50138c74ad63edf4180e59e6e42cea38, type: 3}
   - {fileID: 7231780634492830031, guid: b985b57b289fdbb418303429e1cd6d48, type: 3}
   - {fileID: 7231780634492830031, guid: f176cdf07486de949b833edb039eee1e, type: 3}
+  - {fileID: 7231780634492830031, guid: 6f427b3f048e4254aad25631e3bde9c3, type: 3}
   levelRoot: {fileID: 994248618}
 --- !u!1 &898788155
 GameObject:
