@@ -967,8 +967,8 @@ MonoBehaviour:
   settings: {fileID: 11400000, guid: 8b60bda9ff087f041829c3a120f9e44f, type: 2}
   card: {fileID: 579627254}
   angleDeg: 0
-  power01: 0.737
-  spinStep: 0
+  power01: 0.471
+  spinStep: 1
   withCollisions: 1
   pathColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!4 &1512561176
