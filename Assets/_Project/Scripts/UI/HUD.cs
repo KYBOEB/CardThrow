@@ -188,7 +188,13 @@ namespace CardThrow
 
             if (levelLabel != null) levelLabel.text = levelShort;
 
-            if (bannerTitle != null) bannerTitle.text = levelShort;
+            if (bannerTitle != null)
+            {
+                bannerTitle.text = levelShort;
+                // Без подзаголовка (обучение) заголовок занимает весь баннер — встаёт по центру, а не в верхней половине
+                RectTransform titleRect = bannerTitle.rectTransform;
+                titleRect.anchorMin = new Vector2(titleRect.anchorMin.x, hasTitle ? 0.42f : 0f);
+            }
             if (bannerSubtitle != null) bannerSubtitle.text = hasTitle ? title : "";
             Restart(ref bannerRoutine, BannerRoutine());
         }
