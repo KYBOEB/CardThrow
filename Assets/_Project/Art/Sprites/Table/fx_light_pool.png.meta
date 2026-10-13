@@ -1,0 +1,5761 @@
+fileFormatVersion: 2
+guid: 09d1b5697a901a14689fcef86b212c27
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6604675397383280840
+    second: fx_light_pool_0
+  - first:
+      213: 8207316691456346506
+    second: fx_light_pool_1
+  - first:
+      213: 7230058510851039659
+    second: fx_light_pool_2
+  - first:
+      213: -388745127296100825
+    second: fx_light_pool_3
+  - first:
+      213: 2380728242110979341
+    second: fx_light_pool_4
+  - first:
+      213: -831569111873768378
+    second: fx_light_pool_5
+  - first:
+      213: 3797926288323335137
+    second: fx_light_pool_6
+  - first:
+      213: -4701846024033958526
+    second: fx_light_pool_7
+  - first:
+      213: 5032048496740797930
+    second: fx_light_pool_8
+  - first:
+      213: -972943997051998409
+    second: fx_light_pool_9
+  - first:
+      213: -311849413570023015
+    second: fx_light_pool_10
+  - first:
+      213: 2034922719325011113
+    second: fx_light_pool_11
+  - first:
+      213: -7257259033183392680
+    second: fx_light_pool_12
+  - first:
+      213: 6958238109414871131
+    second: fx_light_pool_13
+  - first:
+      213: 8854786620466585825
+    second: fx_light_pool_14
+  - first:
+      213: 7705555254759883790
+    second: fx_light_pool_15
+  - first:
+      213: 4358851959406312016
+    second: fx_light_pool_16
+  - first:
+      213: 3402574003456654676
+    second: fx_light_pool_17
+  - first:
+      213: 6963290009690140339
+    second: fx_light_pool_18
+  - first:
+      213: 9149309650392620060
+    second: fx_light_pool_19
+  - first:
+      213: -726391480948941100
+    second: fx_light_pool_20
+  - first:
+      213: -791006985659419601
+    second: fx_light_pool_21
+  - first:
+      213: -2383361814015150247
+    second: fx_light_pool_22
+  - first:
+      213: -3236579839113348245
+    second: fx_light_pool_23
+  - first:
+      213: 6824926192992553868
+    second: fx_light_pool_24
+  - first:
+      213: -2616457021607527096
+    second: fx_light_pool_25
+  - first:
+      213: -1528903027789254320
+    second: fx_light_pool_26
+  - first:
+      213: 7037977082515517472
+    second: fx_light_pool_27
+  - first:
+      213: 473524709826732621
+    second: fx_light_pool_28
+  - first:
+      213: -59876579027343991
+    second: fx_light_pool_29
+  - first:
+      213: -2767695816143224129
+    second: fx_light_pool_30
+  - first:
+      213: -1245443348083939732
+    second: fx_light_pool_31
+  - first:
+      213: 5292581790582656077
+    second: fx_light_pool_32
+  - first:
+      213: -6671285884201181856
+    second: fx_light_pool_33
+  - first:
+      213: -2090011526934964573
+    second: fx_light_pool_34
+  - first:
+      213: 5586563466269008099
+    second: fx_light_pool_35
+  - first:
+      213: -551935042443182342
+    second: fx_light_pool_36
+  - first:
+      213: 1982154280365755938
+    second: fx_light_pool_37
+  - first:
+      213: 6913450560600453278
+    second: fx_light_pool_38
+  - first:
+      213: -3646100169482182580
+    second: fx_light_pool_39
+  - first:
+      213: 4291318902326838970
+    second: fx_light_pool_40
+  - first:
+      213: 3082327111266894480
+    second: fx_light_pool_41
+  - first:
+      213: 8170342972386162747
+    second: fx_light_pool_42
+  - first:
+      213: 7021391352669431327
+    second: fx_light_pool_43
+  - first:
+      213: 507247475268610367
+    second: fx_light_pool_44
+  - first:
+      213: 1901676291116588629
+    second: fx_light_pool_45
+  - first:
+      213: -546610315274409925
+    second: fx_light_pool_46
+  - first:
+      213: -7243964513196686255
+    second: fx_light_pool_47
+  - first:
+      213: 8541213880426016342
+    second: fx_light_pool_48
+  - first:
+      213: -4704240116709334653
+    second: fx_light_pool_49
+  - first:
+      213: -5093648284946552128
+    second: fx_light_pool_50
+  - first:
+      213: 359377926986705729
+    second: fx_light_pool_51
+  - first:
+      213: -7636017753679403307
+    second: fx_light_pool_52
+  - first:
+      213: 3857954615074813733
+    second: fx_light_pool_53
+  - first:
+      213: 4078102480466713834
+    second: fx_light_pool_54
+  - first:
+      213: -8501657521027666562
+    second: fx_light_pool_55
+  - first:
+      213: -8999372128338878645
+    second: fx_light_pool_56
+  - first:
+      213: -2001035010485031560
+    second: fx_light_pool_57
+  - first:
+      213: -3625854313667262233
+    second: fx_light_pool_58
+  - first:
+      213: -3315949680636857761
+    second: fx_light_pool_59
+  - first:
+      213: 4208049973812704448
+    second: fx_light_pool_60
+  - first:
+      213: -3103757531080394407
+    second: fx_light_pool_61
+  - first:
+      213: -6189736422764506500
+    second: fx_light_pool_62
+  - first:
+      213: -8455011878264031953
+    second: fx_light_pool_63
+  - first:
+      213: 967432152433054754
+    second: fx_light_pool_64
+  - first:
+      213: -2334313340992798061
+    second: fx_light_pool_65
+  - first:
+      213: 4322201159846386286
+    second: fx_light_pool_66
+  - first:
+      213: 1782073390240318276
+    second: fx_light_pool_67
+  - first:
+      213: 3637175045157486303
+    second: fx_light_pool_68
+  - first:
+      213: -1638404958786620729
+    second: fx_light_pool_69
+  - first:
+      213: -8900183532048981844
+    second: fx_light_pool_70
+  - first:
+      213: 6921380371317225768
+    second: fx_light_pool_71
+  - first:
+      213: -4565161995049507801
+    second: fx_light_pool_72
+  - first:
+      213: 8024076736722048404
+    second: fx_light_pool_73
+  - first:
+      213: -3952065330271282617
+    second: fx_light_pool_74
+  - first:
+      213: -544957564850595934
+    second: fx_light_pool_75
+  - first:
+      213: -4241044254098201863
+    second: fx_light_pool_76
+  - first:
+      213: -880900838742191276
+    second: fx_light_pool_77
+  - first:
+      213: -9093108298532946151
+    second: fx_light_pool_78
+  - first:
+      213: -4165267536507206737
+    second: fx_light_pool_79
+  - first:
+      213: -8287568272863672073
+    second: fx_light_pool_80
+  - first:
+      213: -5615478087042254009
+    second: fx_light_pool_81
+  - first:
+      213: -4242238313466869402
+    second: fx_light_pool_82
+  - first:
+      213: 8687367643384572857
+    second: fx_light_pool_83
+  - first:
+      213: 7336041509497052419
+    second: fx_light_pool_84
+  - first:
+      213: 155009891181727892
+    second: fx_light_pool_85
+  - first:
+      213: -4932263729923372236
+    second: fx_light_pool_86
+  - first:
+      213: -2083018695108666451
+    second: fx_light_pool_87
+  - first:
+      213: 4857912828373587471
+    second: fx_light_pool_88
+  - first:
+      213: 6171880098516619708
+    second: fx_light_pool_89
+  - first:
+      213: 8929442592321746196
+    second: fx_light_pool_90
+  - first:
+      213: -6207118330596814776
+    second: fx_light_pool_91
+  - first:
+      213: -4664698127923298577
+    second: fx_light_pool_92
+  - first:
+      213: -1320822249926852127
+    second: fx_light_pool_93
+  - first:
+      213: -8742728390017095399
+    second: fx_light_pool_94
+  - first:
+      213: -8634602888672980587
+    second: fx_light_pool_95
+  - first:
+      213: 5324373236063838411
+    second: fx_light_pool_96
+  - first:
+      213: 5293998924303495464
+    second: fx_light_pool_97
+  - first:
+      213: 8524773941221022520
+    second: fx_light_pool_98
+  - first:
+      213: -4386729860720878430
+    second: fx_light_pool_99
+  - first:
+      213: 1237077417677055768
+    second: fx_light_pool_100
+  - first:
+      213: 888024882366456647
+    second: fx_light_pool_101
+  - first:
+      213: -8541681187773348048
+    second: fx_light_pool_102
+  - first:
+      213: -7858163481038271378
+    second: fx_light_pool_103
+  - first:
+      213: -7023289111398879099
+    second: fx_light_pool_104
+  - first:
+      213: 555724613229754606
+    second: fx_light_pool_105
+  - first:
+      213: -5894050953178479222
+    second: fx_light_pool_106
+  - first:
+      213: 5743240787587220399
+    second: fx_light_pool_107
+  - first:
+      213: 7053835344734405011
+    second: fx_light_pool_108
+  - first:
+      213: 5418956032701282801
+    second: fx_light_pool_109
+  - first:
+      213: -6249892607643585380
+    second: fx_light_pool_110
+  - first:
+      213: -4018203960568807314
+    second: fx_light_pool_111
+  - first:
+      213: 5286543859540130308
+    second: fx_light_pool_112
+  - first:
+      213: -640421042102086638
+    second: fx_light_pool_113
+  - first:
+      213: -4743953271205552088
+    second: fx_light_pool_114
+  - first:
+      213: -4441554358775031772
+    second: fx_light_pool_115
+  - first:
+      213: 676153928229634485
+    second: fx_light_pool_116
+  - first:
+      213: -2673903500630406849
+    second: fx_light_pool_117
+  - first:
+      213: -4767842708220660339
+    second: fx_light_pool_118
+  - first:
+      213: 7171645275613190187
+    second: fx_light_pool_119
+  - first:
+      213: -629254967251876805
+    second: fx_light_pool_120
+  - first:
+      213: 4786906014203548720
+    second: fx_light_pool_121
+  - first:
+      213: 7331992500829296365
+    second: fx_light_pool_122
+  - first:
+      213: -3133594217797937925
+    second: fx_light_pool_123
+  - first:
+      213: 4594065737993040724
+    second: fx_light_pool_124
+  - first:
+      213: 4231977012324108270
+    second: fx_light_pool_125
+  - first:
+      213: -7002399866472125855
+    second: fx_light_pool_126
+  - first:
+      213: 1583044096397032423
+    second: fx_light_pool_127
+  - first:
+      213: -894421806532514882
+    second: fx_light_pool_128
+  - first:
+      213: 5920844800110910184
+    second: fx_light_pool_129
+  - first:
+      213: 7056789846821620373
+    second: fx_light_pool_130
+  - first:
+      213: 5600970067574729181
+    second: fx_light_pool_131
+  - first:
+      213: 5329540718822201435
+    second: fx_light_pool_132
+  - first:
+      213: -2869169795757275514
+    second: fx_light_pool_133
+  - first:
+      213: -9087610262616008201
+    second: fx_light_pool_134
+  - first:
+      213: -8876120038591928077
+    second: fx_light_pool_135
+  - first:
+      213: 4935300720863564018
+    second: fx_light_pool_136
+  - first:
+      213: -7604808481923229771
+    second: fx_light_pool_137
+  - first:
+      213: -8277409059347485891
+    second: fx_light_pool_138
+  - first:
+      213: -2580428348517823970
+    second: fx_light_pool_139
+  - first:
+      213: 8108851075406092823
+    second: fx_light_pool_140
+  - first:
+      213: -1271317487418897427
+    second: fx_light_pool_141
+  - first:
+      213: -5084150866011769175
+    second: fx_light_pool_142
+  - first:
+      213: 8953068060977050443
+    second: fx_light_pool_143
+  - first:
+      213: -2135194090999149687
+    second: fx_light_pool_144
+  - first:
+      213: -4316063319191260489
+    second: fx_light_pool_145
+  - first:
+      213: -4421479779515006628
+    second: fx_light_pool_146
+  - first:
+      213: -4632893254751587513
+    second: fx_light_pool_147
+  - first:
+      213: -8725713099577416563
+    second: fx_light_pool_148
+  - first:
+      213: 1478823345395838531
+    second: fx_light_pool_149
+  - first:
+      213: 794144081087861022
+    second: fx_light_pool_150
+  - first:
+      213: 5449704741642859332
+    second: fx_light_pool_151
+  - first:
+      213: 5794514272280445852
+    second: fx_light_pool_152
+  - first:
+      213: 7864822252989177980
+    second: fx_light_pool_153
+  - first:
+      213: 5820852554888055609
+    second: fx_light_pool_154
+  - first:
+      213: 1652577575226853197
+    second: fx_light_pool_155
+  - first:
+      213: -1498628482937215119
+    second: fx_light_pool_156
+  - first:
+      213: 2904124273916797747
+    second: fx_light_pool_157
+  - first:
+      213: -396131837576662443
+    second: fx_light_pool_158
+  - first:
+      213: -6022762078260831299
+    second: fx_light_pool_159
+  - first:
+      213: 4782248011162285459
+    second: fx_light_pool_160
+  - first:
+      213: 4976337053303542964
+    second: fx_light_pool_161
+  - first:
+      213: -1542200382579909089
+    second: fx_light_pool_162
+  - first:
+      213: -1217042158407919620
+    second: fx_light_pool_163
+  - first:
+      213: 681212059133265883
+    second: fx_light_pool_164
+  - first:
+      213: -7811690768874909677
+    second: fx_light_pool_165
+  - first:
+      213: -7251497697628936190
+    second: fx_light_pool_166
+  - first:
+      213: -6124940614201733460
+    second: fx_light_pool_167
+  - first:
+      213: -2674345980361492513
+    second: fx_light_pool_168
+  - first:
+      213: 293721672778955392
+    second: fx_light_pool_169
+  - first:
+      213: -1967385038975353696
+    second: fx_light_pool_170
+  - first:
+      213: -5830021391014632189
+    second: fx_light_pool_171
+  - first:
+      213: 4944711877806042227
+    second: fx_light_pool_172
+  - first:
+      213: -4680531196668634297
+    second: fx_light_pool_173
+  - first:
+      213: -4890414243926644639
+    second: fx_light_pool_174
+  - first:
+      213: -423273423804992888
+    second: fx_light_pool_175
+  - first:
+      213: -6767924189119327849
+    second: fx_light_pool_176
+  - first:
+      213: 4755096130744256632
+    second: fx_light_pool_177
+  - first:
+      213: -3025632372213379300
+    second: fx_light_pool_178
+  - first:
+      213: 2806914545779358829
+    second: fx_light_pool_179
+  - first:
+      213: 2054497072992382367
+    second: fx_light_pool_180
+  - first:
+      213: 8845128114156631926
+    second: fx_light_pool_181
+  - first:
+      213: 2640483216313636474
+    second: fx_light_pool_182
+  - first:
+      213: -8875177655803528535
+    second: fx_light_pool_183
+  - first:
+      213: -1875075740488285706
+    second: fx_light_pool_184
+  - first:
+      213: 444634281521663248
+    second: fx_light_pool_185
+  - first:
+      213: 5576040156852206163
+    second: fx_light_pool_186
+  - first:
+      213: -3836391546845068619
+    second: fx_light_pool_187
+  - first:
+      213: -2576786088310581076
+    second: fx_light_pool_188
+  - first:
+      213: -5543348128060511480
+    second: fx_light_pool_189
+  - first:
+      213: 4843026676272228043
+    second: fx_light_pool_190
+  - first:
+      213: 5244356057916812678
+    second: fx_light_pool_191
+  - first:
+      213: -913086509763294206
+    second: fx_light_pool_192
+  - first:
+      213: 3274558705697881828
+    second: fx_light_pool_193
+  - first:
+      213: -8401702601773668308
+    second: fx_light_pool_194
+  - first:
+      213: -7897185181794336600
+    second: fx_light_pool_195
+  - first:
+      213: -6901897883759411915
+    second: fx_light_pool_196
+  - first:
+      213: 3681658388994382911
+    second: fx_light_pool_197
+  - first:
+      213: 8334608298787161141
+    second: fx_light_pool_198
+  - first:
+      213: 7429779683288936845
+    second: fx_light_pool_199
+  - first:
+      213: -7657551361803066775
+    second: fx_light_pool_200
+  - first:
+      213: 224931915513113257
+    second: fx_light_pool_201
+  - first:
+      213: 9096605969398881473
+    second: fx_light_pool_202
+  - first:
+      213: -3657163015643758299
+    second: fx_light_pool_203
+  - first:
+      213: 7120495591516916738
+    second: fx_light_pool_204
+  - first:
+      213: -4394239762801411022
+    second: fx_light_pool_205
+  - first:
+      213: 3077482899139744781
+    second: fx_light_pool_206
+  - first:
+      213: -8602370625491122522
+    second: fx_light_pool_207
+  - first:
+      213: -2690105806157046559
+    second: fx_light_pool_208
+  - first:
+      213: 4712847275599093180
+    second: fx_light_pool_209
+  - first:
+      213: 2870882623685659639
+    second: fx_light_pool_210
+  - first:
+      213: -3146980993807270924
+    second: fx_light_pool_211
+  - first:
+      213: -4149170862750357772
+    second: fx_light_pool_212
+  - first:
+      213: -4130356766531337915
+    second: fx_light_pool_213
+  - first:
+      213: -2225884942699726037
+    second: fx_light_pool_214
+  - first:
+      213: -5029761303126106723
+    second: fx_light_pool_215
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 72
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: fx_light_pool_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 8
+        width: 1920
+        height: 1072
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 837253a18ba7754a0800000000000000
+      internalID: -6604675397383280840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_1
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 1069
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a89c361fb0f36e170800000000000000
+      internalID: 8207316691456346506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_2
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 1071
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba1e09cb8e3565460800000000000000
+      internalID: 7230058510851039659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_3
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 1045
+        width: 35
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7261a5bcd56ea9af0800000000000000
+      internalID: -388745127296100825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_4
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 1072
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0dd3c9f8bb0a0120800000000000000
+      internalID: 2380728242110979341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_5
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 1072
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 644b3907c4ca574f0800000000000000
+      internalID: -831569111873768378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_6
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 1039
+        width: 43
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e351a246d1f4b430800000000000000
+      internalID: 3797926288323335137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_7
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 1068
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2858fdcd3ffafbeb0800000000000000
+      internalID: -4701846024033958526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_8
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 963
+        width: 147
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aed06c4627d65d540800000000000000
+      internalID: 5032048496740797930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_9
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 1046
+        width: 53
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73fed5de6986f72f0800000000000000
+      internalID: -972943997051998409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_10
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 1057
+        width: 33
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 991beb05c961cabf0800000000000000
+      internalID: -311849413570023015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_11
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 1001
+        width: 76
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ac3db68e6f7d3c10800000000000000
+      internalID: 2034922719325011113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_12
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 1065
+        width: 21
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85ceb142c59094b90800000000000000
+      internalID: -7257259033183392680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_13
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 1071
+        width: 15
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b505246b1b0a09060800000000000000
+      internalID: 6958238109414871131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_14
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 1066
+        width: 25
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e0eac2448582ea70800000000000000
+      internalID: 8854786620466585825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_15
+      rect:
+        serializedVersion: 2
+        x: 412
+        y: 1069
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e048b1dada1afea60800000000000000
+      internalID: 7705555254759883790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_16
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 1052
+        width: 41
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05abdec43c0cd7c30800000000000000
+      internalID: 4358851959406312016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_17
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 1065
+        width: 24
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45d330e470f583f20800000000000000
+      internalID: 3402574003456654676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_18
+      rect:
+        serializedVersion: 2
+        x: 473
+        y: 1071
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3be6b97ee5392a060800000000000000
+      internalID: 6963290009690140339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_19
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 1071
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1c94b3e6a0e8fe70800000000000000
+      internalID: 9149309650392620060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_20
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 1065
+        width: 20
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4de1b22fbc65be5f0800000000000000
+      internalID: -726391480948941100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_21
+      rect:
+        serializedVersion: 2
+        x: 489
+        y: 1072
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f24fae46657c505f0800000000000000
+      internalID: -791006985659419601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_22
+      rect:
+        serializedVersion: 2
+        x: 506
+        y: 1038
+        width: 57
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9577568ce099ceed0800000000000000
+      internalID: -2383361814015150247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_23
+      rect:
+        serializedVersion: 2
+        x: 542
+        y: 1040
+        width: 40
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6b3572d8cb5513d0800000000000000
+      internalID: -3236579839113348245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_24
+      rect:
+        serializedVersion: 2
+        x: 554
+        y: 1035
+        width: 60
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8b8497663207be50800000000000000
+      internalID: 6824926192992553868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_25
+      rect:
+        serializedVersion: 2
+        x: 614
+        y: 1063
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84db101933a70bbd0800000000000000
+      internalID: -2616457021607527096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_26
+      rect:
+        serializedVersion: 2
+        x: 629
+        y: 1071
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0513a94fbce38cae0800000000000000
+      internalID: -1528903027789254320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_27
+      rect:
+        serializedVersion: 2
+        x: 636
+        y: 1072
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0207da42edaeba160800000000000000
+      internalID: 7037977082515517472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_28
+      rect:
+        serializedVersion: 2
+        x: 641
+        y: 1048
+        width: 28
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d42a799f63c429600800000000000000
+      internalID: 473524709826732621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_29
+      rect:
+        serializedVersion: 2
+        x: 664
+        y: 1070
+        width: 27
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 985a5b091964b2ff0800000000000000
+      internalID: -59876579027343991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_30
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 1057
+        width: 15
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb2c270b15b2799d0800000000000000
+      internalID: -2767695816143224129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_31
+      rect:
+        serializedVersion: 2
+        x: 691
+        y: 1055
+        width: 23
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c666591afdb47bee0800000000000000
+      internalID: -1245443348083939732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_32
+      rect:
+        serializedVersion: 2
+        x: 693
+        y: 1070
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4c4164e817037940800000000000000
+      internalID: 5292581790582656077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_33
+      rect:
+        serializedVersion: 2
+        x: 695
+        y: 1068
+        width: 20
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06d5c1595d4da63a0800000000000000
+      internalID: -6671285884201181856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_34
+      rect:
+        serializedVersion: 2
+        x: 714
+        y: 1061
+        width: 29
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a6d190f699cef2e0800000000000000
+      internalID: -2090011526934964573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_35
+      rect:
+        serializedVersion: 2
+        x: 741
+        y: 1073
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e0a32aafd5778d40800000000000000
+      internalID: 5586563466269008099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_36
+      rect:
+        serializedVersion: 2
+        x: 748
+        y: 1071
+        width: 20
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afe7510d0022758f0800000000000000
+      internalID: -551935042443182342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_37
+      rect:
+        serializedVersion: 2
+        x: 764
+        y: 1057
+        width: 29
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22e883be0d6028b10800000000000000
+      internalID: 1982154280365755938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_38
+      rect:
+        serializedVersion: 2
+        x: 787
+        y: 1059
+        width: 15
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e90b0d4e7a281ff50800000000000000
+      internalID: 6913450560600453278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_39
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 1056
+        width: 57
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c40e586b633766dc0800000000000000
+      internalID: -3646100169482182580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_40
+      rect:
+        serializedVersion: 2
+        x: 853
+        y: 1069
+        width: 19
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab64c172ec3dd8b30800000000000000
+      internalID: 4291318902326838970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_41
+      rect:
+        serializedVersion: 2
+        x: 870
+        y: 1058
+        width: 26
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0928e944d20a6ca20800000000000000
+      internalID: 3082327111266894480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_42
+      rect:
+        serializedVersion: 2
+        x: 889
+        y: 1063
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b38bf2225a3e26170800000000000000
+      internalID: 8170342972386162747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_43
+      rect:
+        serializedVersion: 2
+        x: 897
+        y: 1034
+        width: 54
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f166cdcfb3ef07160800000000000000
+      internalID: 7021391352669431327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_44
+      rect:
+        serializedVersion: 2
+        x: 949
+        y: 1054
+        width: 20
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f39699824ea1a0700800000000000000
+      internalID: 507247475268610367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_45
+      rect:
+        serializedVersion: 2
+        x: 962
+        y: 1070
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55e59c1e28c146a10800000000000000
+      internalID: 1901676291116588629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_46
+      rect:
+        serializedVersion: 2
+        x: 967
+        y: 1059
+        width: 29
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b38218770dc0a68f0800000000000000
+      internalID: -546610315274409925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_47
+      rect:
+        serializedVersion: 2
+        x: 995
+        y: 1072
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1544069c7a4487b90800000000000000
+      internalID: -7243964513196686255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_48
+      rect:
+        serializedVersion: 2
+        x: 1007
+        y: 1063
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65ead6d55cc788670800000000000000
+      internalID: 8541213880426016342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_49
+      rect:
+        serializedVersion: 2
+        x: 1015
+        y: 1073
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 381e569b98e27beb0800000000000000
+      internalID: -4704240116709334653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_50
+      rect:
+        serializedVersion: 2
+        x: 1023
+        y: 1073
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0caabf44fd9bf49b0800000000000000
+      internalID: -5093648284946552128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_51
+      rect:
+        serializedVersion: 2
+        x: 1026
+        y: 1039
+        width: 33
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14ba82e0254ccf400800000000000000
+      internalID: 359377926986705729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_52
+      rect:
+        serializedVersion: 2
+        x: 1047
+        y: 1060
+        width: 21
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d6ec557f4a670690800000000000000
+      internalID: -7636017753679403307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_53
+      rect:
+        serializedVersion: 2
+        x: 1061
+        y: 1021
+        width: 40
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 527fc1738453a8530800000000000000
+      internalID: 3857954615074813733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_54
+      rect:
+        serializedVersion: 2
+        x: 1097
+        y: 1075
+        width: 8
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aec9bd96994589830800000000000000
+      internalID: 4078102480466713834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_55
+      rect:
+        serializedVersion: 2
+        x: 1101
+        y: 1071
+        width: 15
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7d2e11478b040a80800000000000000
+      internalID: -8501657521027666562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_56
+      rect:
+        serializedVersion: 2
+        x: 1115
+        y: 1075
+        width: 8
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4f5fc0eabecb1380800000000000000
+      internalID: -8999372128338878645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_57
+      rect:
+        serializedVersion: 2
+        x: 1123
+        y: 1070
+        width: 19
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87d6be88245ea34e0800000000000000
+      internalID: -2001035010485031560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_58
+      rect:
+        serializedVersion: 2
+        x: 1125
+        y: 1059
+        width: 43
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e88b8a56b06eadc0800000000000000
+      internalID: -3625854313667262233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_59
+      rect:
+        serializedVersion: 2
+        x: 1156
+        y: 1057
+        width: 22
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f52f19885516bf1d0800000000000000
+      internalID: -3315949680636857761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_60
+      rect:
+        serializedVersion: 2
+        x: 1169
+        y: 1015
+        width: 66
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c4b23ee72ff56a30800000000000000
+      internalID: 4208049973812704448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_61
+      rect:
+        serializedVersion: 2
+        x: 1232
+        y: 1075
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 959720b48fc3de4d0800000000000000
+      internalID: -3103757531080394407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_62
+      rect:
+        serializedVersion: 2
+        x: 1237
+        y: 1075
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7213d3a483a91aa0800000000000000
+      internalID: -6189736422764506500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_63
+      rect:
+        serializedVersion: 2
+        x: 1242
+        y: 1067
+        width: 31
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f253d584e73c9aa80800000000000000
+      internalID: -8455011878264031953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_64
+      rect:
+        serializedVersion: 2
+        x: 1268
+        y: 1018
+        width: 59
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 224501eba620d6d00800000000000000
+      internalID: 967432152433054754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_65
+      rect:
+        serializedVersion: 2
+        x: 1320
+        y: 1030
+        width: 38
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3924ba3526ada9fd0800000000000000
+      internalID: -2334313340992798061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_66
+      rect:
+        serializedVersion: 2
+        x: 1320
+        y: 1063
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6adc6c0e0b8bfb30800000000000000
+      internalID: 4322201159846386286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_67
+      rect:
+        serializedVersion: 2
+        x: 1346
+        y: 1069
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44343fc7e423bb810800000000000000
+      internalID: 1782073390240318276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_68
+      rect:
+        serializedVersion: 2
+        x: 1355
+        y: 1010
+        width: 87
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fdef688de67d97230800000000000000
+      internalID: 3637175045157486303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_69
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 1068
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c2f841ee573349e0800000000000000
+      internalID: -1638404958786620729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_70
+      rect:
+        serializedVersion: 2
+        x: 1455
+        y: 1072
+        width: 18
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca060789b323c7480800000000000000
+      internalID: -8900183532048981844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_71
+      rect:
+        serializedVersion: 2
+        x: 1472
+        y: 1074
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82979b3d6cead0060800000000000000
+      internalID: 6921380371317225768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_72
+      rect:
+        serializedVersion: 2
+        x: 1475
+        y: 1067
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 724e5fe4a5945a0c0800000000000000
+      internalID: -4565161995049507801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_73
+      rect:
+        serializedVersion: 2
+        x: 1479
+        y: 1074
+        width: 12
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4951bc6574f3b5f60800000000000000
+      internalID: 8024076736722048404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_74
+      rect:
+        serializedVersion: 2
+        x: 1484
+        y: 1071
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74a1b0465817729c0800000000000000
+      internalID: -3952065330271282617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_75
+      rect:
+        serializedVersion: 2
+        x: 1490
+        y: 1041
+        width: 34
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a71b696bfbef68f0800000000000000
+      internalID: -544957564850595934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_76
+      rect:
+        serializedVersion: 2
+        x: 1513
+        y: 1049
+        width: 59
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f2e3cd88b8c425c0800000000000000
+      internalID: -4241044254098201863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_77
+      rect:
+        serializedVersion: 2
+        x: 1556
+        y: 1014
+        width: 43
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4539d68ba5966c3f0800000000000000
+      internalID: -880900838742191276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_78
+      rect:
+        serializedVersion: 2
+        x: 1587
+        y: 1048
+        width: 27
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91f79c90e2acec180800000000000000
+      internalID: -9093108298532946151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_79
+      rect:
+        serializedVersion: 2
+        x: 1614
+        y: 1072
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa3850c7e3ff136c0800000000000000
+      internalID: -4165267536507206737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_80
+      rect:
+        serializedVersion: 2
+        x: 1624
+        y: 1038
+        width: 69
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f8c924b094acfc80800000000000000
+      internalID: -8287568272863672073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_81
+      rect:
+        serializedVersion: 2
+        x: 1660
+        y: 1055
+        width: 42
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74b3bd19e60d112b0800000000000000
+      internalID: -5615478087042254009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_82
+      rect:
+        serializedVersion: 2
+        x: 1696
+        y: 1073
+        width: 14
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6694141faba8025c0800000000000000
+      internalID: -4242238313466869402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_83
+      rect:
+        serializedVersion: 2
+        x: 1697
+        y: 1066
+        width: 20
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9bbe82118dabf8870800000000000000
+      internalID: 8687367643384572857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_84
+      rect:
+        serializedVersion: 2
+        x: 1714
+        y: 1054
+        width: 30
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30d971782eadec560800000000000000
+      internalID: 7336041509497052419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_85
+      rect:
+        serializedVersion: 2
+        x: 1735
+        y: 1063
+        width: 23
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4901f8cbca4b62200800000000000000
+      internalID: 155009891181727892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_86
+      rect:
+        serializedVersion: 2
+        x: 1757
+        y: 1071
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43bcf5715441d8bb0800000000000000
+      internalID: -4932263729923372236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_87
+      rect:
+        serializedVersion: 2
+        x: 1765
+        y: 1075
+        width: 10
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dabdc897881a713e0800000000000000
+      internalID: -2083018695108666451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_88
+      rect:
+        serializedVersion: 2
+        x: 1778
+        y: 1008
+        width: 92
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f065505aaf5ca6340800000000000000
+      internalID: 4857912828373587471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_89
+      rect:
+        serializedVersion: 2
+        x: 1869
+        y: 1065
+        width: 28
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb1d264ef3ce6a550800000000000000
+      internalID: 6171880098516619708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_90
+      rect:
+        serializedVersion: 2
+        x: 1890
+        y: 1064
+        width: 22
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 415b49d3ab0cbeb70800000000000000
+      internalID: 8929442592321746196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_91
+      rect:
+        serializedVersion: 2
+        x: 1907
+        y: 1067
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84016f9d3c2ebd9a0800000000000000
+      internalID: -6207118330596814776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_92
+      rect:
+        serializedVersion: 2
+        x: 1913
+        y: 1071
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: feeb3bc64c9a34fb0800000000000000
+      internalID: -4664698127923298577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_93
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 24
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e18da5692f7bade0800000000000000
+      internalID: -1320822249926852127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_94
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 0
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 919ee49a9d69ba680800000000000000
+      internalID: -8742728390017095399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_95
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 1
+        width: 37
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 591d51cbb6abb2880800000000000000
+      internalID: -8634602888672980587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_96
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 0
+        width: 59
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc0ae2b9f39f3e940800000000000000
+      internalID: 5324373236063838411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_97
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 0
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 821f86c09ff087940800000000000000
+      internalID: 5293998924303495464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_98
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 0
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83b5cfcbbb41e4670800000000000000
+      internalID: 8524773941221022520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_99
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 0
+        width: 23
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ac122efe643f13c0800000000000000
+      internalID: -4386729860720878430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_100
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 0
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8176c486b5bfa2110800000000000000
+      internalID: 1237077417677055768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_101
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 5
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7432921fce5e25c00800000000000000
+      internalID: 888024882366456647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_102
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 0
+        width: 24
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 037022a273ad57980800000000000000
+      internalID: -8541681187773348048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_103
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 0
+        width: 25
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6c44c5c2f132f290800000000000000
+      internalID: -7858163481038271378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_104
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 6
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5807330a3c3488e90800000000000000
+      internalID: -7023289111398879099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_105
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 6
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee83084679456b700800000000000000
+      internalID: 555724613229754606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_106
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 15
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a858eb7d2ef143ea0800000000000000
+      internalID: -5894050953178479222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_107
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 7
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa3cbab311714bf40800000000000000
+      internalID: 5743240787587220399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_108
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 4
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3914dfa8fd144e160800000000000000
+      internalID: 7053835344734405011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_109
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 1
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f9be960dcff33b40800000000000000
+      internalID: 5418956032701282801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_110
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 0
+        width: 41
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c94701569cbe349a0800000000000000
+      internalID: -6249892607643585380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_111
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 0
+        width: 23
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e608a3789c87c38c0800000000000000
+      internalID: -4018203960568807314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_112
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 2
+        width: 22
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40a796581a39d5940800000000000000
+      internalID: 5286543859540130308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_113
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 0
+        width: 14
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 214d1de8474cc17f0800000000000000
+      internalID: -640421042102086638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_114
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 0
+        width: 30
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 820adb662a71a2eb0800000000000000
+      internalID: -4743953271205552088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_115
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 5
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42850a2d7dd6c52c0800000000000000
+      internalID: -4441554358775031772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_116
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 0
+        width: 8
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b1cc915a6e226900800000000000000
+      internalID: 676153928229634485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_117
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 0
+        width: 33
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f394041eee264ead0800000000000000
+      internalID: -2673903500630406849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_118
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 0
+        width: 66
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d853297615835ddb0800000000000000
+      internalID: -4767842708220660339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_119
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 0
+        width: 42
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b285804916dc68360800000000000000
+      internalID: 7171645275613190187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_120
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 0
+        width: 129
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b344dc3f0ff6447f0800000000000000
+      internalID: -629254967251876805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_121
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 0
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03498c568a18e6240800000000000000
+      internalID: 4786906014203548720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_122
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 0
+        width: 37
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de612cb355870c560800000000000000
+      internalID: 7331992500829296365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_123
+      rect:
+        serializedVersion: 2
+        x: 490
+        y: 3
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf49fe159ac3384d0800000000000000
+      internalID: -3133594217797937925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_124
+      rect:
+        serializedVersion: 2
+        x: 491
+        y: 0
+        width: 57
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4533ed3c27661cf30800000000000000
+      internalID: 4594065737993040724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_125
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 3
+        width: 77
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee78235bba00bba30800000000000000
+      internalID: 4231977012324108270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_126
+      rect:
+        serializedVersion: 2
+        x: 545
+        y: 0
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16aafa7fb6a72de90800000000000000
+      internalID: -7002399866472125855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_127
+      rect:
+        serializedVersion: 2
+        x: 559
+        y: 0
+        width: 33
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7eb3685e73a18f510800000000000000
+      internalID: 1583044096397032423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_128
+      rect:
+        serializedVersion: 2
+        x: 588
+        y: 7
+        width: 17
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebb24461b106693f0800000000000000
+      internalID: -894421806532514882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_129
+      rect:
+        serializedVersion: 2
+        x: 588
+        y: 0
+        width: 15
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ea54d8c9f01b2250800000000000000
+      internalID: 5920844800110910184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_130
+      rect:
+        serializedVersion: 2
+        x: 590
+        y: 5
+        width: 26
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59ac26a2af0cee160800000000000000
+      internalID: 7056789846821620373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_131
+      rect:
+        serializedVersion: 2
+        x: 598
+        y: 0
+        width: 32
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd9236be994aabd40800000000000000
+      internalID: 5600970067574729181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_132
+      rect:
+        serializedVersion: 2
+        x: 625
+        y: 2
+        width: 20
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b589061fb0556f940800000000000000
+      internalID: 5329540718822201435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_133
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 0
+        width: 56
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6868b93b549ae28d0800000000000000
+      internalID: -2869169795757275514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_134
+      rect:
+        serializedVersion: 2
+        x: 684
+        y: 0
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f914974d9252e180800000000000000
+      internalID: -9087610262616008201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_135
+      rect:
+        serializedVersion: 2
+        x: 686
+        y: 0
+        width: 136
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f860044adfa1d480800000000000000
+      internalID: -8876120038591928077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_136
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 0
+        width: 23
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f05dc67bd5bd7440800000000000000
+      internalID: 4935300720863564018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_137
+      rect:
+        serializedVersion: 2
+        x: 722
+        y: 0
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b7961a4afa467690800000000000000
+      internalID: -7604808481923229771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_138
+      rect:
+        serializedVersion: 2
+        x: 815
+        y: 0
+        width: 26
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3b2efce05cb02d80800000000000000
+      internalID: -8277409059347485891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_139
+      rect:
+        serializedVersion: 2
+        x: 830
+        y: 0
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1a4f36b61a703cd0800000000000000
+      internalID: -2580428348517823970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_140
+      rect:
+        serializedVersion: 2
+        x: 831
+        y: 4
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71adf1e271d688070800000000000000
+      internalID: 8108851075406092823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_141
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 0
+        width: 17
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: deb87ad1b7f5b5ee0800000000000000
+      internalID: -1271317487418897427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_142
+      rect:
+        serializedVersion: 2
+        x: 851
+        y: 0
+        width: 16
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a6bfde69b77179b0800000000000000
+      internalID: -5084150866011769175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_143
+      rect:
+        serializedVersion: 2
+        x: 863
+        y: 0
+        width: 40
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b43be6057ffaf3c70800000000000000
+      internalID: 8953068060977050443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_144
+      rect:
+        serializedVersion: 2
+        x: 894
+        y: 0
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98b8b7779444e52e0800000000000000
+      internalID: -2135194090999149687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_145
+      rect:
+        serializedVersion: 2
+        x: 899
+        y: 3
+        width: 29
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b2f28757434a14c0800000000000000
+      internalID: -4316063319191260489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_146
+      rect:
+        serializedVersion: 2
+        x: 926
+        y: 4
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c518f68019fb3a2c0800000000000000
+      internalID: -4421479779515006628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_147
+      rect:
+        serializedVersion: 2
+        x: 931
+        y: 3
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7437a348128a4bfb0800000000000000
+      internalID: -4632893254751587513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_148
+      rect:
+        serializedVersion: 2
+        x: 935
+        y: 7
+        width: 28
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8427bfaa2a08e680800000000000000
+      internalID: -8725713099577416563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_149
+      rect:
+        serializedVersion: 2
+        x: 939
+        y: 0
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34eafdb5ff5d58410800000000000000
+      internalID: 1478823345395838531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_150
+      rect:
+        serializedVersion: 2
+        x: 945
+        y: 4
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1198bd85dd550b00800000000000000
+      internalID: 794144081087861022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_151
+      rect:
+        serializedVersion: 2
+        x: 945
+        y: 0
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4437268b69d31ab40800000000000000
+      internalID: 5449704741642859332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_152
+      rect:
+        serializedVersion: 2
+        x: 956
+        y: 0
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c93053da7004a6050800000000000000
+      internalID: 5794514272280445852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_153
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 7
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c70e1036b26752d60800000000000000
+      internalID: 7864822252989177980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_154
+      rect:
+        serializedVersion: 2
+        x: 965
+        y: 3
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93b0708fe82d7c050800000000000000
+      internalID: 5820852554888055609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_155
+      rect:
+        serializedVersion: 2
+        x: 969
+        y: 0
+        width: 31
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d474c278c822fe610800000000000000
+      internalID: 1652577575226853197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_156
+      rect:
+        serializedVersion: 2
+        x: 996
+        y: 0
+        width: 17
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 177ae38b55dc33be0800000000000000
+      internalID: -1498628482937215119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_157
+      rect:
+        serializedVersion: 2
+        x: 1006
+        y: 0
+        width: 26
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3336662f3a58d4820800000000000000
+      internalID: 2904124273916797747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_158
+      rect:
+        serializedVersion: 2
+        x: 1014
+        y: 0
+        width: 38
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55235094138a08af0800000000000000
+      internalID: -396131837576662443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_159
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 2
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dbbd19ebcc9da6ca0800000000000000
+      internalID: -6022762078260831299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_160
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 0
+        width: 80
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 395752d8a35fd5240800000000000000
+      internalID: 4782248011162285459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_161
+      rect:
+        serializedVersion: 2
+        x: 1123
+        y: 0
+        width: 15
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b495c82f208f0540800000000000000
+      internalID: 4976337053303542964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_162
+      rect:
+        serializedVersion: 2
+        x: 1127
+        y: 0
+        width: 42
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1e5ad74ce0099ae0800000000000000
+      internalID: -1542200382579909089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_163
+      rect:
+        serializedVersion: 2
+        x: 1163
+        y: 0
+        width: 18
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf7db67ea923c1fe0800000000000000
+      internalID: -1217042158407919620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_164
+      rect:
+        serializedVersion: 2
+        x: 1175
+        y: 0
+        width: 42
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd7c95132c6247900800000000000000
+      internalID: 681212059133265883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_165
+      rect:
+        serializedVersion: 2
+        x: 1204
+        y: 0
+        width: 68
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 310530242ac479390800000000000000
+      internalID: -7811690768874909677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_166
+      rect:
+        serializedVersion: 2
+        x: 1256
+        y: 0
+        width: 27
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 208a34b93418d5b90800000000000000
+      internalID: -7251497697628936190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_167
+      rect:
+        serializedVersion: 2
+        x: 1275
+        y: 0
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cae842476f6dffaa0800000000000000
+      internalID: -6124940614201733460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_168
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 0
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd73f0a0080d2ead0800000000000000
+      internalID: -2674345980361492513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_169
+      rect:
+        serializedVersion: 2
+        x: 1281
+        y: 0
+        width: 43
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08ab2d02e42831400800000000000000
+      internalID: 293721672778955392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_170
+      rect:
+        serializedVersion: 2
+        x: 1297
+        y: 0
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0acb47f0bb172b4e0800000000000000
+      internalID: -1967385038975353696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_171
+      rect:
+        serializedVersion: 2
+        x: 1304
+        y: 0
+        width: 39
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 305e4a30f6a971fa0800000000000000
+      internalID: -5830021391014632189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_172
+      rect:
+        serializedVersion: 2
+        x: 1332
+        y: 0
+        width: 15
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37ca84131452f9440800000000000000
+      internalID: 4944711877806042227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_173
+      rect:
+        serializedVersion: 2
+        x: 1342
+        y: 4
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74b9e66dca96b0fb0800000000000000
+      internalID: -4680531196668634297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_174
+      rect:
+        serializedVersion: 2
+        x: 1347
+        y: 1
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 168ed3ad722c12cb0800000000000000
+      internalID: -4890414243926644639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_175
+      rect:
+        serializedVersion: 2
+        x: 1349
+        y: 0
+        width: 19
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8827d3b401b302af0800000000000000
+      internalID: -423273423804992888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_176
+      rect:
+        serializedVersion: 2
+        x: 1353
+        y: 7
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 791d4c8dec08312a0800000000000000
+      internalID: -6767924189119327849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_177
+      rect:
+        serializedVersion: 2
+        x: 1364
+        y: 0
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87888d1ccbe7df140800000000000000
+      internalID: 4755096130744256632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_178
+      rect:
+        serializedVersion: 2
+        x: 1370
+        y: 4
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1f8c41536bc206d0800000000000000
+      internalID: -3025632372213379300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_179
+      rect:
+        serializedVersion: 2
+        x: 1379
+        y: 0
+        width: 15
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6c3e0068e924f620800000000000000
+      internalID: 2806914545779358829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_180
+      rect:
+        serializedVersion: 2
+        x: 1391
+        y: 0
+        width: 51
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9d6ac3e33a038c10800000000000000
+      internalID: 2054497072992382367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_181
+      rect:
+        serializedVersion: 2
+        x: 1430
+        y: 0
+        width: 24
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6777025082530ca70800000000000000
+      internalID: 8845128114156631926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_182
+      rect:
+        serializedVersion: 2
+        x: 1444
+        y: 0
+        width: 52
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7651cfce71e4a420800000000000000
+      internalID: 2640483216313636474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_183
+      rect:
+        serializedVersion: 2
+        x: 1488
+        y: 0
+        width: 43
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9aab85bd1f805d480800000000000000
+      internalID: -8875177655803528535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_184
+      rect:
+        serializedVersion: 2
+        x: 1517
+        y: 0
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f14e317c846af5e0800000000000000
+      internalID: -1875075740488285706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_185
+      rect:
+        serializedVersion: 2
+        x: 1528
+        y: 2
+        width: 10
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01d4f05f588ab2600800000000000000
+      internalID: 444634281521663248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_186
+      rect:
+        serializedVersion: 2
+        x: 1530
+        y: 0
+        width: 27
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35a3d72caf2126d40800000000000000
+      internalID: 5576040156852206163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_187
+      rect:
+        serializedVersion: 2
+        x: 1549
+        y: 3
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b20df6d63662cac0800000000000000
+      internalID: -3836391546845068619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_188
+      rect:
+        serializedVersion: 2
+        x: 1555
+        y: 0
+        width: 30
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca8541084ba6d3cd0800000000000000
+      internalID: -2576786088310581076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_189
+      rect:
+        serializedVersion: 2
+        x: 1577
+        y: 7
+        width: 23
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80b60a85f321213b0800000000000000
+      internalID: -5543348128060511480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_190
+      rect:
+        serializedVersion: 2
+        x: 1580
+        y: 3
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc662f44a13e53340800000000000000
+      internalID: 4843026676272228043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_191
+      rect:
+        serializedVersion: 2
+        x: 1585
+        y: 0
+        width: 19
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68dacc38c02b7c840800000000000000
+      internalID: 5244356057916812678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_192
+      rect:
+        serializedVersion: 2
+        x: 1596
+        y: 0
+        width: 14
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20c8b5838a01453f0800000000000000
+      internalID: -913086509763294206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_193
+      rect:
+        serializedVersion: 2
+        x: 1603
+        y: 0
+        width: 63
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4eef8412bc1917d20800000000000000
+      internalID: 3274558705697881828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_194
+      rect:
+        serializedVersion: 2
+        x: 1616
+        y: 0
+        width: 34
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c282ec07ff7276b80800000000000000
+      internalID: -8401702601773668308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_195
+      rect:
+        serializedVersion: 2
+        x: 1645
+        y: 0
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a08ba11bef876290800000000000000
+      internalID: -7897185181794336600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_196
+      rect:
+        serializedVersion: 2
+        x: 1651
+        y: 0
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53dff7a41788730a0800000000000000
+      internalID: -6901897883759411915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_197
+      rect:
+        serializedVersion: 2
+        x: 1656
+        y: 0
+        width: 40
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3cd85c6cc0e71330800000000000000
+      internalID: 3681658388994382911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_198
+      rect:
+        serializedVersion: 2
+        x: 1673
+        y: 0
+        width: 91
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5344b3fc61a7aa370800000000000000
+      internalID: 8334608298787161141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_199
+      rect:
+        serializedVersion: 2
+        x: 1741
+        y: 0
+        width: 23
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d81f9ddd141eb1760800000000000000
+      internalID: 7429779683288936845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_200
+      rect:
+        serializedVersion: 2
+        x: 1759
+        y: 0
+        width: 46
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9626b6e9b99eab590800000000000000
+      internalID: -7657551361803066775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_201
+      rect:
+        serializedVersion: 2
+        x: 1791
+        y: 1
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9aaaecaa26e1f1300800000000000000
+      internalID: 224931915513113257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_202
+      rect:
+        serializedVersion: 2
+        x: 1804
+        y: 3
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ccd7bbeee2ad3e70800000000000000
+      internalID: 9096605969398881473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_203
+      rect:
+        serializedVersion: 2
+        x: 1804
+        y: 0
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5218bde1d952f3dc0800000000000000
+      internalID: -3657163015643758299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_204
+      rect:
+        serializedVersion: 2
+        x: 1810
+        y: 0
+        width: 70
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20cc915b30511d260800000000000000
+      internalID: 7120495591516916738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_205
+      rect:
+        serializedVersion: 2
+        x: 1841
+        y: 0
+        width: 47
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23c3358a7368403c0800000000000000
+      internalID: -4394239762801411022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_206
+      rect:
+        serializedVersion: 2
+        x: 1875
+        y: 0
+        width: 35
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d04509d346a65ba20800000000000000
+      internalID: 3077482899139744781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_207
+      rect:
+        serializedVersion: 2
+        x: 1893
+        y: 5
+        width: 27
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a6c8515e7d3e9880800000000000000
+      internalID: -8602370625491122522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_208
+      rect:
+        serializedVersion: 2
+        x: 1907
+        y: 0
+        width: 13
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ec1bc7a503daaad0800000000000000
+      internalID: -2690105806157046559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_209
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 0
+        width: 8
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbd50ce90a5676140800000000000000
+      internalID: 4712847275599093180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_210
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 0
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fb00a0298c67d720800000000000000
+      internalID: 2870882623685659639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_211
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 0
+        width: 7
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4fb3635a57da354d0800000000000000
+      internalID: -3146980993807270924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_212
+      rect:
+        serializedVersion: 2
+        x: 906
+        y: 0
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f62d55651f2b66c0800000000000000
+      internalID: -4149170862750357772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_213
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 0
+        width: 11
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 541c44787660ea6c0800000000000000
+      internalID: -4130356766531337915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_214
+      rect:
+        serializedVersion: 2
+        x: 919
+        y: 0
+        width: 21
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2bfd7710711c11e0800000000000000
+      internalID: -2225884942699726037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_light_pool_215
+      rect:
+        serializedVersion: 2
+        x: 1906
+        y: 0
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9d992e5eb2b23ab0800000000000000
+      internalID: -5029761303126106723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      fx_light_pool_0: -6604675397383280840
+      fx_light_pool_1: 8207316691456346506
+      fx_light_pool_10: -311849413570023015
+      fx_light_pool_100: 1237077417677055768
+      fx_light_pool_101: 888024882366456647
+      fx_light_pool_102: -8541681187773348048
+      fx_light_pool_103: -7858163481038271378
+      fx_light_pool_104: -7023289111398879099
+      fx_light_pool_105: 555724613229754606
+      fx_light_pool_106: -5894050953178479222
+      fx_light_pool_107: 5743240787587220399
+      fx_light_pool_108: 7053835344734405011
+      fx_light_pool_109: 5418956032701282801
+      fx_light_pool_11: 2034922719325011113
+      fx_light_pool_110: -6249892607643585380
+      fx_light_pool_111: -4018203960568807314
+      fx_light_pool_112: 5286543859540130308
+      fx_light_pool_113: -640421042102086638
+      fx_light_pool_114: -4743953271205552088
+      fx_light_pool_115: -4441554358775031772
+      fx_light_pool_116: 676153928229634485
+      fx_light_pool_117: -2673903500630406849
+      fx_light_pool_118: -4767842708220660339
+      fx_light_pool_119: 7171645275613190187
+      fx_light_pool_12: -7257259033183392680
+      fx_light_pool_120: -629254967251876805
+      fx_light_pool_121: 4786906014203548720
+      fx_light_pool_122: 7331992500829296365
+      fx_light_pool_123: -3133594217797937925
+      fx_light_pool_124: 4594065737993040724
+      fx_light_pool_125: 4231977012324108270
+      fx_light_pool_126: -7002399866472125855
+      fx_light_pool_127: 1583044096397032423
+      fx_light_pool_128: -894421806532514882
+      fx_light_pool_129: 5920844800110910184
+      fx_light_pool_13: 6958238109414871131
+      fx_light_pool_130: 7056789846821620373
+      fx_light_pool_131: 5600970067574729181
+      fx_light_pool_132: 5329540718822201435
+      fx_light_pool_133: -2869169795757275514
+      fx_light_pool_134: -9087610262616008201
+      fx_light_pool_135: -8876120038591928077
+      fx_light_pool_136: 4935300720863564018
+      fx_light_pool_137: -7604808481923229771
+      fx_light_pool_138: -8277409059347485891
+      fx_light_pool_139: -2580428348517823970
+      fx_light_pool_14: 8854786620466585825
+      fx_light_pool_140: 8108851075406092823
+      fx_light_pool_141: -1271317487418897427
+      fx_light_pool_142: -5084150866011769175
+      fx_light_pool_143: 8953068060977050443
+      fx_light_pool_144: -2135194090999149687
+      fx_light_pool_145: -4316063319191260489
+      fx_light_pool_146: -4421479779515006628
+      fx_light_pool_147: -4632893254751587513
+      fx_light_pool_148: -8725713099577416563
+      fx_light_pool_149: 1478823345395838531
+      fx_light_pool_15: 7705555254759883790
+      fx_light_pool_150: 794144081087861022
+      fx_light_pool_151: 5449704741642859332
+      fx_light_pool_152: 5794514272280445852
+      fx_light_pool_153: 7864822252989177980
+      fx_light_pool_154: 5820852554888055609
+      fx_light_pool_155: 1652577575226853197
+      fx_light_pool_156: -1498628482937215119
+      fx_light_pool_157: 2904124273916797747
+      fx_light_pool_158: -396131837576662443
+      fx_light_pool_159: -6022762078260831299
+      fx_light_pool_16: 4358851959406312016
+      fx_light_pool_160: 4782248011162285459
+      fx_light_pool_161: 4976337053303542964
+      fx_light_pool_162: -1542200382579909089
+      fx_light_pool_163: -1217042158407919620
+      fx_light_pool_164: 681212059133265883
+      fx_light_pool_165: -7811690768874909677
+      fx_light_pool_166: -7251497697628936190
+      fx_light_pool_167: -6124940614201733460
+      fx_light_pool_168: -2674345980361492513
+      fx_light_pool_169: 293721672778955392
+      fx_light_pool_17: 3402574003456654676
+      fx_light_pool_170: -1967385038975353696
+      fx_light_pool_171: -5830021391014632189
+      fx_light_pool_172: 4944711877806042227
+      fx_light_pool_173: -4680531196668634297
+      fx_light_pool_174: -4890414243926644639
+      fx_light_pool_175: -423273423804992888
+      fx_light_pool_176: -6767924189119327849
+      fx_light_pool_177: 4755096130744256632
+      fx_light_pool_178: -3025632372213379300
+      fx_light_pool_179: 2806914545779358829
+      fx_light_pool_18: 6963290009690140339
+      fx_light_pool_180: 2054497072992382367
+      fx_light_pool_181: 8845128114156631926
+      fx_light_pool_182: 2640483216313636474
+      fx_light_pool_183: -8875177655803528535
+      fx_light_pool_184: -1875075740488285706
+      fx_light_pool_185: 444634281521663248
+      fx_light_pool_186: 5576040156852206163
+      fx_light_pool_187: -3836391546845068619
+      fx_light_pool_188: -2576786088310581076
+      fx_light_pool_189: -5543348128060511480
+      fx_light_pool_19: 9149309650392620060
+      fx_light_pool_190: 4843026676272228043
+      fx_light_pool_191: 5244356057916812678
+      fx_light_pool_192: -913086509763294206
+      fx_light_pool_193: 3274558705697881828
+      fx_light_pool_194: -8401702601773668308
+      fx_light_pool_195: -7897185181794336600
+      fx_light_pool_196: -6901897883759411915
+      fx_light_pool_197: 3681658388994382911
+      fx_light_pool_198: 8334608298787161141
+      fx_light_pool_199: 7429779683288936845
+      fx_light_pool_2: 7230058510851039659
+      fx_light_pool_20: -726391480948941100
+      fx_light_pool_200: -7657551361803066775
+      fx_light_pool_201: 224931915513113257
+      fx_light_pool_202: 9096605969398881473
+      fx_light_pool_203: -3657163015643758299
+      fx_light_pool_204: 7120495591516916738
+      fx_light_pool_205: -4394239762801411022
+      fx_light_pool_206: 3077482899139744781
+      fx_light_pool_207: -8602370625491122522
+      fx_light_pool_208: -2690105806157046559
+      fx_light_pool_209: 4712847275599093180
+      fx_light_pool_21: -791006985659419601
+      fx_light_pool_210: 2870882623685659639
+      fx_light_pool_211: -3146980993807270924
+      fx_light_pool_212: -4149170862750357772
+      fx_light_pool_213: -4130356766531337915
+      fx_light_pool_214: -2225884942699726037
+      fx_light_pool_215: -5029761303126106723
+      fx_light_pool_22: -2383361814015150247
+      fx_light_pool_23: -3236579839113348245
+      fx_light_pool_24: 6824926192992553868
+      fx_light_pool_25: -2616457021607527096
+      fx_light_pool_26: -1528903027789254320
+      fx_light_pool_27: 7037977082515517472
+      fx_light_pool_28: 473524709826732621
+      fx_light_pool_29: -59876579027343991
+      fx_light_pool_3: -388745127296100825
+      fx_light_pool_30: -2767695816143224129
+      fx_light_pool_31: -1245443348083939732
+      fx_light_pool_32: 5292581790582656077
+      fx_light_pool_33: -6671285884201181856
+      fx_light_pool_34: -2090011526934964573
+      fx_light_pool_35: 5586563466269008099
+      fx_light_pool_36: -551935042443182342
+      fx_light_pool_37: 1982154280365755938
+      fx_light_pool_38: 6913450560600453278
+      fx_light_pool_39: -3646100169482182580
+      fx_light_pool_4: 2380728242110979341
+      fx_light_pool_40: 4291318902326838970
+      fx_light_pool_41: 3082327111266894480
+      fx_light_pool_42: 8170342972386162747
+      fx_light_pool_43: 7021391352669431327
+      fx_light_pool_44: 507247475268610367
+      fx_light_pool_45: 1901676291116588629
+      fx_light_pool_46: -546610315274409925
+      fx_light_pool_47: -7243964513196686255
+      fx_light_pool_48: 8541213880426016342
+      fx_light_pool_49: -4704240116709334653
+      fx_light_pool_5: -831569111873768378
+      fx_light_pool_50: -5093648284946552128
+      fx_light_pool_51: 359377926986705729
+      fx_light_pool_52: -7636017753679403307
+      fx_light_pool_53: 3857954615074813733
+      fx_light_pool_54: 4078102480466713834
+      fx_light_pool_55: -8501657521027666562
+      fx_light_pool_56: -8999372128338878645
+      fx_light_pool_57: -2001035010485031560
+      fx_light_pool_58: -3625854313667262233
+      fx_light_pool_59: -3315949680636857761
+      fx_light_pool_6: 3797926288323335137
+      fx_light_pool_60: 4208049973812704448
+      fx_light_pool_61: -3103757531080394407
+      fx_light_pool_62: -6189736422764506500
+      fx_light_pool_63: -8455011878264031953
+      fx_light_pool_64: 967432152433054754
+      fx_light_pool_65: -2334313340992798061
+      fx_light_pool_66: 4322201159846386286
+      fx_light_pool_67: 1782073390240318276
+      fx_light_pool_68: 3637175045157486303
+      fx_light_pool_69: -1638404958786620729
+      fx_light_pool_7: -4701846024033958526
+      fx_light_pool_70: -8900183532048981844
+      fx_light_pool_71: 6921380371317225768
+      fx_light_pool_72: -4565161995049507801
+      fx_light_pool_73: 8024076736722048404
+      fx_light_pool_74: -3952065330271282617
+      fx_light_pool_75: -544957564850595934
+      fx_light_pool_76: -4241044254098201863
+      fx_light_pool_77: -880900838742191276
+      fx_light_pool_78: -9093108298532946151
+      fx_light_pool_79: -4165267536507206737
+      fx_light_pool_8: 5032048496740797930
+      fx_light_pool_80: -8287568272863672073
+      fx_light_pool_81: -5615478087042254009
+      fx_light_pool_82: -4242238313466869402
+      fx_light_pool_83: 8687367643384572857
+      fx_light_pool_84: 7336041509497052419
+      fx_light_pool_85: 155009891181727892
+      fx_light_pool_86: -4932263729923372236
+      fx_light_pool_87: -2083018695108666451
+      fx_light_pool_88: 4857912828373587471
+      fx_light_pool_89: 6171880098516619708
+      fx_light_pool_9: -972943997051998409
+      fx_light_pool_90: 8929442592321746196
+      fx_light_pool_91: -6207118330596814776
+      fx_light_pool_92: -4664698127923298577
+      fx_light_pool_93: -1320822249926852127
+      fx_light_pool_94: -8742728390017095399
+      fx_light_pool_95: -8634602888672980587
+      fx_light_pool_96: 5324373236063838411
+      fx_light_pool_97: 5293998924303495464
+      fx_light_pool_98: 8524773941221022520
+      fx_light_pool_99: -4386729860720878430
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
